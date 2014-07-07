@@ -1,7 +1,7 @@
 *.svn
 *_socket
 
-# sensitive
+
 settings.py
 
 # compiled files and emacs autosaves. 
