@@ -1,0 +1,56 @@
+{% extends "elections/elec-base.html" %}
+
+{% block stylesheets %}
+{{block.super}}
+<link href="/css/webapps/elections/elections-style.css" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+{{block.super}}
+  {% if vote_success %}
+    <div class="alert alert-success">
+      <h1> Congrats! Your vote was submitted. </h1>
+      <p> ~ <em>Your voice matters</em> ~ </p>
+    </div>
+  {% endif %}
+  <div class="container-narrow">
+    <div class="jumbotron">
+    {% if elections_toVote or elections_hasVoted %}
+      <h1>A Wild Election Appeared!</h1>
+        <p> 
+	  What are you doing here? It's the summer time!?
+	</p>
+      <hr />
+      <table class="table table-hover">
+	{% for e in elections_toVote %}
+          <tr>
+            <td> {{ e.position }} </td>
+	    <td>
+	      <a class="btn btn-large btn-success" 
+		 href="/webapps/elections/vote/{{ e.id }}/">Vote Now</a>
+	    </td>
+	  </tr>
+	{% endfor %}
+
+	{% for e in elections_hasVoted %}
+          <tr>
+            <td> {{ e.position }} </td>
+	    <td>
+	      <b> You already voted! </b>
+	    </td>
+	    <!-- commenting out results for now
+	    <td>
+	      <a class="btn btn-large btn-info" href="/webapps/elections/results/{{ e.id }}">Results</a>
+	    </td> -->
+	  </tr>
+	{% endfor %}
+      </table>
+    {% else %}
+      <h1>It is not Election Season!</h1>
+      <hr />
+      <p>Now, get the eff outta here.</p>
+    {% endif %}
+    </div><!-- jumbotron -->
+  </div> <!-- container-narrow -->
+
+{% endblock %}

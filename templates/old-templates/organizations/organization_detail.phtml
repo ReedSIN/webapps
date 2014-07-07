@@ -1,0 +1,223 @@
+{% extends "organizations/organizations-base.phtml" %}
+
+{% block stylesheets %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="/css/webapps/object-detail-style.css" />
+{% endblock %}
+
+{% block content %}
+{{block.super}}
+<fieldset>
+<div class="row">
+  <div class="col-md-5 col-sm-5">
+    <h2 class="featurette-heading">
+      {{org.name}}
+      <span class="text-muted">({{org.signator.get_full_name}})</span>
+    </h2>
+    <p class="lead"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;
+       {{org.description}}
+    </p>
+  </div> <!-- /.col-md-5 ... -->
+  <div class="col-md-7 col-sm-7">
+  <br />
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <tr>
+	  <td><span class="glyphicon glyphicon-briefcase"></span>&nbsp; Signator </td>
+	  <td>
+	    {{org.signator.get_full_name}}
+	  </td>
+	</tr>
+        <tr>
+	  <td><span class="glyphicon glyphicon-send"></span>&nbsp; Email </td>
+	  <td>
+	    {{org.email}}
+	  </td>
+	</tr>
+	<tr>
+	  <td><span class="glyphicon glyphicon-globe"></span>&nbsp; Location </td>
+	  <td>
+	    {{org.location}}
+	  </td>
+	</tr>
+	<tr>
+	  <td><span class="glyphicon glyphicon-phone-alt"></span>&nbsp;Phone</td>
+	  <td>
+	    {{org.phone_number}}
+	  </td>
+	</tr>
+	<tr>
+	  <td><span class="glyphicon glyphicon-cloud"></span>&nbsp;Website</td>
+	  <td>
+	    {{org.website}}
+	  </td>
+	</tr>
+      </table>
+    </div> <!-- /.table-responsve -->
+  </div>
+</div> <!-- /.row -->
+<hr class="featurette-divider">
+<div class="row">
+  <div class="col-md-3 col-sm-3">
+    <h3 class="featurette-heading">
+      Additional Info
+    </h3>
+  </div>
+  <div class="col-md-8 col-sm-8 col-md-offset-1 col-sm-offset-1">
+    <div class="table-responsive">
+    <table class="table table-hover">
+      <tr>
+        <td class="table-header-left">Created On</td>
+	<td>
+	  {{ org.created_on|date:"h:i:s A F d, Y" }}
+	</td>
+      </tr>
+      <tr>
+        <td class="table-header-left"> Last Modified </td>
+	<td>
+	  {{ org.modified_on|date:"h:i:s A F d, Y" }}
+	</td>
+      </tr>
+      <tr>
+        <td class="table-header-left">Meeting Info</td>
+	<td>{{org.meeting_info}}</td>
+      </tr>
+      <tr>
+        <td class="table-header-left">Annual Events</td>
+	<td>{{org.annual_events}}</td>
+      </tr>
+      <tr>
+        <td class="table-header-left">Partner Orgs</td>
+	<td>{{org.associated_off_campus_organizations}}</td>
+      </tr>
+    </table>
+    </div> <!-- /.table-responsive -->
+  </div>
+</div> <!-- /.row -->
+</fieldset>
+
+<fieldset>
+<legend>Contact Info</legend>
+
+<div class="object-div">
+  <div class="object-div-title">
+  Name:
+  </div>
+  <div class="object-div-content">
+  {{ org.name }}
+  </div>
+</div>
+
+
+<div class="object-div">
+  <div class="object-div-title">
+  Signator:
+  </div>
+  <div class="object-div-content">
+  {{ org.signator.get_full_name }}
+  </div>
+</div>
+
+
+<div class="object-div">
+  <div class="object-div-title">
+  Location:  
+  </div>
+  <div class="object-div-content">
+  {{ org.location }}
+  </div>
+</div>
+
+
+<div class="object-div">
+  <div class="object-div-title">
+  Email:
+  </div>
+  <div class="object-div-content">
+  {{ org.email }}
+  </div>
+</div>
+
+
+<div class="object-div">
+  <div class="object-div-title">
+  Ph. No.:  
+  </div>
+  <div class="object-div-content">
+  {{ org.phone_number }}
+  </div>
+</div>
+
+
+<div class="object-div">
+  <div class="object-div-title">
+  Website:  
+  </div>
+  <div class="object-div-content">
+  {{ org.website }}
+  </div>
+</div>
+
+<div class="object-div">
+  <div class="object-div-title">
+  Created:
+  </div>
+  <div class="object-div-content">
+  {{ org.created_on|date:"h:i:s A F d, Y" }}
+  </div>
+</div>
+
+<div class="object-div">
+  <div class="object-div-title">
+  Modified:
+  </div>
+  <div class="object-div-content">
+  {{ org.modified_on|date:"h:i:s A F d, Y" }}
+  </div>
+</div>
+
+</fieldset>
+
+
+<fieldset>
+<legend>Additional Info</legend>
+
+<div class="object-div">
+  <div class="object-div-textarea-title">
+  Description:
+  </div>
+  <div class="object-div-textarea-content">
+  {{ org.description }}
+  </div>
+</div>
+
+<div class="object-div">
+  <div class="object-div-textarea-title">
+  Meeting Info:
+  </div>
+  <div class="object-div-textarea-content">
+  {{ org.meeting_info }}
+  </div>
+</div>
+
+<div class="object-div">
+  <div class="object-div-textarea-title">
+  Annual Events:
+  </div>
+  <div class="object-div-textarea-content">
+  {{ org.annual_events }}
+  </div>
+</div>
+
+<div class="object-div">
+  <div class="object-div-textarea-title">
+  Partner Orgs:
+  </div>
+  <div class="object-div-textarea-content">
+  {{ org.associated_off_campus_organizations }}
+  </div>
+</div>
+
+</fieldset>
+
+{% endblock %}

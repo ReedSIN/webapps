@@ -1,0 +1,33 @@
+{% extends "users/users-base.phtml" %}
+
+{% block javascript %}
+<script type="text/javascript" language="JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+<script type="text/javascript" language="JavaScript" src="/js/webapps/users/ajax.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<p class="app-body-content-greeting-paragraph">
+Welcome to the Sin User Manager WebApp. The purpose of this webapp is to edit the stored factors of
+users of SIN.
+</p>
+<h3>*NOTE* this lookup form accepts regular expressions! *NOTE*</h3>
+<form method="get" id="name_form" onsubmit="send_ajax(this); return false;">
+<label>Username: </label><input type="text" name="username"><br/>
+<label>First Name: </label><input type="text" name="first_name"><br/>
+<label>Last Name: </label><input type="text" name="last_name"><br/>
+<label>Email: </label><input type="text" name="email"><br/>
+<input type="submit" name="submit" value="lookup">
+</form>
+
+<table id="user-table">
+<tr>
+  <td>Id</td>
+  <td>Username</td>
+  <td>First Name</td>
+  <td>Last Name</td>
+  <td>Email</td>
+</tr>
+</table>
+
+{% endblock %}

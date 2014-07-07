@@ -1,0 +1,55 @@
+{% extends "paideia/paideia_base.phtml" %}
+
+{% block html-title %}Search Paideia Classes{% endblock %}
+
+{% block javascript %}
+{{ block.super }}
+{% if admin %}
+  <script type="text/javascript" language="JavaScript" src="/js/webapps/paideia/czar.js"></script>
+  <script type="text/javascript" language="JavaScript" src="/js/jquery.form.js"></script>
+{% endif %}
+
+{% endblock %}
+
+{% block content %}
+
+<p>Just type in all or part of a class title, description, or teacher name.</p>
+
+<form name="search" id="search" method="get" action="/webapps/paideia/search">
+<input type="text" name="q" size="50"> <input type="submit" value="Search">
+</form>
+
+<br>
+
+{% if results %}
+  <div id="resultsWrapper">
+  
+  {% for class in results %}
+    <div class="listing result" id="listing-{{ class.id }}">
+      <span class="title"><a href="javascript:moreInfo({{ class.id }})">{{ class.name }}</a></span>
+      {% if admin %}
+        (<a href="javascript:czarEdit({{ class.id }})"><span id="edit-{{ class.id }}">edit</span></a>)
+        (<a href="javascript:deleteClass({{ class.id}}, '{{ class.name }}')">delete</span></a>)
+      {% endif %}
+      <br>
+      {{ class.teacher_name }} <br>
+      {{ class.time|date:"l, M j" }}, {{ class.time|date:"g" }}:00 {{ class.time|date:"a"|cut:"." }} -
+      {{ class.end|date:"g" }}:00 {{ class.end|date:"a"|cut:"." }}, {{ class.location }}
+      {% if admin and class.notes %}
+        <span id="{{ class.id }}-notes" style="font-weight: bold;"><br><br>Notes:<br><span style="font-weight: normal;"> {{ class.notes|safe }}</span></span>
+      {% endif %}
+      {% if admin %}
+        <span id="{{ class.id }}-notes" style="font-weight: bold;"></span>
+      {% endif %}
+      <div class="listingDescription" style="display: none;" id="d-{{ class.id }}"></div>
+      {% if admin %}
+        <div class="statusDiv" id="sd-{{ class.id }}"></div>
+        <div class="editFormDiv" id="efd-{{ class.id }}"></div>
+      {% endif %}
+    </div>
+  {% endfor %}
+  
+  </div>
+{% endif %}
+
+{% endblock %}

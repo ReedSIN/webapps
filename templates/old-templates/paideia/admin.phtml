@@ -1,0 +1,25 @@
+{% extends "paideia/paideia_base.phtml" %}
+
+{% block html-title %}Add Teacher{% endblock %}
+
+{% block content %}
+  
+{% if result %}
+  {% autoescape off %}
+    <p>{{ result }}</p>
+  {% endautoescape %}
+{% endif %}
+
+<h3>Add Teacher</h3>
+
+<form method="post" action="/webapps/paideia/admin">
+Username: <input type="text" name="uid" size="20"> <input type="submit" value="Add Teacher">
+</form>
+<br>
+
+<h3>Teachers:</h3>
+{% for teacher in teachers %}
+{{ teacher.user.last_name }}, {{ teacher.user.first_name}} <br>
+{% endfor %}
+
+{% endblock %}

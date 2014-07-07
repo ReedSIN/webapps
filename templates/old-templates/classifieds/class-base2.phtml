@@ -1,0 +1,15 @@
+{% extends "booty-base.phtml" %}
+
+{% block html-title %}SIN Classifieds{% endblock %}
+
+{% block stylesheets %} 
+  {{block.super}} 
+{% endblock %}
+
+{% block fancy-header %}{{block.super}}.POST{% endblock %}
+
+{% block content %}
+<hr class="featurette-divider">
+{% include "classifieds/includes/class-nav-primary.phtml" %}
+<hr class="featurette-divider">
+{% endblock %}

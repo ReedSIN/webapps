@@ -1,0 +1,5 @@
+{% extends "wiki/wiki-style1.phtml" %}
+
+{% block content %}
+
+{% endblock %}

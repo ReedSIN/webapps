@@ -1,0 +1,56 @@
+{% extends "organizations/organizations-base.phtml" %}
+
+{% block javascript %}
+<script type="text/javascript" language="JavaScript" src="/js/webapps/organizations/submit.js"></script>
+{% endblock %}
+
+{% block content %}
+{{block.super}}
+<div class="container">
+  <div class="row">
+    <div class="col-md-7 col-sm-7">
+      <h2 class="featurette-heading">
+      Welcome to the Organization Manager.
+      </h2>
+	<p class="lead">
+  <span class="text-muted text-muted-darker">
+	Our latest intelligence shows that you
+	{% if user.attended_signator_training %}
+	  have
+	{% else %}
+	  have not
+	{% endif %}
+	attended signator training.
+  </span>
+        </div> <!-- /. col-md-7 ... -->
+        <div class="col-md-5 col-sm-5">
+	<br />
+
+        <p class="lead">
+	  {% if user.attended_signator_training %}
+	  <span class="message glyphicon glyphicon-thumbs-up"></span>&nbsp;
+	  <strong><em>Good job, chap!</em></strong>
+	  {% else %}
+	  <span class="message glyphicon glyphicon-thumbs-down"></span>&nbsp;
+	  <strong><em>RuhRoh, Raggy!</em></strong>
+	  {% endif %}
+        </p>
+
+	{% if user.attended_signator_training %}
+	  <p><a class="btn btn-default" href="/webapps/organizations/my_organizations/edit/?">
+	    Create an Organization &raquo;
+	  </a></p>
+	  <p><a class="btn btn-default" href="/webapps/organization-manager/my_organizations/">
+	    View My Organizations &raquo;
+	  </a></p>
+	{% else %}
+	You are sadly unable to create and maintain organizations
+	at the moment. Please contact Finance Committee for more information.
+	{% endif %}
+        </p>
+
+
+        </div>
+      </div>
+</div> <!--/.container -->
+{% endblock %}

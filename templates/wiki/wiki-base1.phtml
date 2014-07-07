@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block html-title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="description" content="SWIKI: Sin WIkis">
+    <meta name="author" content="Brett Beutell">
+    {% block stylesheets %}
+      <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+      
+    {% endblock %} 
+  </head>
+  <body>
+    <!-- Custom navbar -->                                                                                                                                
+    {% include "wiki/includes/nav-1.phtml" %}
+
+      {% block brand_logo %}
+        {% comment %}
+         %
+            Either Image or Text.
+            Determine how to prevent exceeding default line-height.
+         %
+        {% endcomment %}
+
+      {% endblock %}
+
+      {% block home_url %}
+        {% comment %}
+         %
+            No quotes necessary - use function in Wiki model?
+         %
+        {% endcomment %}
+
+        /webapps/wiki/{{wiki.id}}/
+      {% endblock %}
+
+      {% block about_url %}
+        {% comment %}
+         %
+         % No quotes necessary - see above
+         %
+        {% endcomment %}
+
+       /webapps/wiki/{{wiki.id}}/about/
+      {% endblock %}
+
+      {% block top_articles %}
+        {% comment %}
+         %
+          Sandwiched between <ul class="dropdown-menu">...</ul>
+          Add extras with the same markup as the items in the for loop
+
+          ***Note that the for loop uses both the article's id and title***
+         %
+        {% endcomment %}
+
+        {% for article in wiki.articles %}
+          {% if article.featured %}
+            <li><a href="/webapps/wiki/{{wiki.id}}/{{article.id}}">{{article.title}}</a></li>
+	  {% endif %}
+        {% endfor %}
+      {% endblock %}
+
+      {% block social-icons %}
+	{% comment %}
+	 %
+	   wiki.social could be model field?
+	   use following :
+	    <li>
+	      <a class="social"
+		 href=""
+		 target="_blank">
+		<img src=""
+		     height=""
+		     width=""
+		     alt="">
+	      </a>
+	    </li>
+	    !NOTE
+	    CSS declares 25px by 25px
+	 %
+	{% endcomment %}
+      {% endblock %}
+
+{% block no-container-content %}
+
+{% endblock %}
+  <div class="container"> <!-- This wrapper is in the base template -->
+    {% block content %}
+    {% endblock %}
+  </div>
+
+    {% include "wiki/includes/base-scripts.phtml" %}
+    {% block src-javascript %}
+
+    {% endblock %}
+    {% block on-load %}
+      {{block.super}}
+    {% endblock %}
+  </body>
+</html>

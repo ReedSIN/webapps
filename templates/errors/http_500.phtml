@@ -1,0 +1,16 @@
+{% extends "errors/errors-base.phtml" %}
+
+{% block title %}Something just isn't right{% endblock %}
+{% block h1 %}{% if is401 %}It's nothing personal, but...{% else %}so sorry...{% endif %}{% endblock %}
+{% block content %}
+{% if is401 %}
+<p>As far as I can tell, <strong>{{person}}</strong> doesn't have entitlement <strong>{{excinfo}}</strong>, which is necessary to reach <strong>{{path}}</strong>.</p>
+<p>If you feel you have reached this recording in error, please contact <a href="mailto:sin@lists.reed.edu?subject={{excinfo}} | {{path }} | {{person}}">the webmaster</a>.</p>
+{% else %}
+<p>An error occurred while rendering this page.</p>
+<p>Please contact <a href="mailto:sin@lists.reed.edu?subject={{excinfo}}">the webmaster</a> with the following information:</p>
+<code>{{ excinfo }}</code>
+<p>Requesting user: {{person}}</p>
+<p>Requested path: {{path}}</p>
+{% endif %}
+{% endblock %}

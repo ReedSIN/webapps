@@ -1,0 +1,26 @@
+from django.conf.urls.defaults import *
+
+urlpatterns = patterns(
+  'webapps.fundingpoll.views',
+  (r'^$','index'),
+  (r'^vote/?$','vote_main'),
+  (r'^vote2/?$','vote_main2'),
+  (r'^vote/submit/?$','submit_vote'),
+  (r'^my_registrations/?$', 'my_registrations'),
+  (r'^my_registrations/save/?$','save_registration'),
+  (r'^registered/?$', 'registered'),
+  (r'^results/?$','view_results'),
+  (r'^schedule/?$','schedule'),
+  (r'^budgets/edit/(?P<org_id>\d*)/?$', 'edit_budget'),
+  (r'^budgets/save/(?P<budget_id>\d*)/?$', 'save_budget'),
+  (r'^budgets/preview/(?P<budget_id>\d+)/?$', 'preview_budget'),
+  (r'^budgets/csv-list/?$','csv_budget_list'),
+  (r'^admin/results/?$','admin_view_results'),
+  (r'^admin/voting/?$', 'admin_voting'),
+  (r'^admin/register/?$', 'admin_registration'),
+  (r'^admin/budgets/edit/(?P<org_id>\d*)/?$', 'admin_edit_budget'),
+  (r'^admin/budgets/save/(?P<org_id>\d*)/?$', 'admin_save_budget'),
+  (r'^admin/view_budgets/?$', 'view_all_budgets'),
+  (r'^admin/view_budgets/(?P<budget_id>\d+)/?$', 'view_one_budget'),
+  (r'^admin/top40emails$', 'top_40_emails'),
+)

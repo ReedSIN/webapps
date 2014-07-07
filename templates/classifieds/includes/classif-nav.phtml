@@ -1,0 +1,41 @@
+<div class="table-responsive" style="">
+  <table class="table table-condensed table-alt-bg">
+  <tr>
+   <td>
+   <div class="row">
+     <div class="col-md-3 col-sm-3">
+       <span class="glyphicon glyphicon-fire"></span>&nbsp;
+       {% if category %} ({{category}}) {% else %} ({{ad.category}}) {% endif %}
+     </div>
+     <div class="col-md-4 col-sm-5 col-md-offset-5 col-sm-offset-4 right">
+     |<a href="/webapps/classifieds/"> Posts Home </a>|
+     {% if category == "New Post" %}
+     <a href="#"><strike> New Post </strike></a>|
+     {% else %}
+      <a href="/webapps/classifieds/new/"> New Post </a>|
+     {% endif %}
+     {% if category == "My Posts" %}
+     <a href="#"><strike> My Posts </a>|
+     {% else %}
+      <a href="/webapps/classifieds/my_posts/"> My Posts </a>|
+     {% endif %}
+<!--
+     <div class="btn-group btn-group-sm">
+       <button type="button" class="btn btn-sm btn-default "
+               href="/webapps/classifieds/">
+       Posts Home</button>
+       <button class="btn btn-sm btn-default "
+               href="/webapps/classifieds/new/">
+       New Post
+       </button>
+       <button type="button" class="btn btn-sm  btn-default"
+               href="/webapps/classifieds/my_posts/">
+	 My Posts
+       </button>
+       </div> <!-- /.btn-group ... -->
+     </div>
+   </div> <!-- /.row -->
+   </td>
+  </tr>
+  </table>
+</div> <!-- /.table-responsive -->

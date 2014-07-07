@@ -1,0 +1,20 @@
+   <center>
+   
+       <h1 class="ad-title">{{ ad.title }}</h1>
+       <h3 class="ad-author">{{ ad.author }}</h3>
+
+       <div class="post-body">
+       <p class="post-text">> {{ ad.text }}</p>
+       </div>
+   
+   </center>
+	 
+   </table>
+   </div>
+   </div>
+   </div>
+   </center>
+
+
+
+

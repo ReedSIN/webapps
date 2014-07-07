@@ -1,0 +1,259 @@
+@font-face {
+	font-family: Gaspar-Bold;
+	src: url(./fonts/gaspar/Gaspar_Bold.otf);
+}
+@font-face {
+	font-family: Gaspar;
+	src: url(./fonts/gaspar/Gaspar_Regular.otf);
+}
+@font-face {
+	font-family: Miama;
+	src: url(./fonts/Miama/Miama.otf);
+}
+
+* {
+	margin: 0;
+}
+
+html, body {
+	padding: 0;
+	height: 100%;
+	font-family: Gaspar;
+	color: #181919;
+}
+
+html {
+	background-color: #fff;
+	background: radial-gradient(circle, #f5f5f5, #fff);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+body {
+	padding-top: 50px;
+
+	opacity: 1;
+	-webkit-transition: opacity 1.2s ease-in;
+	-moz-transition: opacity 1.2s ease-in;
+	-ms-transition: opacity 1.2s ease-in;
+	-o-transition: opacity 1.2s ease-in;
+	transition: opacity 1.2s ease-in;
+	background: transparent;
+}
+.hide {
+	opacity: 0;
+}
+a {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+/*Font styles*/
+.smaller {
+	font-size: .8em;
+}
+.normal {
+	font-size: 1em;
+}
+.larger {
+	font-size: 1.35em;
+}
+.gasp-b {
+	font-family: Gaspar-Bold;
+}
+.gasp {
+	font-family: Gaspar;
+}
+.miama {
+	font-family: Miama;
+}
+.center {
+	text-align: center;
+}
+.sin-black {
+	color: #181919;
+}
+.sin-white {
+	color: #fbfffd;
+}
+.sin-muted {
+	color: #bbb;
+}
+.std-shadow {
+ 	text-shadow: 2px 0px 2px #888;
+}
+.less-shadow {
+	text-shadow: 1px 0px 1px #888;
+}
+.no-shadow {
+	text-shadow: 0 0 0 #fff;
+}
+/*Misc pad and margin*/
+.pad {
+	padding: 10px;
+}
+.xtra-pad-top {
+	padding-top: 70px;
+}
+.marg {
+	margin: 10px;
+}
+
+/*The meat and or soy of the styles*/
+
+.side-bar {
+	position: fixed;
+	left:0;
+	top: 70px;
+	width: 130px;
+	height: 100%;
+	padding: 15px 10px;
+
+	-webkit-transition: margin .3s ease-in;
+	-moz-transition: margin .3s ease-in;
+	-ms-transition: margin .3s ease-in;
+	-o-transition: margin .3s ease-in;
+	transition: margin .3s ease-in;
+}
+.side-bar.hide-bar {
+	margin-left: -150px;
+	-webkit-transition: margin .3s ease-in;
+	-moz-transition: margin .3s ease-in;
+	-ms-transition: margin .3s ease-in;
+	-o-transition: margin .3s ease-in;
+	transition: margin .3s ease-in;
+}
+.top-bar {
+	position: fixed;
+	width: 100%;
+	top: 0;
+	height: 40px;
+	background: transparent;
+	padding: 5px;
+}
+	.top-bar .left-thing {
+		float: left;
+	}
+	#toggle-button {
+		margin: 0;
+		padding: 0;
+		height: 40px;
+		width: 40px;
+		border-radius: 50em;
+		background: black;
+		color: white;
+		display: table-cell;
+		vertical-align: middle;
+		font-size: 1.6em;
+		text-align: center;
+	}
+	.top-bar .right-thing {
+		float: right;
+	}
+.big-wrap {
+	clear: left;
+	height: 100%;
+	padding-left: 150px;
+
+	-webkit-transition: padding .3s ease-in;
+	-moz-transition: padding .3s ease-in;
+	-ms-transition: padding .3s ease-in;
+	-o-transition: padding .3s ease-in;
+	transition: padding .3s ease-in;
+}
+.big-wrap.hide-bar {
+	padding-left: 0;
+
+	-webkit-transition: padding .3s ease-in;
+	-moz-transition: padding .3s ease-in;
+	-ms-transition: padding .3s ease-in;
+	-o-transition: padding .3s ease-in;
+	transition: padding .3s ease-in;
+}
+header {
+  width: 100%;
+  background: transparent;
+  text-align:center;
+  padding-top: 40px;
+}
+.info-links {
+	padding: 20px;
+}
+	.info-links a {
+		display:inline-block;
+	}
+.row {
+	background:transparent;
+	width: 100%;
+	height: auto;
+	margin: 10px 0 30px 0;
+}
+
+.center-me {
+	width: 90%;
+	margin: 0 auto;
+}
+/*For da footer*/
+.main {
+	background: transparent;
+	min-height: 90%;
+	height: 100%;
+	margin: 0 auto -80px; /* the bottom margin is the negative value of the footer's height */
+}
+.push {
+	height: 100px;
+}
+footer {
+	height: 100px; /* '.push' must be the same height as 'footer' */
+}
+footer {	
+	position: relative;
+	vertical-align: middle;
+	color:black;
+	margin: 0 auto;
+	padding-top: 20px;
+}
+	footer .footer-item {
+		display:inline-block;
+		float: right;
+		background: transparent;
+		width: 300px;
+		height: 85px;
+		font-size: .9em;
+		margin: 0 10px;
+	}
+		footer .footer-item p {
+			clear:both;
+			width: 100%;
+			word-wrap: break-word;
+			font-size:.8em;
+			padding:2px;
+			margin: 0;
+		}
+
+
+.mint-blue {
+	color: #DBFEF8;
+}
+.blue-ice {
+	color: #DAF4F0;
+}
+/*army uniform is dark*/
+.army-uniform {
+	color: #353F3E;
+}
+.muted-moon {
+	color: #DBE6E0;
+}
+.muted-brushed-aluminum {
+	color: #B6C5BE;
+}
+.isle-royale {
+	color: #426352;
+}
+.fishermans-float {
+	color: #607C6E;
+}
+.honeydew {
+	color: #F0FFF0;
+}

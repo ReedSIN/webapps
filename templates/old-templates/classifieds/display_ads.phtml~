@@ -1,0 +1,42 @@
+{% extends "classifieds/class-base2.phtml" %}
+
+{% block content %}
+{{block.super}}
+
+{% include "classifieds/includes/classif-nav.phtml" %}
+
+<div class="table-responsive">
+  <table class="table table-hover table-ads">
+  <!--
+    <tr class="table-ads-header">
+    	<td> Post </td>
+
+	<td> Action </td>
+    </tr>
+   -->
+    {% for ad in relevant_ads reversed %}
+    <tr>
+      <td
+          onclick="javascript:document.location='/webapps/classifieds/post/{{ad.id}}/';">
+      <div class="post-title">
+        {{ad.title}}
+      </div>
+      <div class="post-details text-muted">
+        Posted on {{ad.timestamp.month}}/{{ad.timestamp.day}}/{{ad.timestamp.year}} 
+	by {{ad.creator}}.
+      </div>
+      </td>
+<!--
+      <td>
+       OPTIONS: like flaggin, bookmarking, commenting, etc.   
+      </td>
+-->
+    </tr>
+    {% endfor %}
+  </table>
+</div> <!-- /.table-responsive -->
+{% include "classifieds/includes/classif-nav.phtml" %}
+<hr class="featurette-divider">
+{% include "classifieds/includes/class-nav-primary.phtml" %}
+<hr class="featurette-divider">
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "elections/elec-base.html" %}
+
+{% block content %}
+{{block.super}}
+<p class="lead">
+  <span class="glyphicon glyphicon-dashboard"></span>
+  Welcome <span class="text-muted">to the Elections Admin Dashboard.</span>
+</p>
+<hr class="featurette-divider">
+<form onsubmit="return false;">
+
+<table class="table table-hover table-responsive">
+  <tr>
+    <td colspan=6>
+      <button type="submit" class="btn btn-primary btn-block"
+               onclick="window.location = '/webapps/elections/admin/create/';">
+        <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Create New Election
+      </button>
+    </td>
+  </tr>
+  <tr class="table-header">    
+    <td>Position</td>
+    <td>Start Date</td>
+    <td>End Date</td>
+    <td>Created On</td>
+    <td>Full Results</td>
+    <td>Manage Election</td>
+  </tr>
+
+  {% for e in elections %}
+  <tr>
+    <td>{{ e.position }}</td>
+    <td>{{ e.startDateTime|date:"m-d-Y" }}</td>
+    <td>{{ e.endDateTime|date:"m-d-Y" }}</td>
+    <td> <a class="btn btn-info" href="/webapps/elections/results/{{ e.id }}"> Results </a> </td>
+    <td>
+    &nbsp;
+      <button type="submit" class="btn btn-primary btn-sm"
+               onclick="window.location = '/webapps/elections/admin/edit/{{ e.id }}';">
+        <span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit
+      </button>
+    &nbsp;
+      <button type="submit" class="btn btn-primary btn-sm"
+             onclick="var c=confirm('Are you sure you wish to delete this election?'); if(c){window.location = '/webapps/elections/admin/delete/{{ e.id }}';}">
+       <span class="glyphicon glyphicon-remove"></span>&nbsp;Delete
+      </button>
+    </td>
+  </tr>
+{% endfor %}
+</table>
+</form>
+{% endblock %}

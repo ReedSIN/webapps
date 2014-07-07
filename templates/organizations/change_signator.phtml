@@ -1,0 +1,23 @@
+{% extends "organizations/organizations-base.phtml" %}
+
+{% block raw-javascript %}
+
+function post(f) {
+  s = document.getElementById('signator');
+  f.action = '/webapps/organization-manager/orgs/{{ o.id }}/change-signator/' + s.value + '/';
+}
+
+{% endblock %}
+
+{% block content %}
+{{block.super}}
+<div class="row">
+<div class="col-md-8 col-md-offset-2">
+<form method="post" action="" onsubmit="post(this);">
+<h3 class="featurette-heading">Enter the New Signator's Reed Username</h3> 
+<input id="signator" type="text" class="form-control" name="signator" placeholder="E.g, {{user.username}} for you "/>
+<input class="btn btn-primary btn-block" type="submit"/>
+</form>
+</div> <!-- /.col-md-8 ... -->
+</div> <!-- /.row -->
+{% endblock %}

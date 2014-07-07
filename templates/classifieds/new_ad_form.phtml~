@@ -1,0 +1,101 @@
+{% extends "classifieds/classif-base.phtml" %}
+<!-- Only variable necessary is 'ad' -->
+
+{% block on-load %}
+  // Provides form-control classes for form elements
+  //
+  var form_ray = [document.getElementById('id_category'), document.getElementById('id_email'), document.getElementById('id_phone'), document.getElementById('id_title'), document.getElementById('id_text')];
+
+  for (var i = 0; i < form_ray.length; i++) {
+    form_ray[i].className="form-control";
+  }
+
+  //form_ray[0].setAttribute("multiple","")
+  //form_ray[0].style.height = "98px";
+{% endblock %}
+
+{% block content %}
+{{block.super}}
+
+{% include "classifieds/includes/classif-nav.phtml" %}
+
+<form action="" method="post">
+<div class="row">
+  <div class="col-md-4 col-sm-4">
+    <h2 class="featurette-heading">
+      Create a New Post
+    </h2>
+    <p class="lead">
+      Any field marked with an asterisk
+      <span class="text-muted">(*)</span>
+      is required.
+    </p>
+  </div>
+  <div class="col-md-8 col-sm-8 col-md-offset-0 col-sm-offset-0">
+    <div class="table-responsive">
+    <table class="table">
+      <tr>
+        <td>Category*</td>
+	<td>
+	  {{form.category.errors}}
+	  <label class="sr-only" for="id_category">Category</label>
+	  {{form.category}}	
+	</td>
+      </tr>
+      <tr>
+        <td>Email</td>
+	<td>
+	  {{form.email.errors}}
+	  <label class="sr-only" for="id_email">Email</label>
+	  {{form.email}}
+	</td>
+      </tr>
+      <tr>
+        <td>Phone</td>
+	<td>
+	  {{form.phone.errors}}
+	  <label class="sr-only" for="id_phone">Phone</label>
+	  {{form.phone}}
+	</td>
+      </tr>
+      <tr>
+        <td>Post Title*</td>
+	<td>
+	  {{form.title.errors}}
+	  <label for="id_title" class="sr-only">Title</label>
+	  {{form.title}}
+	</td>
+      </tr>
+      <tr>
+        <td>Post Body*</td>
+	<td>
+	  {{form.text.errors}}
+	  <label class="sr-only" for="id_text">Body</label>
+	  {{form.text}}
+	</td>
+      </tr>
+    </table>
+    </div>
+  </div>
+</div> <!-- /.row -->
+
+<div class="row">
+  <div class="col-md-12 col-sm-12">
+    <button class="btn btn-primary btn-block btn-lg" type="submit" value="Submit">
+      <span class="glyphicon glyphicon-ok-sign"></span>&nbsp;
+      Submit
+    </button>
+
+    <a href="/webapps/classifieds/">
+      <button type="button" class="btn btn-lg btn-default btn-block">
+      <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;
+      Cancel</button></a>
+  </div>
+</div>
+</form>
+
+{% endblock %}
+
+{% block breadcrumb-trail %}
+
+{% endblock %}

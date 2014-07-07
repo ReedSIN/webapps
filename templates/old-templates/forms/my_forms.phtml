@@ -1,0 +1,35 @@
+{% extends "forms/form-base.phtml" %}
+
+{% block content %}
+<h3>Notes on usage:</h3>
+<ul>
+  <li>This page is meant for creators of applications. It will list all of the applications that you have created and allow you to edit the application, view the submitted applications, clear the stored applications, and delete the applications. If you fill out a form, your submission is final.</li>
+  <li>If there are completed applications in your form you will be unable to edit it. This is to maintain data integrity. If you wish to change a form, clear the apps, and then edit the form.</li>
+</ul>
+<table border=1>
+  <tr>
+  <td>Form Name</td>
+  <td>Organization</td>
+  <td>Num Complete</td>
+  </tr>
+  {% for m in forms %}
+  <tr>
+  <td>{{ m.name }}</td>
+  <td>{{ m.organization.name }}</td>
+  <td>{{ m.formdata_set.count }}</td>
+  <td>
+  <input type="submit" value="edit" onclick="window.location = '/webapps/forms/my_forms/edit/{{ m.id }}';" />
+  </td>
+  <td>
+  <input type="submit" value="view apps" onclick="window.location = '/webapps/forms/my_forms/results/{{ m.id }}';" />
+  </td>
+  <td>
+  <input type="submit" value="clear apps" onclick="var c = confirm('Are you sure you wish to delete all currently submitted applications of this form?'); if (c) { window.location = '/webapps/forms/my_forms/clear/{{ m.id }}'}" />
+  </td>
+  <td>
+  <input type="submit" value="delete" onclick="var c = confirm('Are you sure you wish to delete this form?'); if (c) { window.location = '/webapps/forms/my_forms/delete/{{ m.id }}'}" />
+  </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

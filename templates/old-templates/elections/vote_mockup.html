@@ -1,0 +1,138 @@
+{% extends "elections/elec-base.html" %}
+
+{% block content %}
+{{block.super}}
+
+<style>
+ul
+{
+    list-style-type: none;
+}
+
+h1
+{
+    text-align: center;
+    font-size: 400%;
+}
+</style>
+
+<div class="row">
+     <h1>Student Body President.</h1>
+</div>
+
+<div class="row">
+            <ul class="thumbnails">
+              <li class="col col-md-3">
+                <div class="thumbnail">
+                  <img data-src="holder.js/300x200" alt="">
+                  <div class="caption">
+                    <h3>Jacob Menick</h3>
+		    <div style="height: 120px">
+                      <p>Pls vote for me, I'll give everybody money!</p>
+		    </div>
+                </div>
+              </li>
+              <li class="col col-md-3">
+                <div class="thumbnail">
+                  <img data-src="holder.js/300x200" alt="">
+                  <div class="caption">
+                    <h3>Brett Beutell</h3>
+		    <div style="height: 120px">
+                      <p>Hi, im Brett but most people know me as boots. And those who don't vote for me will get to know my steel-toed boots with their faces. </p>
+		    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="col col-md-3">
+                <div class="thumbnail">
+                  <img data-src="holder.js/300x200" alt="">
+                  <div class="caption">
+                    <h3>Eleanor Parmentier</h3>
+		    <div style="height: 120px">
+		      <p>Hye. Pls vote for me I have learnted alot at REed college about people cause i'm a sociology major and I will be able to figure out the best way to organize our society. </p>
+		    </div>
+                  </div>
+                </div>
+              </li>
+	      <li class="col col-md-3">
+                <div class="thumbnail">
+                  <img data-src="holder.js/300x200" alt="">
+                  <div class="caption">
+                    <h3>Rao Potluri</h3>
+		    <div style="height: 120px">
+		      <p>Despite being a faculty member, I think I would be a phenomenal student body President.</p>
+		    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+</div>
+<div>
+  <h3>Rank the candidates in your order of preference, with 1 being your most highly preferred:</h3>
+  <ul>
+    <li>1:
+      <div class="btn-group">
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+        Select a Candidate
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+        <!-- dropdown menu links -->
+	<li><a tabindex="-1" href="#">Jacob Menick</a></li>
+	<li><a tabindex="-1" href="#">Brett Beutell</a></li>
+	<li><a tabindex="-1" href="#">Eleanor Parmentier</a></li>
+	<li><a tabindex="-1" href="#">Rao Potluri</a></li>
+        </ul>
+      </div>
+    </li>
+    <li>2:
+    <div class="btn-group">
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+        Select a Candidate
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+        <!-- dropdown menu links -->
+	<li><a tabindex="-1" href="#">Jacob Menick</a></li>
+	<li><a tabindex="-1" href="#">Brett Beutell</a></li>
+	<li><a tabindex="-1" href="#">Eleanor Parmentier</a></li>
+	<li><a tabindex="-1" href="#">Rao Potluri</a></li>
+        </ul>
+      </div>
+    </li>
+    <li>3:
+    <div class="btn-group">
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+        Select a Candidate
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+        <!-- dropdown menu links -->
+	<li><a tabindex="-1" href="#">Jacob Menick</a></li>
+	<li><a tabindex="-1" href="#">Brett Beutell</a></li>
+	<li><a tabindex="-1" href="#">Eleanor Parmentier</a></li>
+	<li><a tabindex="-1" href="#">Rao Potluri</a></li>
+        </ul>
+      </div>
+    </li>
+    <li>4:
+    <div class="btn-group">
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+        Select a Candidate
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+        <!-- dropdown menu links -->
+	<li><a tabindex="-1" href="#">Jacob Menick</a></li>
+	<li><a tabindex="-1" href="#">Brett Beutell</a></li>
+	<li><a tabindex="-1" href="#">Eleanor Parmentier</a></li>
+	<li><a tabindex="-1" href="#">Rao Potluri</a></li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+
+  <a class="btn btn-large btn-success" href="#">VOTE</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "fundingpoll/fundingpoll-base.phtml" %}
+
+{% load fundingpoll_tags %}
+
+{% block stylesheets %}
+{{block.super}}
+<!-- <link rel="stylesheet" type="text/css" href="/css/webapps/fundingpoll/results-style.css"> -->
+{% endblock %}
+
+{% block content %}
+{{block.super}}
+<h2>Results</h2>
+<p>
+*Note* Score is not the actual vote count, but is the accumulated total of all the votes once top 6/deep 6/etc has been applied.
+</p>
+<hr class="featurette-divider">
+<p>
+Participation: {{ total_votes }}/{{ total_users }} - {{ ratio }}
+</p>
+<table class="table table-hover">
+<tr class="org-row">
+<td class="table-header counter-cell">Rank</td>
+<td class="table-header org-name-cell">Name</td>
+<td class="table-header org-sig-cell">Signator</td>
+<td class="table-header org-num-vote-cell">Score*</td>
+<td class="table-header org-num-top6-cell">Top 6</td>
+<td class="table-header org-num-approve-cell">Approve</td>
+<td class="table-header org-num-no-opinion-cell">No Op</td>
+<td class="table-header org-num-disapprove-cell">Disapprove</td>
+<td class="table-header org-num-deep6-cell">Deep 6</td>
+</tr>
+{% for f in forgs %}
+<tr class="org-row">
+<td class="counter-cell">{{ counter.next }}</td>
+<td class="org-name-cell">{{ f.organization.name|truncate:20 }}</td>
+<td class="org-sig-cell">{{ f.organization.signator.get_full_name|truncate:20 }}</td>
+<td class="org-num-vote-cell">{{ f.total_votes }}</td>
+<td class="org-num-top6-cell">{{ f.top_six }}</td>
+<td class="org-num-approve-cell">{{ f.approve }}</td>
+<td class="org-num-no-opinion-cell">{{ f.no_opinion }}</td>
+<td class="org-num-disapprove-cell">{{ f.disapprove }}</td>
+<td class="org-num-deep6-cell">{{ f.deep_six }}</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

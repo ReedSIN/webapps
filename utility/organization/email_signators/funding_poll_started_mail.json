@@ -1,0 +1,5 @@
+{
+  'subject' : 'Funding Poll Is Here!',
+  'message' : "Dear %s,\n\nThis is just a confirmatin email to inform you that you have successfully registered for Funding Poll.\nHappy funding!\n\n-Dan
+  'target_source' : '/var/django/webapps/utility/organization/current_signator_usernames.txt'
+}

@@ -1,0 +1,7 @@
+{% extends "wiki/wiki-style1.phtml" %}
+
+{% block html-title %}{{block.super}}Add to {{article.name}}{% endblock %}
+
+{% block content %}
+
+{% endblock %}

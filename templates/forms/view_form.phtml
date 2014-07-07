@@ -1,0 +1,35 @@
+{% extends "forms/form-base.phtml" %}
+
+{% block content %}
+<fieldset>
+<legend class="fieldset-legend">Form - {{ form_model.name }}</legend>
+<div class="form-model-div">
+  <div class="form-model-title-div">Form Name:</div>
+  <div class="form-model-content-div">{{ form_model.name }}</div>
+</div>
+<div class="form-model-div">
+  <div class="form-model-title-div">Organization:</div>
+  <div class="form-model-content-div">{{ form_model.organization.name }}</div>
+</div>
+<div class="form-model-div">
+  <div class="form-model-description-title-div">Description:</div>
+  <div class="form-model-description-content-div">{{ form_model.description }}</div>
+</div>
+
+<form method="post" action="/webapps">
+{% for f in form_field_models %}
+<div class="form-field-div">
+  {% if f.is_text_area %}
+    <div class="form-field-textarea-title-div">{{ f.title }}</div>
+    <div class="form-field-textarea-content-div">
+      <textarea class="form-field-textarea"></textarea>
+    </div>
+  {% else %}
+    <div class="form-field-{{ f.get_type }}-title-div">{{ f.title }}</div>
+    <div class=" 
+  {% endif %}
+{% endfor %}
+<input type="submit" value="Submit"></input>
+</form>
+</fieldset>
+{% endblock %}

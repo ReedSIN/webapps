@@ -1,0 +1,31 @@
+{% extends "wiki/wiki-style1.phtml" %}
+
+{% block content %}
+<form action="" method="POST">
+<p>
+{{app.name}}
+</p>
+<p>
+{{app.applicant}}
+</p>
+<p>
+{{app.email}}
+</p>
+<p>
+{{app.description}}
+</p>
+<p>
+{{app.justification}}
+</p>
+<p>
+{{app.created_on}}
+</p>
+<p>
+{{app.modified_on}}
+</p>
+
+<button class="btn btn-primary" type="submit">
+Create the Wiki
+</button>
+</form>
+{% endblock %}

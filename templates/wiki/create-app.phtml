@@ -1,0 +1,90 @@
+{% extends "wiki/wiki-style0.phtml" %}
+
+{% block html-title %}{{block.super}}Application{% endblock %}
+
+{% block stylesheets %}
+{{block.super}}
+<link href="/css/webapps/wiki/main.css" rel="stylesheet" />
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+<h1> WikiApp </h1>
+<p class="lead text-muted">
+   This application is not to justify why
+   you need a wiki. Rather, it is to get a feel
+   for how you'll make use of a wiki so that we
+   can customize it accordingly.
+</p>
+
+<form action="" method="POST">
+<div class="row">
+
+<h3>Wiki Specifics <span class="text-muted">(WikiSpifics)</span></h3>
+<hr />
+
+<div class="col-lg-3">
+<p>
+You or any other Wikimasters can edit this stuff later.
+</p>
+</div>
+<div class="col-lg-3">
+<p>
+<h5>What should be the name of your wiki?</h5>
+{{form.name.errors}}
+<label for="id_name" class="sr-only"></label>
+{{form.name}}
+</p>
+<p>
+<h5>Should edits to the wiki be restricted to moderators?</h5>
+{{form.is_moderated.errors}}
+<label for="id_is_moderated" class="sr-only"></label>
+{{form.is_moderated}}
+</p>
+<p>
+<h5> Should it have commenting enabled? </h5>
+{{form.has_comments.errors}}
+<label for="id_has_comments" class="sr-only"></label>
+{{form.has_comments}}
+</p>
+<p> 
+<h5>Where can we most easily reach you by email?</h5>
+{{form.email.errors}}
+<label for="id_email" class="sr-only"></label>
+{{form.email}}
+</p>
+</div> <!-- /.col-lg-3 -->
+<div class="col-lg-9 col-md-8 col-sm-8">
+<p>
+<h5> Please give a description of your Wiki </h5>
+<p> 
+    This will show up on your Wiki's home page.
+    However, you or other Wikimasters can edit it
+    whenever.
+</p>
+{{form.description.errors}}
+<label for="id_description" class="sr-only"></label>
+{{form.description}}
+</p>
+</div>
+</div> <!-- /.row -->
+
+<div class="row">
+<div class="col-lg-12">
+<p>
+<h5> How do you envision you / others using this Wiki?</h5>
+<p> Are there any specific features you would like to see?</p>
+{{form.justification.errors}}
+<label for="id_justification" class="sr-reader"></label>
+{{form.justification}}
+  {% comment %}
+  Use this form for specific feature requests. Consider changing field name.
+  Or, rather, ask what they would use it for.
+  {% endcomment %}
+</p>
+</div>
+</div> <!-- /.row -->
+</div> <!-- /.container -->
+</form>
+{% endblock %}

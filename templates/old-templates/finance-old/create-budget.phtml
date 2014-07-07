@@ -1,0 +1,52 @@
+{% extends "finance/finance-base.phtml" %}
+
+{% block javascript %}
+<script type="text/javascript" language="JavaScript" src="/js/webapps/generic/onload.js"></script>
+<script type="text/javascript" language="JavaScript" src="/js/json2_min.js"></script>
+<script type="text/javascript" language="JavaScript" src="/js/webapps/finance/create_budget.js"></script>
+{% endblock %}
+
+{% block stylesheets %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="/css/webapps/object-detail-style.css" />
+<link rel="stylesheet" type="text/css" href="/css/webapps/budget-style.css" />
+{% endblock %}
+
+{% block content %}
+
+<fieldset class="create-budget-fieldset" id="create-budget-fieldset" >
+<legend class="create-budget-legend">Create Budget</legend>
+
+<form class="create-budget-form" method="post" action="/webapps/finance/submit_budget/create/" onsubmit="return false;">
+<div class="object-div">
+  <div class="object-div-title">Signator:</div>
+  <div class="object-div-content">{{ user.get_full_name }}</div>
+</div>
+<div class="object-div">
+  <div class="object-div-title">Organization:</div>
+  <div class="object-div-content">
+    <select name="organization" class="create-budget-organization-input" id="organization_select">
+{% for o in organizations %}
+      <option value="{{ o.id }}">{{ o.name }}</option>
+{% endfor %}
+    </select>
+  </div>
+</div>
+<div class="object-div">
+  <div class="object-div-textarea-title">Description:</div>
+  <div class="object-div-textarea-content">
+  <textarea class="object-div-textarea" id="description-textarea" name="description"></textarea>
+  </div>
+</div>
+
+<fieldset class="add-budget-frameset" id="budget-item-fieldset">
+<legend>Budget Items</legend>
+</fieldset>
+<div class="object-bottom-menu">
+<input type="submit" value="Submit Budget" onclick="submit_form(this.parentNode);"></input>
+<input type="submit" value="Add Budget Item" onclick="budgetitem({}); return false;"/>
+</div>
+</form>
+</fieldset>
+
+{% endblock %}

@@ -1,0 +1,156 @@
+{% extends "finance/finance-base.phtml" %}
+
+{% block javascript %}
+<script lang="JavaScript" type="text/javascript">
+
+money_re = /^\$?((?:(?:\d+)|(?:\d{1,3}(?:,\d{3})*))(?:\.\d{0,2})?)$/;
+
+function escape_money(s) {
+  var output = money_re.exec(s);
+  if (null === output) {
+    throw "Invalid Currency Amount";
+  }
+
+  return parseFloat(output[0]);
+}
+
+allocations = {};
+var total_allocated = {{ budget.allocated }};
+
+function update_total_allocated(widget) {
+  
+  var value = 0;
+  var new_widget_value = escape_money(widget.value);
+  
+  if (!(widget.id in allocations)) {
+     allocations[widget.id] = new_widget_value;
+     value = new_widget_value;
+  } else {
+     value = new_widget_value - allocations[widget.id];
+     allocations[widget.id] = new_widget_value;
+  }
+  total_allocated += value;
+  
+  var allocated_div = document.getElementById('total_allocated-allocated-div');
+  allocated_div.innerHTML = '$' + total_allocated;
+}
+
+claims = {};
+var total_claimed = {{ budget.claimed }}
+
+function update_total_claimed(widget) {
+  
+  var value = 0;
+  var new_widget_value = escape_money(widget.value);
+  
+  if (!(widget.id in claims)) {
+     claims[widget.id] = new_widget_value;
+     value = new_widget_value;
+  } else {
+     value = new_widget_value - claims[widget.id];
+     claims[widget.id] = new_widget_value;
+  }
+  total_claimed += value;
+  
+  var claimed_div = document.getElementById('total-claimed-div');
+  claimed_div.innerHTML = '$' + total_claimed;
+}
+
+</script>
+{% endblock %}
+
+{% block content %}
+
+<fieldset>
+<legend>General Info:</legend>
+<form method="post" action="/webapps/finance/view_budgets/respond/save/{{ budget.id }}/">
+<div class="budget-header-div">
+<div class="budget-header-div-left">
+  <div class="object-div">                                                   
+    <div class="object-div-title">Signator:</div>                           
+    <div class="object-div-content">{{ budget.organization.signator.get_full_name }}</div>
+  </div>                                                                              
+  <div class="object-div">                                                      
+    <div class="object-div-title">Email:</div>                                 
+    <div class="object-div-content">{{ budget.organization.email }}</div>
+  </div>                                                                              
+  <div class="object-div">                                               
+    <div class="object-div-title">Organization:</div>                   
+    <div class="object-div-content">{{ budget.organization.name }}</div>
+  </div>
+                                                                           
+</div>
+<div class="budget-header-div-right">
+ 
+  <div class="object-div">                                                  
+    <div class="object-div-title">TRequested:</div>                         
+    <div class="object-div-content">${{ budget.requested }}</div>                               
+  </div>
+     <div class="object-div">
+       <div class="object-div-title">TAllocated</div>
+       <div class="object-div-content" id="total_allocated-allocated-div">${{ budget.allocated }}</div>
+     </div>
+     <div class="object-div">
+       <div class="object-div-title">TClaimed</div>
+       <div class="object-div-content" id="total-claimed-div">${{ budget.claimed }}</div>
+     </div>
+</div>
+</div>
+<div>
+  <div class="object-div">                                                
+    <div class="object-div-textarea-title">Description:</div>
+    <div class="object-div-textarea-content">{{ budget.description|safe }}</div>
+  </div>   
+     {% if admin or budget.is_finalized %}
+     <div class="object-div">
+       <div class="object-div-textarea-title">Response</div>
+       <div class="object-div-textarea-content">
+       <textarea class="object-div-textarea main-response-textarea" name="main-response">{{ budget.response }}</textarea>
+       </div>
+     </div>
+     {% endif %}
+</div>
+</fieldset>
+{% for i in items %}
+  <fieldset>
+  <legend>Budget Item:</legend>
+  <div class="budget-item-div">
+  <div class="budget-header-div-left">
+     <div class="object-div">
+       <div class="object-div-title">Item Name:</div>
+       <div class="object-div-content">{{ i.name|safe }}</div>
+     </div>
+     <div class="object-div">
+       <div class="object-div-textarea-title">Description:</div>
+       <div class="object-div-textarea-content item-response-textarea-content">{{ i.description|safe }}</div>
+     </div>
+     <div class="object-div">
+       <div class="object-div-title">Requested:</div>
+       <div class="object-div-content">${{ i.requested }}</div>
+     </div>
+     <div class="object-div">
+       <div class="object-div-title">Allocated:</div>
+       <div class="object-div-content"><input class="object-div-textfield" onchange="update_total_allocated(this);" type="text" value="{{ i.allocated }}" id="allocation-{{ i.id }}" name="allocation-{{ i.id }}"/></div>
+     </div>
+     <div class="object-div">
+       <div class="object-div-title">Claimed:</div>
+       <div class="object-div-content"><input class="object-div-textfield" onchange="update_total_claimed(this);" type="text" value="{{ i.claimed }}" id="claimed-{{ i.id }}" name="claimed-{{ i.id }}"/></div>
+     </div>
+     <div class="object-div">
+       <div class="object-div-textarea-title">Response:</div>
+       <div class="object-div-textarea-content main-response-textarea-content">
+       <textarea class="object-div-textarea item-response-textarea" name="response-{{ i.id }}">{{ i.response }}</textarea>
+       </div>
+     </div>
+   </div>
+   </div>
+  </fieldset>
+{% endfor %}
+<div class="object-bottom-menu">
+<div class="submitButton">
+<input type="submit" name="save" value="Save pending response"/>
+<input type="submit" name="save" value="Submit Response"/>
+</div>
+</div>
+</form>
+{% endblock %}

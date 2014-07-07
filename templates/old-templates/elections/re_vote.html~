@@ -1,0 +1,102 @@
+{% extends "elections/elec-base.html" %}
+
+{% block src-javascript %}
+<script type="text/javascript" language="JavaScript" src="/js/json2_min.js"></script>
+<script type="text/javascript" language="JavaScript" src="/js/webapps/elections/re_submit_vote.js"></script>
+{% endblock %}
+
+{% block stylesheets %}
+{{block.super}}
+  <link href="/css/webapps/elections/elections-style.css" rel="stylesheet" />
+{% endblock%}
+
+{% block content %}
+{{block.super}}
+{% if has_voted %}
+  <div class="jumbotron">
+    <h1> You already voted in this election! </h1>
+    <p>
+      If you think you're seeing this page by mistake, contact the webmasters. 
+      (Our email is on the page footer.)
+    </p>
+  </div>
+{% else %}
+
+
+<table class="table table-hover">
+  <tr>
+    <td onclick="test();">
+      TEST
+    </td>
+  </tr>
+</table>
+
+
+<fieldset id="vote-fieldset">
+<form class="submit-vote-form" 
+      method="post" 
+      action="/webapps/elections/re_submit_vote/"
+      onsubmit="return false;">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="jumbotron">
+	<h1> Your Ballot Lies Below, You Beautiful RE-Voter, You! </h1>
+	<hr />
+	<h2> Instructions:  </h2>
+	<p> Rank candidates such that "1" indicates your highest preference.</p>
+	<p> <strong>Indecisive?</strong> You may give multiple candidates the same ranking! </p>
+	<p> You do not have to rank every candidate. (Blank rankings will not be recorded.)</p>
+      </div>
+    </div> <!-- /.col-md-12 -->
+  </div> <!-- /.row -->
+  <hr />
+
+  <div class="col-md-3">
+    <h2>{{election.position}}</h2>
+  </div>
+  <div class="col-md-9">
+    <table class="table table-responsive">
+      <tr>
+	<td><b>Your Rank</b></td>
+	<td><b>Candidate Name</b> </td>
+	<td style="visibility:hidden;"> Candidate Username </td>
+      </tr>
+      {% for c in candidates %}
+      <tr class="vote_info">
+	<td>
+	  <input class="vote_rank"
+		 id="{{c.person.username}}"
+	         type="number" 
+		 min="1"
+		 max="{{candidate_count}}" />
+	</td>
+	<td> {{c.person}} </td>
+	<!-- hide the following? -->
+	<td style="visibility: hidden;"> 
+	  <input class="vote_candidate" 
+		 type="text" 
+		 value="{{c.person.username}}" />
+		    
+	</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div> <!-- /.col-md-9 -->
+
+<div class="col-md-9 col-md-offset-3">
+	<button class="btn btn-primary btn-block btn-lg"
+		type="submit"
+		onclick="submit_vote();">
+	  <span class="glyphicon glyphicon-save"></span>&nbsp;
+	  Cast Your Votes
+	</button>
+</div>
+</form> <!-- end of the vote submission form -->
+</fieldset>
+<input style="visibility: hidden;" 
+       id="election_id"
+       type="number"
+       value="{{election.id}}"/>
+
+{% endif %}
+{% endblock %}

@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="sin sinning sinful evil devil morality">
+    <meta name="author" content="BooJay Labs">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta property="og:site_name" content="sin" />
+    <meta property="og:title" content="the student information network"/>
+    <meta property="og:description" content="host of webapps for reed college students" />
+    <meta property="og:image" content=""> <!-- TODO logo -->
+    <meta property="og:url" content="http://sin.reed.edu">
+    
+    <title>s i n | yet another sin </title>
+
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./sin-splash.css" rel="stylesheet">
+    <script src="./jquery.js"></script>
+</head>
+<body>
+<div class="top-bar">
+	<div class="left-thing">
+		<div id="toggle-button" class="miama" onclick="toggle_sidebar();">
+			<span class="glyphicon glyphicon-fire"></span>
+		</div>
+	</div>
+	<div class="right-thing">
+		<span class="glyphicon glyphicon-user"></span> B. Beutell
+	</div>
+</div>
+<div class="side-bar">
+	Here is the sidebar
+</div>
+<div class="big-wrap">
+<div class="main">
+
+		<header class="big-as-fuck miama xtra-pad-top"> 
+			<div id="sin">S i n</div>
+		</header>
+		<div class="row">
+			<div class="center-me center sin-muted"> 
+				the student information network
+			</div>
+		</div>
+		<div class="row">
+			<div class="center-me center">
+				<a class="btn btn-lg btn-primary"
+					role="button"
+					href="http://sin.reed.edu/webapps/">
+					Enter
+				</a>
+			</div>
+			<div class="center-me center">
+				<div class="info-links">
+					|
+					<a href="/about">
+						<div>
+							senate wiki
+						</div>
+					</a>
+					|						
+					<a href="http://medium.com/">
+						<div>
+							sound kollektiv
+						</div>
+					</a>
+					|					
+					<a href="http://reed.switchboardhq.com/">
+						<div>
+							switchboard
+						</div>
+					</a>
+					|
+				</div>
+			</div>
+		</div>
+</div> <!-- /.main -->
+	<footer>
+		<div class="footer-item">
+			<p>
+				Wanna chat? Feel free to contact the webmasters: 
+				<a href="mailto:sin@lists.reed.edu?subject=Sinquiry">sin@lists.reed.edu</a>
+			</p>			
+			<p class="sin-muted">
+				(But remember: we aren't liable for anything ever.)
+			</p>
+		</div>
+	</footer>
+</div> <!-- /.big-wrap -->
+</body>
+<script type="text/javascript" src="./jquery.fittext.js"></script>
+<script>
+    /********************************
+    * Use FitText.js (available on GitHub)
+    *   - Responsive: scales text with window size
+    *   - Customizable: takes two arguments, explained below
+    * 
+    *           () the compressor, type: float, optional
+    *
+    *                            "works like a guitar amp"
+    *                             determines how aggressively to scale
+    *                             1 is default
+    *
+    *           () minFontSize & maxFontStize, type: dict, optional
+    *
+    *                            pretty self explanatory
+    *                            the keys take pixel values
+    *****************************/
+    jQuery("#sin").fitText(.7, {minFontSize: '40px', maxFontSize: '360px'});
+
+    function toggle_sidebar() {
+    	$(".side-bar").toggleClass("hide-bar")
+    	$(".big-wrap").toggleClass("hide-bar")
+    }
+</script>
+</html>

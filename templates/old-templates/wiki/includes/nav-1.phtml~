@@ -1,0 +1,96 @@
+    <!-- nav-1.phtml: Fixed navbar -->
+    <nav>                                                                                                                                                    
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">               
+        <div class="navbar-header">      
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+	     <span class="icon-bar"></span> 
+          </button>                                      
+	  <a class="navbar-brand" href="#">{% block brand_logo %}{% endblock %}</a>  
+	</div>  
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="{% block home_url %}{%endblock%}">Home</a></li>   
+            <li><a href="{% block about_url %}">About</a></li>            
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <b class="caret"></b></a>
+              <ul class="dropdown-menu">                                                                                        
+                <li class="dropdown-header">Articles You Should Read</li>
+                <li class="divider"></li>
+		{% block top_articles %}
+		{% endblock %}
+              </ul>
+            </li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Elsewhere<b class="caret"></b></a>
+              <ul class="dropdown-menu">                                                                                        
+                <li><a href="http://sin.reed.edu/webapps/">SIN Home</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header"><a href="http://sin.reed.edu/webapps/finance/">Finance</a></li>
+              </ul>
+            </li>
+	    
+	    <li class="dropdown">
+              <a href="#" class="dropdown-toggle js-activated" data-toggle="dropdown">
+		<span class="glyphicon glyphicon-user"></span>
+		<span class="smaller-font">
+	  	  {{user}} <b class="caret"></b>
+		</span>
+	      </a>
+	      <ul class="dropdown-menu">
+		<li role="presentation" class="dropdown-header">
+		  Look in the Mirror
+		</li>	  
+		<li><a href="#">My Profile</a></li>
+		<li class="divider"></li>
+		<!-- FOR LATER USE: CUSTOMIZED FAVORITE LINKS? 
+		     {{userLinks}}
+		     <li><a href="#">My Classifieds</a></li>
+		<li><a href="#">User-specific links</a></li>
+		<li class="divider"></li>
+		-->
+		<li role="presentation" class="dropdown-header">
+		  Customize Your Sin
+		</li>
+		<li><a href="#">
+		    <span class="glyphicon glyphicon-cog"> </span>
+		    Settings
+		</a></li>
+		<li class="divider"></li>
+		
+		<li role="presentation" class="dropdown-header">
+		  GTFO
+		</li>
+		<li>
+		  <a href="/webapps/logout">
+		    <span class="glyphicon glyphicon-plane"></span>
+		    <span class="">Logout</span>
+		  </a>
+		</li>	  
+		<li class="divider"></li>
+		<li class="divider"></li>
+	      </ul>
+	    </li>
+
+	  {% block social-icons %}
+	    <li>
+              <a class="social"
+                 href=""
+		 target="_blank" >
+		<img src=""
+		     height=""
+		     width=""
+		     alt="" />
+	      </a>
+	    </li>
+	  {% endblock %}
+	  </ul>
+	</div> <!-- /.nav-collapse -->
+      </div>
+    </div> <!-- /.nav -->
+    </nav>

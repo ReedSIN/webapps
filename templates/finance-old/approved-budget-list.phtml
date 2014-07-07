@@ -1,0 +1,64 @@
+{% extends "finance/finance-base.phtml" %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block content %}
+{% if admin %}
+<form method="get" action="" onsubmit="this.action = '/webapps/finance/view_budgets/respond/edit/' + budget_id;">
+{% endif %}
+<table class="budget-table">
+  <tr class="budget-header-row">
+     <td class="budget-row-signator">
+     Signator
+     </td>
+     <td class="budget-row-organization">
+     Organization
+     </td>
+     <td class="budget-row-requested">
+        Requested
+     </td>
+     <td class="budget-row-allocated">
+        Allocated
+     </td>
+     <td class="budget-row-created_on">
+        Created On
+     </td>
+     <td class="budget-row-modified_on">
+        Modified On
+     </td>
+</tr>
+{% for b in budgets %}
+  <tr class="budget-row">
+     <td class="budget-row-signator">
+        <a href="view_budgets/{{ b.id }}" class="budget-row-detailed-link">{{ b.organization.signator.get_full_name }}</a>
+     </td>
+     <td class="budget-row-organization">
+        <a href="view_budgets/{{ b.id }}" class="budget-row-detailed-link">{{ b.organization.name }}</a>
+     </td>
+     <td class="budget-row-requested">
+        <a href="view_budgets/{{ b.id }}" class="budget-row-detailed-link">${{ b.requested }}</a>
+     </td>
+     <td class="budget-row-allocated">
+        <a href="view_budgets/{{ b.id }}" class="budget-row-detailed-link">${{ b.allocated }}</a>
+     </td>
+     <td class="budget-row-created_on">
+        <a href="view_budgets/{{ b.id }}" class="budget-row-detailed-link">{{ b.created_on|date:"H:i M d, Y" }}</a>
+     </td>
+     <td class="budget-row-modified_on">
+        <a href="view_budgets/{{ b.id }}" class="budget-row-detailed-link">{{ b.modified_on|date:"H:i m-d-Y" }}</a>
+     </td>
+  {% if admin %}
+     <td class="budget-row-respond">
+        <input type="submit" value="respond" onclick="budget_id = {{ b.id }};"></input>
+     </td>
+  {% endif %}
+  </tr>
+{% endfor %}
+</table>
+
+{% if admin %}
+</form>
+{% endif %}
+{% endblock %}

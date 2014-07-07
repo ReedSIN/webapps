@@ -1,0 +1,24 @@
+
+.l {
+  /* light green */
+  color: rgba(189,208,156,1);
+}
+
+.m {
+  /* dark blue  */
+  color: rgba(78,97,114,1);
+}
+
+.g {
+  /* red-brown  */
+  color: rgba(143,49,27,1);
+}
+
+.e {
+  /* brown  */
+  color: rgba(133,97,35,1);
+}
+.f {
+  /* light brown */
+  color: rgba(185,156,107,1);
+}

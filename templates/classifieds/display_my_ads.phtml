@@ -1,0 +1,49 @@
+{% extends "classifieds/class-base2.phtml" %}
+
+{% block content %}
+{{block.super}}
+{% include "classifieds/includes/classif-nav.phtml" %}
+
+<div class="row">
+  <div class="table-responsive">
+    <table class="table table-ads">
+      {% for ad in relevant_ads reversed%}
+        <tr>
+	  <td 
+	     onclick="javascript:document.location='/webapps/classifieds/post/{{ad.id}}/';">
+	  
+	    <div class="post-title">
+	      {{ad.title}}
+	    </div>
+	    <div class="post-details">
+	     <span class="text-muted no-text-shadow">
+	      Posted in {{ad.category}} 
+	      on {{ad.timestamp.month}}/{{ad.timestamp.day}}/{{ad.timestamp.year}}.
+	      </span>
+	    </div>
+	  </td>
+	  <td>
+	    <button class="btn btn-default btn-sm btn-block">
+	      Options <b class="caret"></b>
+	    </button>
+	    <form action="/webapps/classifieds/edit/{{ad.id}}/">
+	    <button class="btn btn-primary btn-sm btn-block" type="submit">
+	    <span class="glyphicon glyphicon-trash"></span>&nbsp;
+	    Edit
+	    </button>
+	    </form>
+	    <form action="/webapps/classifieds/delete/{{ad.id}}/">
+	    <button class="btn btn-primary btn-sm btn-block" type="submit">
+	    <span class="glyphicon glyphicon-trash"></span>&nbsp;
+	    Delete
+	    </button>
+	    </form>
+	  </td>
+	</tr>	
+      {% endfor %}
+    </table>
+  </div> <!-- /.table-responsive -->
+</div> <!-- /.row -->
+
+{% endblock %}
+

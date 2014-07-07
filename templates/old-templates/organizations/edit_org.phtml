@@ -1,0 +1,157 @@
+{% extends "organizations/organizations-base.phtml" %}
+
+{% block raw-javascript %}
+{{block.super}}
+function validate(form) {
+  return true;
+}
+
+function set_action(form, id) {
+  if (id != 'None') {
+    form.action = '/webapps/organizations/my_organizations/save/' + id + '/';
+  } else {
+    form.action = '/webapps/organizations/my_organizations/save/';
+  }
+}
+
+{% endblock %}
+
+{% block stylesheets %}
+{{ block.super }}
+<link rel="stylesheet" href="/css/webapps/object-detail-style.css" />
+<link rel="stylesheet" href="/css/webapps/organizations/organization-detail-style.css" />
+{% endblock %}
+
+{% block content %}
+{{block.super}}
+
+<form method="post" onsubmit="set_action(this,'{{ org.id }}');">
+
+<div class="row">
+  <div class="col-lg-3 col-md-4 col-sm-4">
+    <h2>Create a New Organization</h2>
+    <p class="lead text-muted">*Denotes a required field</p>
+  </div>
+  <div class="col-lg-9 col-md-8 col-sm-8">
+   <div class="table-responsive">
+    <table class="table table-hover">
+      <tr>
+        <td colspan=2 class="table-header-alt"><p class="lead">
+	<span class="glyphicon glyphicon-info-sign"></span>
+	Contact Info</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="table-header-left">
+	  *Organization Name
+	</td>
+	<td>
+	  <input class="form-control" type="text" name="name" value="{{ org.name }}" />
+	</td>
+      </tr>
+      <tr>
+        <td class="table-header-left">
+	  *Signator
+	</td>
+	<td>
+	  {{user.get_full_name}}	
+	</td>
+      </tr>
+      <tr>
+        <td class="table-header-left">
+	  *Email
+	</td>
+	<td>
+	  <input class="form-control" type="text" name="email" value="{{ org.email }}" />
+	</td>
+      </tr>
+      <tr>
+        <td class="table-header-left">
+	  Location
+	</td>
+	<td>
+	  <input class="form-control" type="text" name="location" value="{{ org.location }}" />
+	</td>
+      </tr>
+      <tr>
+        <td class="table-header-left">
+	  Phone Number
+	</td>
+	<td>
+	  <input class="form-control" type="text" name="phone_number" value="{{ org.phone_number }}" />	
+	</td>
+      </tr>
+      <tr>
+        <td class="table-header-left">
+	  Website
+	</td>
+	<td>
+	  <input class="form-control" type="text" name="website" value="{{ org.website }}" />
+	</td>
+    </table>
+   </div> <!-- /.table-responsive -->
+  </div> 
+</div>
+<!-- DESCRIPTIVE INFO -->
+<div class="row">
+<hr class="featurette-divider">
+  <div class="col-lg-2 col-md-2 col-sm-2">
+    <p class="lead">Descriptive Information</p>
+  </div> 
+
+  <div class="col-lg-5 col-md-5 col-sm-5">
+    <label for="org-meet-info">Meeting Info</label>
+    <textarea class="form-control" id="org-meet-info" name="meeting_info">{{org.meeting_info}}</textarea>
+    <label for="org-descr">Description</label>
+    <textarea class="form-control" name="description" id="org-descr">{{org.description}}</textarea>
+  </div> 
+
+  <div class="col-lg-5 col-md-5 col-sm-5">
+    <label for="org-events">Annual Events</label>
+    <textarea class="form-control" id="org-events" name="annual_events">{{org.annual_events}}</textarea>
+
+    <label for="org-asso-org">Associated Off Campus Organizations</label>
+    <textarea class="form-control" id="org-asso-org" name="associated_off_campus_organizations">{{org.associated_off_campus_organizations}}</textarea>
+  </div> 
+</div> <!-- /.row -->
+
+<div class="row">
+<hr class="featurette-divider">
+  <div class="col-lg-2 col-md-2 col-sm-2">
+    <p class="lead">Student Activity Information</p>
+  </div>
+
+  <div class="col-lg-6 col-md-6 col-sm-6 col-lg-offset-2 col-md-offset-1 col-sm-offset-1">
+
+    <div class="list-group">
+     <div class="list-group-item">
+     <h4 class="list-group-item-heading">Would you like your info public on reed.edu?
+        <input class="form-control" type="checkbox" 
+	      {% if org.public_post_ok %}checked{% endif %} 
+	      name="public_post_ok" />        
+    </h4>
+     </div>
+    </div>
+
+    <label for="org-refer">
+      Off-campus organizations often request to contact student groups.
+      What type of calls or emails should be forwarded to you?
+    </label>
+    <textarea class="form-control" id="org-refer" name="referral_info">{{org.referral_info}}</textarea>
+  </div>
+</div> <!-- /.row -->
+
+<div class="newLine">
+<hr class="featurette-divider">
+<div class="col-lg-12 col-md-12 col-sm-12">
+     <h2 class="featurette-heading">
+       Phew! Well, that was a doozy, eh? One more click and you're done.
+     </h2>
+  <button class="btn btn-primary btn-lg btn-block" type="submit">
+  Submit
+  </button>
+</div>
+</div>
+</form>
+
+{% endblock %}

@@ -1,0 +1,331 @@
+import os, sys
+import unicodedata
+
+from django.http import HttpResponsePermanentRedirect, HttpResponseForbidden
+from django.http import HttpResponseRedirect, Http404
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+from datetime import datetime
+from django.core.exceptions import ObjectDoesNotExist
+
+
+from webapps.generic.models import *
+from webapps.generic.views import *
+from webapps.generic.errors import *
+from webapps.wiki.models import *
+from webapps.wiki.forms import *
+
+#def check_ID(id_number,wiki_model_type):
+#    try:
+def test(request):
+
+    user = request.user
+#    if not user.is_admin(): 
+#        raise Http404
+# FOR FORM STYLING
+#    app_form = WikiAppForm()
+#    article_form = ArticleForm()
+#    section_form = SectionForm()
+#    comment_form = CommentForm()
+    template_tags = {
+     #   'apform' : app_form,
+     #   'arform' : article_form,
+     #   'sform' : section_form,
+     #   'cform' : comment_form
+        }
+    return render_to_response("wiki/test.phtml",template_tags,context_instance=RequestContext(request))
+
+def index(request):
+  # Need logic for wiki mods. VALID_FACTORS or just search related field?
+  # Temporary fix-- dashboard page
+
+    return render_to_response('wiki/main.phtml', context_instance=RequestContext(request))
+
+def create_wiki_app(request):
+  # Open to all users
+    # Does this condition mean we could also edit on this page? See: App Comm
+    if request.method != 'POST':
+        form = WikiAppForm()
+        return render_to_response('wiki/create-app.phtml',{'form':form}, context_instance=RequestContext(request))
+    else:
+        app_form = WikiAppForm(request.POST)
+        user = request.META['REMOTE_USER']
+        try:
+            app_sponsor = SinUser.objects.get(username= user)
+        except SinUser.DoesNotExist:
+            raise Http404
+
+        if app_form.is_valid():             # valid -> we have clean data
+            cd = app_form.cleaned_data 
+            # Create new app with form data
+            w = WikiApp(name= cd['name'], description= cd['description'], is_moderated= cd['is_moderated'], has_comments= ['has_comments'],justification= cd['justification']) 
+
+            w.applicant = app_sponsor
+            w.save() 
+            return HttpResponseRedirect('webapps/wiki/thanks')
+        else:
+            return render_to_response('wiki/create-app.phtml', {'form':form}, context_instance=RequestContext(request))
+
+def edit_wiki_app(request,identifier):
+  # Open to applicant
+    # Authenticate???
+
+    wapp = WikiApp.objects.get(id=identifier)
+    if request.method == 'POST':
+        form = WikiAppForm(request.POST)
+        if form.is_valid():                  # Valid -> we have clean data
+            cd = form.cleaned_data           # only contains keys for fields defined in form
+                                             #   and sets empty data to empty string
+            wapp.name = cd['name']
+            wapp.is_moderated = cd['is_moderated']
+            wapp.has_comments = cd['has_comments']
+            wapp.description = cd['description']
+            wapp.justification = cd['justification']
+            wapp.save()
+            return HttpResponseRedicrect('/webapps/wiki/thanks/')
+        else:
+            return render_to_response('wiki/edit-app.phtml',{'form':form},context_instace= RequestContext(request))
+    else:
+        form = WikiAppForm(initial={'name' : wapp.name, 'is_moderated': wapp.is_moderated, 'has_comments': wapp.has_comments, 'justification':wapp.description, 'justification':wapp.justification, 'created_on':wapp.created_on})
+    return render_to_response('wiki/edit-app.phtml',{'form':form}, context_instance=RequestContext(request))
+
+
+def display_wiki_apps(request):
+  # Open to global moderators (admin)
+    # Authenticate wiki for admin?
+
+    user = request.user
+    if not user.is_admin():
+        raise Http404 # again, better errors needed
+
+    apps = WikiApp.objects.all()
+
+    template_tags = {
+        'apps':apps,
+        }
+
+    return render_to_response('wiki/display-all-apps.phtml', template_tags, context_instance=RequestContext(request))
+
+
+""" NEEDS AUTH - only admin as of now """ 
+def review_wiki_app(request,identifier):
+  # Open to global moderators (admin)
+    # Authenticate with special factors eventually
+
+    user = request.user
+
+    # Only admin see for now
+    if not user.is_admin():
+        raise Http404 # Need better error shit
+
+    try:
+        app = WikiApp.objects.get(id=identifier)
+    except WikiApp.DoesNotExist:
+        raise Http404
+
+    ## Create the app if we're told to ##
+    if request.method == 'POST':        
+        app.make_wiki()
+        # I'm not sure if this will work... These funks need to be async?
+        wiki = Wiki.objects.get(name= app.name)
+        return render_to_response('wiki/wiki-home.html',{'wiki':wiki},context_instance=RequestContext(request))
+    else:
+        template_tags = {
+            'app':app,
+            }
+        return render_to_response('wiki/review-app.phtml',template_tags, context_instance=RequestContext(request))
+
+
+
+def wiki_home(reqeust,identifier):
+  # Open to all users
+    try: 
+        wiki = Wiki.objects.get(id=identifier)
+    except Wiki.DoesNotExist:
+        raise Http404
+
+    template_tags = {
+        'wiki':wiki,
+        }
+    return render_to_response('wiki/wiki-home.phtml',template_tags, context_instance=RequestContext(request))
+
+def edit_wiki(request, identifier):
+  # Open to wiki moderators- related field in SinUser
+    # Needs better error page
+    # Also, we use the SinUser.w_mod_privs queryset to authenticate below
+    try:
+        wiki = Wiki.objects.get(id=identifier)
+    except Wiki.DoesNotExist:
+        raise Http404
+
+    user = request.user
+
+    if request.method == 'POST':
+        # Bool
+        user_is_mod = wiki.moderators.filter(username=user.username).exists()
+
+        if wiki.is_moderated and not user_is_mod:     # This sort of reads like english :)
+            raise Http404
+        else:
+            form = WikiForm(request.POST)
+
+            if form.is_valid():
+                cd = form.cleaned_data
+                wiki.name = cd['name']
+                wiki.is_moderated = cd['is_moderated']
+                wiki.description = cd['description']
+                #wiki.moderators.add() 
+                # write function to parse the addtl_moderator input
+                #  and an Option to delete moderators
+                wiki.save()
+                template_tags = {
+                    'wiki': wiki ,
+                    }
+                return render_to_response('wiki/wiki-home.phtml',template_tags,context_instance=RequestContext(user))
+            else:
+                template_tags = {'form':form }
+                return render_to_response('wiki/edit-wiki.phtml',template_tags,context_instance=RequestContext(user)) # Will contain form errors
+
+
+    else:
+        form = Wiki(inital={'name':wiki.name,'is-moderated':wiki.is_moderated,'description':wiki.description})
+        return render_to_response('wiki/edit-wiki.phtml',{'form' : form},context_instance=RequestContext(user))
+        
+
+""" END edit_wiki """ # Make it shorter.
+
+def wiki_article(request,identifier):
+  # Open to all users
+
+    user = request.user
+
+    try:
+        art = Article.objects.get(id=identifier)
+    except Article.DoesNotExist:
+        raise Http404
+
+
+    template_tags = {
+        'article':art,
+        'wiki':art.wiki,
+        }
+
+    return render_to_response('wiki/view-article.phtml',template_tags,)
+
+""" What do we do about which wiki the aritcle belongs to? """
+""" Don't want that on the form, able to be changed """
+""" How do we limit the choices of all wikis?
+    JUST DON'T PUT IT IN THE TEMPLATE JESUS """
+def edit_article(request,identifier):
+  # Open to wiki moderators- related field in SinUser
+    user = request.user
+
+    try:
+        art = Article.objects.get(id= identifier)
+    except Article.DoesNotExist:
+        raise Http404
+
+    if user not in art.wiki.moderators.all():
+        if art.wiki.is_moderated and not user.is_admin():
+            raise Http404 
+
+    if request.method != 'POST':
+        form = ArticleForm(initial={'title':art.title})
+        return render_to_response('wiki/edit-article.phtml',{'form':form},context_instance=RequestContext(request)) #Move this to the article view.... too much code just to change a title. Plus, we want sections in separate views... I guess...
+    else:
+        if form.is_valid():
+            cd = form.cleaned_data
+            # Not allowing to change the wiki it belongs to for now
+            art.title = cd['title']
+            art.is_featured = cd['is_featured']
+            art.is_private = cd['is_private']
+            art.save()
+            return render_to_response('wiki/view-article.phtml', {'article':art}, context_instance=RequestContext(request)) # Go back to the article if they just edited it
+        else:
+            return render_to_response('wiki/edit-article.phtml', {'form':form}, context_instance=RequestContext(request))
+""" end edit_article """
+
+def edit_section(request,identifier):
+    try: 
+        section = ArticleSection.objects.get(id= identifier)
+    except ArticleSection.DoesNotExist:
+        raise Http404
+
+    editor = request.user
+
+    if section.article.wiki not in editor.w_mod_privs.all():
+        if section.article.wiki.is_moderated and not user.is_admin():
+            raise Http404
+
+    if request.method == 'POST':
+        form = SectionForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+
+            section.title = cd['title']
+            section.body = cd['body']
+            section.save()
+
+            template_tags = { 'article': section.article, 'changes_saved': True }
+
+            return render_to_response('wiki/view-article.phtml',template_tags,context_instance=RequestContext(request))
+        else: # If the form is invalid
+            return render_to_response('wiki/edit-section.phtml',{'form':form}, context_instance=RequestContext(request))
+    else: # If the request method isn't POST
+        form = SectionForm(initial={'title':section.title,'body':section.body})
+        return render_to_response('wiki/edit-section.phtml',{'form':form},context_instance=RequestContext(request))
+            
+
+def create_section(request,identifier): # I know this isn't necessary but I'm tired and can't think
+    # Should take article identifier as the URL parameter
+    # Obviously, creating a new section will happen
+    #  on the article page, so the template can feed
+    #  the article's ID in to the url to this page
+    author = request.user
+    try:
+        art = Article.objects.get(id= identifier)
+    except ArticleSection.DoesNotExist:
+        raise Http404
+
+    if request.method == 'POST':
+        form = SectionForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            sect = AritcleSection()
+            sect.article = art
+            sect.title = cd['body']
+            sect.body = cd['title']
+            sect.save()
+            return render_to_response('wiki/view-article.phtml',{'article':art},context_instance=RequestContext(request))
+
+        else:
+            
+            template_tags = {
+                'article':art,
+                'form':form,
+                }
+            return render_to_response('wiki/create-section.phtml',template_tags,context_instance=RequestContext(request))
+    else:
+        form = SectionForm()
+        return render_to_response('wiki/create-section.phtml',{'form':form},context_instance=RequestContext(request))
+
+
+
+def moderator_dash(request):
+    # Open to wiki moderators- related field in SinUser
+
+    user = request.user
+    w_mod_privs = SinUser.w_mod_privileges.all()
+
+    template_tags = {
+        'wiki_privs': w_mod_privs,
+        }
+
+    return render_to_response('wiki/moderator-dash.phtml',template_tags,context_instance=RequestContext(request))
+
+
+def thanks(request):
+    return render_to_response('wiki/wiki-thanks.phtml',context_instance=RequestContext(request))
+
+
+# Deletes?

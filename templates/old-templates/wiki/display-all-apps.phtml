@@ -1,0 +1,41 @@
+{% extends "wiki/wiki-style0.phtml" %}
+
+{% block html-title %}{{block.super}}All Apps{% endblock %}
+
+{% block stylesheets %}
+{{block.super}}
+<link href="/css/webapps/wiki/main.css" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<h1>Pretty Admin Pages</h1>
+<h3 class="text-muted">Our last priority</h3>
+<table class="table">
+<th>Wiki Name</td>
+<th>Applicant</td>
+<th>Last Modified</td>
+</tr>
+{% for app in apps %}
+<!-- order by created on or last modified -->
+<tr>
+  <td>
+  {{app.name}}
+  </td>
+  <td>
+  {{app.applicant}}
+  </td>
+  <td>
+  {{app.modified_on}}
+  </td>
+  <td>
+  <button class="btn btn-sm"
+          onclick="window.location='/webapps/wiki-apps/review/{{app.id}}';">
+
+  </button>
+  </td>
+</tr>
+{% endfor %}
+</table>
+</div> <!-- /.container -->
+{% endblock %}

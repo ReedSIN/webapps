@@ -1,0 +1,76 @@
+{% extends "appointments/appointments-base.phtml" %}
+
+{% block javascript %}
+
+<script type="text/javascript">
+function checkSubmit() {
+  var position_name = document.getElementById('form-position-name');
+  var expires_on = document.getElementById('form-expires-on');
+  
+  if (position_name.value.length === 0) {
+    alert("Error! Unable to submit. Empty value for field `Position Name'");
+    return false;
+  }
+  if (position_name.value.length > 50) {
+    alert("Error! Unable to submit. Length of field `Position Name' greater than 50 characters");
+    return false;
+  }
+  if (!expires_on.value.match(/^((0\d)|(1(0|1|2)))-(0|1|2|3)\d-\d\d\d\d$/)) {
+    alert("Error! Unable to submit. Invalid date entered in field `Elapsed Time'.");
+    return false;
+  }
+  return true;
+}
+</script>
+
+
+{% endblock %}
+
+{% block content %}
+{{block.super}}
+<ul class="nav nav-pills">
+  <li class="active"><a href="/webapps/appointments/admin/">&laquo; Back</a></li>
+  <li class="disabled"><a href="#">Edit</li></a>
+</ul>
+
+<form role="form" 
+      method="post" action="/webapps/appointments/admin/submit/" onSubmit='return checkSubmit();'>
+<table class="form-group table table-hover table-responsive">
+  <tr>
+    <td width=50 class="table-header">Position Name
+    </td>
+    <td>
+      <input size="101" type="text" 
+             class="form-control" name="name" id="form-position-name"
+             placeholder="Enter position title" />
+    </td>
+  </tr>
+  <tr>
+    <td class="table-header">
+      Contact
+    </td>
+    <td>{{ user.get_full_name }}</td>
+  </tr>
+  <tr>
+    <td class="table-header">
+      Description
+    </td>
+    <td><textarea class="form-control" rows=10 cols=100 name="description"></textarea>
+    </td>
+  </tr>
+  <tr>
+    <td class="table-header">Expires On</td>
+    <td>
+      <input type="text" name="expires_on" 
+             class="form-control" id="form-expires-on" 
+             placeholder="MM-DD-YYYY" />
+    </td>
+  </tr>
+  <tr>
+    <td colspan=2>
+      <button type="submit" class="btn btn-sm btn-primary btn-block">Submit</button>
+    </td>
+  </tr>
+</table>
+</form>
+{% endblock %}

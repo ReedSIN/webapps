@@ -1,0 +1,251 @@
+{% extends "fundingpoll/fundingpoll-base.phtml" %}
+
+{% block stylesheets %}
+{{ block.super }}
+{% endblock %}
+
+{% block src-javascript %}
+{{block.super}}
+<!--  THIS FILE LOADS jQUERY jesus christ... 
+     <script type="text/javascript" src="/js/webapps/generic/onload.js"></script> 
+-->
+<script type="text/javascript" src="/js/webapps/fundingpoll/schedule.js"></script>
+{% endblock%}
+
+{% block raw-javascript %}
+{{block.super}}
+STATUS_DICT = [
+  'before_registration',
+  'during_registration',
+  'before_voting',
+  'during_voting',
+  'before_budgets',
+  'during_budgets',
+  'end_budgets'
+];
+{% endblock %}
+
+
+{% block content %}
+{{block.super}}
+{% if reg_open %}
+{% if need_to_reg %}
+  <div class="alert alert-danger">
+    <span class="glyphicon glyphicon-warning-sign"></span>&nbsp;
+    <strong> Hey There!</strong> Funding Poll registration is open, 
+    and you are <strong><em>NOT</em></strong> registered yet!
+  </div>
+{% endif %}
+{% endif %}
+<!-- 
+<div>
+  <p>Welcome to Funding Poll!<p>
+  <p>For a quick update on what stage of Funding Poll we're in, see the "Schedule" link in the Funding Poll dropdown.</p>
+  <p>For all other questions, keep on reading, champ!</p>
+</div>
+-->
+
+<div class="row">
+  <div class="col-lg-5 col-md-4 col-sm-4">
+    <h2 class="featurette-heading">Welcome to Funding Poll!
+    <span class="text-muted">So, You Want Some Money?</span></h2>
+    <p class="lead">Suppose you have an awesome idea for an organization, but it requires cash. What do you need to do?
+      Consult the checklist to your right!
+    </p>
+    <p><a href="#whatis"><small>Wait, what is funding poll?</small></a></p>
+  </div> <!-- /.col-lg-2 .col-md-3 .col-sm-3 -->
+
+  <div class="col-lg-7 col-md-8 col-sm-8">
+ 
+    <div class="list-group">
+
+      <a href="#" class="list-group-item active active-alt">
+      <h4 class="list-group-item-heading">
+      <span class="glyphicon glyphicon-list"></span>&nbsp;
+      Your Funding Poll Checklist</h4>
+      <p class="list-group-item-text">
+        Color coded with check boxes, hot damn!
+      </p>
+    </a>
+    {% if user.attended_signator_training %}
+      <a href="#" class="list-group-item checklist-success">
+    {% else %}
+      <a href="#" class="list-group-item checklist-warning">
+    {% endif %}
+        {% if user.attended_signator_training %}
+        <span class="badge badge-alt">
+        <span class="glyphicon glyphicon-check"></span></span>
+        {% else %}
+        <span class="badge badge-alt">
+        <span class="glyphicon glyphicon-unchecked"></span></span>
+        {% endif %}
+      <h4 class="list-group-item-heading">
+        <span class="glyphicon glyphicon-briefcase"></span>&nbsp;
+        Attend Signator Training
+      </h4>
+      <p class="list-group-item-text">
+        {% if user.attended_signator_training %}
+        A little snake told me that you already have. Good job, buddy. 
+        {% else %}
+        As of now, you are not in SIN as a signator. 
+        Get on that if you want cash!
+        {% endif %}
+      </p>
+    </a>
+    
+    {% if has_org %}
+      <a href="#" class="list-group-item checklist-success">    
+    {% else %}
+      <a href="#" class="list-group-item checklist-danger">
+    {% endif %}
+      {% if has_org %}
+        <span class="badge badge-alt">
+        <span class="glyphicon glyphicon-check"></span></span>
+      {% else %}
+        <span class="badge badge-alt">
+        <span class="glyphicon glyphicon-unchecked"></span></span>
+      {% endif %}
+      <h4 class="list-group-item-heading">
+        <span class="glyphicon glyphicon-paperclip"></span>&nbsp;
+        Create an Organization
+      </h4>
+        <p class="list-group-item-text"> 
+	 {% if has_org %}
+	  Well, well, it seems you have {{num_orgs}} of them!
+         {% else %}
+	  Our database shows you have not done this.
+	 {% endif %}
+        </p>
+    </a>
+
+      {% if not reg_open %}
+          <a href="#" class="list-group-item .checklist-meh">
+      {% else %}
+
+        {% if need_to_reg %}
+	  <a href="#" class="list-group-item checklist-warning">
+          <span class="badge badge-alt">
+          <span class="glyphicon glyphicon-unchecked"></span></span>
+        {% else %}
+	  <a href="#" class="list-group-item checklist-success">
+          <span class="badge badge-alt">
+          <span class="glyphicon glyphicon-check"></span></span>
+        {% endif %}
+
+      {% endif %}
+      <h4 class="list-group-item-heading">
+        <span class="glyphicon glyphicon-tags"></span>&nbsp;        
+        Register Said Organization
+      </h4>
+      <p class="list-group-item-text">
+      {% if not reg_open %}
+        Registration is not currently open, so don't you worry 'bout a thang.
+      {% else %}
+       {% if has_org %}
+        {% if need_to_reg %}
+	    <span class="glyphicon glyphicon-warning-sign"></span>&nbsp;
+	    <strong>Danger, Will Robinson!</strong> 
+	    You are not registered for funding poll!
+        {% else %}
+	  Winner, winner chicken dinner! You're all set, champ.
+        {% endif %}
+       {% else %}
+         You have no organizations to register.
+       {% endif %}
+      {% endif %}
+      </p>
+    </a>
+
+    <a href="#" class="list-group-item checklist-meh">
+      <h4 class="list-group-item-heading">
+        <span class="glyphicon glyphicon-star-empty"></span>&nbsp;        
+	<strike>Coerce</strike> Persuade the Populace
+     </h4>
+      <p class="list-group-item-text">
+        Write a cool description, 
+        put up fliers, and get a booth at activities fair!
+      </p>
+    </a>
+  </div> <!-- /.col-lg-9 .col-md-8 .col-sm-8 -->
+ </div><!-- /.row -->
+
+<hr class="featurette-divider">
+
+<div class="newLine">
+  <div class="col-sm-12">
+    <h1 id="whatis">
+      <span class="glyphicon glyphicon-stats"></span>
+      Funding Poll
+      <small><span class="text-muted">I can't Believe it's not Pun(d)ing Poll!</span></small>
+    </h1>
+  </div>
+  <div class="col-lg-12 col-md-12 col-sm-12">
+  <h2 class="featurette heading">Wait, What is Funding Poll?</h2>
+    <p>There are a few different ways of viewing Funding Poll. From a functional standpoint, it is a way for
+the Student Government to dole out money to groups of students in a fair manner, via democracy.
+On the other hand, from a more philosophical standpoint, Funding Poll is an expression of the state of 
+the Student Body as a whole in terms of interests, maturity, and cohesiveness. But enough with that, all
+you <span style="text-style: italics;">really</span> need to ask yourself is the following:</p>
+
+<ol>
+  <li>Do I have a totally awesome idea that my peers will like, support, and (more importantly) vote for?
+  <li>Is my idea actually feasible in all of its awesomeness?</li>
+  <li>Will this idea be made more amazing with some hard cash on hand?</li>
+</ol>
+Thats it. If your idea fits those three categories, you should attend Signator Training and register your brainchild for funding poll. 
+Money is not the key to life, but it does make doing awesome things much easier. And that is really what 
+the Student Government is really trying to do here, empower us, the student body of Reed College, 
+to do totally awesome things. After all, my friends, we do these things not because they are easy, but because they are FRIGGIN SWEET.</p>
+</div> <!-- /.col-lg-12, etc -->
+</div> <!-- /.newLine  -->
+
+<div class="container">
+<div class="row">
+<div class="col-md-12 col-sm-12">
+<h2>How does Funding Poll Work?</h2>
+<p>
+Funding Poll serves as a barometer of student priorities for use of student funds, and
+helps determine that use. The "Top 40" organizations which get the highest level of
+student support get to present budgets to Senate immediately afterwards, in the same
+order (though any organization, including Top 40 orgs, can come to Finance Committee to
+ask for funds later).
+</p>
+
+<p>
+The Funding Poll scoring system works as follows:
+<ol><li>Top 6 (+8)</li>
+<li>Approve (+2)</li>
+<li>No Opinion (0)</li>
+<li>Disapprove (-1)</li>
+<li>Deep 6 (-4)</li>
+</ol>
+</p>
+</div> <!-- /.col-md-12 -->
+</div> <!-- /.row -->
+
+<div class="row">
+<div class="col-md-12">
+<p>
+As you can see, the scoring system encourages you to offer positive input over negative
+input, and the terms "Top 6" and "Deep 6" do not refer to the number of points added or
+subtracted. Rather, they refer to the fact that the absolute greatest number of times you
+can use them is six (6). For example, if you Top 6 five organizations, you can only Deep 6
+one. Use your Top 6 &amp; Deep 6 votes wisely.
+</p>
+</div>
+</div> <!-- /.row -->
+<hr>
+<div class="row">
+<div class="col-md-12">
+<p>
+Happy voting! This is a pretty neat system we have; let's make sure everyone makes use
+of it. Rest assured: despite the $40K poll tax (it's hard work we do here at SIN), this is one
+election the Supreme Court won't be deciding for us. 
+</p>
+<p>
+Thanks to Joel Batterman for contributing to this section. 
+</p>
+</div>
+</div> <!-- /.row       -->
+</div> <!-- /.container -->
+{% endblock %}

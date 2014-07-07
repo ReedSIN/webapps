@@ -1,0 +1,27 @@
+{% extends "fundingpoll/fundingpoll-base.phtml" %}
+
+{% load fundingpoll_tags %}
+
+{% block stylesheets %}
+{{ block.super }}
+<!--<link rel="stylesheet" type="text/css" href="/css/webapps/fundingpoll/registered.css">-->
+{% endblock %}
+
+{% block content %}
+{{block.super}}
+<h2>Registered Organizations</h2>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <tr class="table-header org-row">
+    <td class="org-name-cell">Name</td>
+    <td class="org-sig-cell">Signator</td>
+    </tr>
+{% for f in forgs %}
+  <tr class="org-row">
+    <td class="org-name-cell">{{ f.organization.name }}</td>
+    <td class="org-sig-cell">{{ f.organization.signator.get_full_name }}</td>
+  </tr>
+{% endfor %}
+</table>
+</div>
+{% endblock %}

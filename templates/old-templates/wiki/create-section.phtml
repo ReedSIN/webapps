@@ -1,0 +1,35 @@
+{% extends "wiki/wiki-style1.phtml" %}
+
+{% block html-title %}{{block.super}}Add to {{article.name}}{% endblock %}
+
+{% block content %}
+<div class="row">
+<div class="col-md-4">
+<h2>Add a New Section to {{article.name}}</h2>
+<p class="lead">
+Use the tools on the right.
+</p>
+</div> <!-- /.col-md-4 -->
+<div class="col-md-6 col-md-offset-2">
+{{form.title.errors}}
+<label for="id_title" class="sr-only"></label>
+{{form.title}}
+</div> <!-- /.col-md-6...  -->
+</div> <!-- /.row -->
+
+<hr>
+
+<div class="row">
+<div class="col-md-10">
+{{form.body.errors}}
+<label for="id_body" class="sr-only"></label>
+{{form.body}}
+</div> <!--/.col-md-10-->
+<div class="col-md-2">
+<!-- Place the magick JS buttons here -->
+<!-- should insert or output proper html tags -->
+<!-- could provide a live preview? would need to check for
+     unclosed tags...  -->
+</div>
+</div> <!--/.row -->
+{% endblock %}

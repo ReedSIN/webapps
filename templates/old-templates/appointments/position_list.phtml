@@ -1,0 +1,42 @@
+{% extends "appointments/appointments-base.phtml" %}
+
+{% block content %}
+{{block.super}}
+<h2>Current Open Positions</h2>
+<hr class="featurette-divider">
+
+<table class="table table-hover table-responsive">
+  <tr class="table-header">
+  <td>
+    Name
+  </td>
+  <td>
+  Contact
+  </td>
+  <td>
+  Deadline
+  </td>
+  <td>
+  Action
+  </td>
+</tr>
+{% for o in object_list %}
+<tr>
+<td>
+{{ o.name }}
+</td>
+<td>
+{{ o.contact.get_full_name }}
+</td>
+<td>
+{{ o.expires_on|date:"m-d-Y" }}
+</td>
+<td>
+<form action="/webapps/appointments/my_applications/create/{{ o.id }}" method="get">
+<button type="submit" class="btn btn-primary btn-sm"/>Apply</button>
+</form>
+</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

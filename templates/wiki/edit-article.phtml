@@ -1,0 +1,32 @@
+{% extends "wiki/wiki-style1.phtml" %}
+
+{% block content %}
+<form action="" method="POST">
+<div class="row">
+<div class="col-md-3">
+
+</div> <!-- /.col-md-3 -->
+<div class="col-md-9">
+<p>
+{{form.title.errors}}
+<label for="id_title" class="sr-only"></label>
+{{form.title}}
+</p>
+<p>
+{{form.is_featured.errors}}
+<label for="id_is_featured" class="sr-only"></label>
+{{form.is_featured}}
+</p>
+<p>
+{{form.is_private.errors}}
+<label for="id_is_private" class="sr-only"></label>
+{{form.is_private}}
+</p>
+</div> <!-- /.col-md-9 -->
+</div> <!-- /.row -->
+<hr />
+<button class="btn btn-primary" type="submit">
+Submit
+</button>
+</form>
+{% endblock %}

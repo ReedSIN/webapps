@@ -1,0 +1,199 @@
+<div id="wiki" class="home-info-section">
+  <div class="page-header">
+    <h2>
+      <span class="glyphicon glyphicon-globe"></span>&nbsp;
+      the wiki
+    </h2>
+  </div> 
+  <div class="row">
+    <div class="col-md-5">
+      <p class="lead">
+	<span class="text-muted">
+	  read the bylaws. all of them.
+	  <a class="btn btn-block btn-default"
+	     href="/senate"
+	     target="_blank">
+	    <i>clicky 4 more wiki!</i>
+	    &nbsp;
+	    &raquo;
+	  </a>
+	</span>
+      </p>
+    </div>
+    <div class="col-md-7">
+      <p>
+	the senate wiki. &nbsp;
+	it has many things. 
+      </p>
+      <p class="sin-muted smaller">
+	like the bylaws. which kinda look like this: &nbsp;
+	<span class="glyphicon glyphicon-book"></span>
+      </p>
+      <p>
+	oh, you'll also find info on <b class="larger">rksk</b> and <b class="larger">sound kollektiv</b>
+      </p>
+    </div>
+  </div> 
+</div>
+
+<div id="appointments" class="home-info-section">
+  <div class="page-header">
+    <h2>
+      <span class="glyphicon glyphicon-tower"></span>&nbsp;
+      appointments
+    </h2>
+  </div>
+  <div class="row">
+    <div class="col-md-5">
+      <p class="lead">
+	<span class="text-muted">
+	  delete the j-board app you wrote
+	  half-drunkenly on a tuesday
+	</span>
+      </p>
+    </div>
+    <div class="col-md-7">
+      <p>
+	<b>
+	  student body positions
+	</b>
+	<span class="sin-muted smaller">
+	  (you down with <b>SBP</b>s? yeah, you know me)
+	</span>
+      </p>
+      <p>
+	the appointments webapp is where 
+	you can submit (and revise) applications for positions within the student body*
+      </p>
+      <p class="sin-muted smaller">
+	*this is actually much less dirty than it sounds.
+      </p>
+    </div>
+  </div> <!-- /.row -->
+</div>
+
+<div id="orgs" class="home-info-section">
+  <div class="page-header">
+    <h2>
+      <span class="glyphicon glyphicon-paperclip"></span>
+      the organization manager
+    </h2>
+  </div>
+  <div class="row">
+    <div class="col-md-5">
+      <p class="lead">
+	<span class="text-muted">
+	  the <b>#1</b> spot for organization management
+	</span>
+      </p>
+    </div>
+    <div class="col-md-7">
+      <p>
+	<b>
+	  the organization manager is where you can manage organizations.
+	</b>
+      <p>
+	you must come here <b><i>before</i></b> registering for funding poll
+      </p>
+      <p>
+	<div class="well">
+	  <span class="glyphicon glyphicon-exclamation-sign"></span>
+          i know most things about you. <br>
+	  the thing i know most certainly, though, is that you
+	  <strong>
+            {% if user.attended_signator_training %}
+            have attended signator training
+	    <span style="font-size:larger;">☺</span>
+            {% else %}
+            have not attended signator training yet ☹
+            {% endif %}
+	  </strong>
+	</div>
+      </p>
+    </div>
+  </div> <!-- /.row -->
+</div>
+
+      <div id="fund" class="home-info-section">
+        <div class="page-header">
+          <h2>
+	    <span class="glyphicon glyphicon-stats"></span>&nbsp;
+	    funding poll
+	  </h2>
+        </div>
+
+	<div class="row">
+	 <div class="col-md-5">
+	  <p class="lead">
+	    <span class="text-muted">
+	      because democracy or something
+	    </span>
+	  </p>
+	 </div>
+	 <div class="col-md-7">
+	  <p class="large-ass">
+	    <span class="marg">voting! huzzah!</span>
+	  </p>
+	  <p class="text-muted">
+	    a more substantive explanation lives on the funding poll home page
+	  </p>
+	 </div>
+	</div> <!-- /.row -->
+
+      </div>
+      <div id="fin" class="home-info-section">
+        <div class="page-header">
+          <h2>
+	    <span class="glyphicon glyphicon-usd"></span>&nbsp;
+	    finance committee
+	  </h2>
+        </div>
+
+	<div class="row">
+	 <div class="col-md-5">
+	  <p class="lead"><span class="text-muted">
+	    writebudgetsgetmoneyYOLO69420
+  	  </span></p>
+	 </div>
+	 <div class="col-md-7">
+	  <p>
+	    <b>
+	      request money and remember your fucking receipts
+	    </b>
+	  </p>
+	  <p class="text-muted">
+	    can't wait for ~*~creepy-alum-ball~*~
+	  </p>
+	 </div>
+	</div> <!-- /.row -->
+
+      </div>
+      <div id="sinpost" class="home-info-section">
+        <div class="page-header">
+          <h2>
+	    <span class="glyphicon glyphicon-comment"></span>&nbsp;
+	    sinpost
+	  </h2>
+        </div>
+	<div class="row">
+	 <div class="col-md-5">
+  	  <p class="large-ass">
+	    <span class="text-muted">
+	      ;) ;) ;)
+	    </span>
+	  </p>
+	 </div>
+	 <div class="col-md-7">
+	  <p><b>
+	    missed connections, 
+	    lost & found, 
+	    trade, 
+	    happenings, 
+	    and ramblings
+	  </b></p>
+	  <p>
+	    we got it all
+	  </p>
+	 </div>
+	</div> <!-- /.row -->
+      </div>

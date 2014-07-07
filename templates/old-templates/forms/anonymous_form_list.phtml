@@ -1,0 +1,19 @@
+{% extends "forms/form-base.phtml" %}
+
+{% block content %}
+<table border=1>
+  <tr>
+  <td>Form Name</td>
+  <td>Signator</td>
+  <td>Organization</td>
+  </tr>
+{% for model in form_models %}
+  <tr>
+  <td>{{ model.name }}</td>
+  <td>{{ model.organization.signator.get_full_name }}</td>
+  <td>{{ model.organization.name }}</td>
+  <td><input type="submit" value="view" onclick="window.location = '/webapps/forms/view/{{ model.id }}';"></td>
+  </tr>
+{% endfor %}
+</table>
+{% endblock %}

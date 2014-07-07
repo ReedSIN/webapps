@@ -1,0 +1,6 @@
+*.svn
+*_socket
+settings.py
+*.pyc
+*.#
+*.~

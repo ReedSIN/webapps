@@ -1,0 +1,79 @@
+{% extends "wiki/wiki-style1.phtml" %}
+
+{% block html-title %}{{block.super}}Test{% endblock %}
+
+{% block content %}
+
+<div class="row">
+<div class="col-md-4">
+<h1> H1 </h1>
+<h2> H2 </h2>
+<h3> H3 </h3>
+<h4> H4 </h4>
+<h5> H5 </h5>
+<h6> H6 </h6>
+</div>
+<div class="col-md-3 col-md-offset-1">
+<h3 class="featurette-heading">Special Heading?</h3>
+<p class="lead"> Leading Text <span class="text-muted">Ooooooh</span></p>
+<p> Oh and this! </p>
+</div>
+<div class="col-md-4">
+<div class="well">
+<b>This is a regular well with bold text</b>
+<i> (and italics!) </i>
+</div> <!--/.well-->
+</div>
+<div class="col-md-6 col-md-offset-3">
+<h3 class="featurett-heading">Rock this Button</h3>
+<div class="btn-group">
+<button class="btn btn-default">Default</button>
+<button class="btn btn-primary">Primary</button>
+<button class="btn btn-warning">Warning</button>
+<button class="btn btn-danger">Danger</button>
+<button class="btn btn-success">Success</button>
+</div> <!-- /.btn-group -->
+<button class="btn btn-default active">Default</button>
+<button class="btn btn-primary active">Primary</button>
+<button class="btn btn-warning active">Warning</button>
+<button class="btn btn-danger active">Danger</button>
+<button class="btn btn-success active">Success</button>
+
+<button class="btn btn-default disabled">Default</button>
+<button class="btn btn-primary disabled">Primary</button>
+<button class="btn btn-warning disabled">Warning</button>
+<button class="btn btn-danger disabled">Danger</button>
+<button class="btn btn-success disabled">Success</button>
+
+</div>
+</div> <!-- /.row -->
+
+<div class="table-responsive">
+<table class="table">
+<tr>
+<th> Standard </td>
+<th>  Responsive </td>
+</tr>
+<tr>
+<td> What does this look like? </td>
+<td> Or this? </td>
+</tr>
+</table>
+</div> <!-- /.table-responsive -->
+<hr />
+<table class="table table-condensed">
+
+</table>
+<table class="table table-hover">
+<tr>
+<th> Standard </td>
+<th> Hover </td>
+</tr>
+<tr>
+<td> Hey there!!!</td>
+<td> Lorem ipsum </td>
+</tr>
+</table>
+
+
+{% endblock %}

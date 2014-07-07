@@ -1,0 +1,32 @@
+{% extends "appointments/appointments-base.phtml" %}
+
+{% block content %}
+
+<form onsubmit="return false;">
+<table border=1>
+<tr>
+<td>Name:</td>
+<td>Num Apps:</td>
+<td>Expires On:</td>
+<td>Created On:</td>
+</tr>
+{% for p in positions %}
+<tr>
+<td>{{ p.name }}</td>
+<td>{{ p.application_set.count }}</td>
+<td>{{ p.expires_on|date:"m-d-Y" }}</td>
+<td>{{ p.created_on|date:"m-d-Y" }}</td>
+<td><input type="submit" value="apps"
+onclick="window.location = '/webapps/appointments/admin/position-{{ p.id }}/';"></td>
+<td><input type="submit" value="edit"
+onclick="window.location = '/webapps/appointments/admin/edit/{{ p.id }}';">
+</td>
+<td><input type="submit" value="delete"
+onclick="var c=confirm('Are you sure you wish to delete this position?'); if(c){window.location = '/webapps/appointments/admin/delete/{{ p.id }}';}"></td>
+</tr>
+{% endfor %}
+</table>
+<input type="submit" value="Create New Position"
+onclick="window.location = '/webapps/appointments/admin/create/';">
+</form>
+{% endblock %}

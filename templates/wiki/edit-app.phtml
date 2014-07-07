@@ -1,0 +1,31 @@
+{% extends "wiki/wiki-style1.phtml" %}
+
+{% block content %}
+<form action="" method="POST">
+<p>
+{{form.name.errors}}
+<label for="id_name" class="sr-only"></label>
+{{form.name}}
+</p>
+<p>
+{{form.is_moderated.errors}}
+<label for="id_is_moderated" class="sr-only"></label>
+{{form.is_moderated}}
+</p>
+<p>
+{{form.has_comments.errors}}
+<label for="id_has_comments" class="sr-only"></label>
+{{form.has_comments}}
+</p>
+<p>
+{{form.description.errors}}
+<label for="id_description" class="sr-only"></label>
+{{form.description}}
+</p>
+<p>
+{{form.justification.errors}}
+<label for="id_justification" class="sr-only"></label>
+{{form.justification}}
+</p>
+</form>
+{% endblock %}

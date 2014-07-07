@@ -1,0 +1,176 @@
+{% comment %}
+  HOT DAMN!
+  It's been almost a year since I started doing the sin thing with JM.
+  I would not have been able to do this 10 months ago. No way no how.
+  The first re-do of SIN was okay, but still very clunky. 
+  ---
+  I think it's about time we threw off the shackles of Reed-branding.
+  Now, I'm going for a bit more of a minimal design.
+  ---
+  This new template is supposed to be my gift to posterity. 
+  It's documented on the new wiki: 
+    [[ if there isn't a link here it means i forgot to add it or there aren't docs hahahaaaaa ]]
+  ---
+  If you are going to redesign SIN in some capacity
+  (I very highly suggest doing so- tt's a terrific, albeit frustrating, exercise),
+  I only ask that you please preserve these templates.
+  ---
+  That's all.
+  ---
+  With love,
+            BB (7/5/2014) 
+{% endcomment %}
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="sin sinning sinful evil devil morality">
+    <meta name="author" content="BooJay Labs">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta property="og:site_name" content="sin" />
+    <meta property="og:title" content="the student information network"/>
+    <meta property="og:description" content="host of webapps for reed college students" />
+    <meta property="og:image" content=""> <!-- TODO logo -->
+    <meta property="og:url" content="http://sin.reed.edu">
+    
+    <title>s i n | {% block html-title %}{% endblock %}</title>
+
+    <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/webapps/bb-redux/bb-main.css" rel="stylesheet">
+    {% block stylesheets %}
+
+    {% endblock %}
+    <script src="/js/jquery.js"></script>
+    <script src="/js/webapps/bb-redux/bb-main.js"></script>
+    {% comment %}
+    *** IMPORTANT *** 
+    *** Modifying the javascript blocks WILL BREAK THINGS. Everywhere.***
+    -- There are three blocks for including extra javascript here:
+    -- [1] on-load
+           this is to preserve on-load events from earlier templates
+           I'll hopefully document all of its uses on the wiki
+    -- [2] raw-javascript
+           This is a block for adding additional javascript-- WITHOUT SCRIPT TAGS
+           This seriously needs to be phased out because it's redundant
+           Let's go ahead and call it deprecated??
+    -- [3] src-javascript
+           This is a block for adding additional javascript source files
+    Documentation is also on the wiki.
+    {% endcomment %}
+    <script>
+        // fires functions from bb-main.js
+    	$(document).ready(function(){
+
+                {% block on-load %}
+
+                {% endblock %}
+
+                wmd_poi();             // flips the fire, flips it back
+                classify_active_nav(); // adds an "active" class to proper side-nav item, 
+                                       // if we're 'home', it also disables middle-button link
+    	});
+      {% block raw-javascript %}
+
+      {% endblock %}
+    </script>
+    {% block src-javascript %}
+
+    {% endblock %}
+
+    {% block head %}
+      {% comment %}
+      ***NOTE***
+      -- This is another legacy block.
+      -- I have no clue what it does
+      -- I'll try to find out before my creds expire.
+      {% endcomment %}
+    {% endblock %}
+</head>
+<body>
+{% include "includes/top-bar.html" %}
+{% include "includes/middle-home-button.html" %}
+<header>
+  {% comment %}
+     Another legacy block below ("fancy-header").
+     This one actually is in use for most templates.
+     Hooray for backwards compatibility!
+  {% endcomment %}
+	<div class="app-name">
+		{% block fancy-header %}
+		  {% comment %}Just add the application's name here.{% endcomment %}
+		{% endblock %}
+	</div>
+	<div class="app-nav">
+		<ul>
+		  {% comment %}
+		    This will be different for each app.
+		    See the wiki for how to add intra-app navigation. 
+		  {% endcomment %}
+		  {% block app-nav %}
+			<li class=""><a href="#"><div>home</div></a></li>
+			<li class=""><a href="#"><div>new</div></a></li>
+			<li class=""><a href="#"><div>edit</div></a></li>
+			<li class=""><a href="#"><div>other</div></a></li>
+		  {% endblock %}
+		</ul>
+	</div>
+	<hr>
+</header>
+{% comment %}
+  side-bar is pretty hefty, so it's an include.
+
+  NOTE about the side-bar:
+  -- If the hacky jQuery thing that adds an active class (see above: $(document).ready...) is not working,
+  -- try putting blocks in each link-class. It's a total pain, I know,
+  -- but that's the price to pay for a dynamic nav bar.
+{% endcomment %}
+<div class="big-wrap">
+{% include "includes/side-bar.html" %}
+{% comment %}
+  Lastly, here's where the content goes! (in ".main")
+  Check the wiki for some explanation of what's going on here.
+  IMPORTANT!
+  -- You need to wrap each collection of 12 columns in a DIV of class "row".
+     This is a hack to fix some funkiness with how columns were spacing/collapsing
+     relative to the side-bar. I'm not sure if it's 100% solid. Godspeed.
+  -- I have had best results with "md" sized columns.
+  -- Remember to check the wiki for a better explanation of the "hide-bar" class if that's confusing you
+{% endcomment %}
+<div class="main">
+	<div class="container-fluid">
+	{% block content %}
+
+	{% endblock %}
+
+	{% comment %}
+	        ---------------------------
+		Fuck it. Here's an example!
+	        ---------------------------
+		<div class="row">
+			<div class="col-md-6">
+			  STUFF
+			</div>
+			<div class="col-md-6">
+			  THINGS
+			</div>
+		</div>
+	{% endcomment %}
+	</div> <!-- /.container-fluid -->
+</div> <!-- /.main -->
+</div> <!-- /.big-wrap -->
+{% include "includes/footer-redux.html" %}
+
+<script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+{% comment %}
+  So, the following is a legacy block. 
+  No clue if anything depends on it so I kept it in.
+  Should be deprecated!!!
+  -BB (7/5/14)
+{% endcomment %}
+
+{% block extra-js %}
+
+{% endblock %}
+</body>
+</html>

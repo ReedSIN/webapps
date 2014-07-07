@@ -1,0 +1,40 @@
+{% extends "classifieds/class-base2.phtml" %}
+
+{% block content %}
+{{block.super}}
+
+
+  <div class="row sinepost-welcome">
+    <div class="col-md-12 col-sm-12">
+      <h1 class="featurette-heading">
+        <span style="font-size:larger">Welcome to <em>sinpost</em></span>.
+      </h1>
+      <h3>
+       <span class="text-muted"></span>
+      </h3>
+        <p class="lead">
+	    <em>sinpost</em>&nbsp;
+	    <span class="text-muted">(pron. ˈsinˌpōst)</span> 
+	    is a classifieds service for and by Reed students.
+	</p>
+	<p> 
+	  <em>Through SIN, may we be free</em>
+	</p>
+	<p>
+	  <em>from the prying eyes of our administrators</em>.
+	</p>
+	<p>
+	  <strong>Amen</strong>.
+	</p>
+	  <div class="btn-group">
+  	    <a class="btn btn-default btn-lg" href="/webapps/classifieds/new">
+              Create New Post &raquo;
+            </a>
+	    <a class="btn btn-default btn-lg" href="/webapps/classifieds/my_posts/">
+              View My Posts &raquo;
+            </a>
+	  </div> <!-- /.btn-group -->
+        </div>
+      </div> <!-- /.row -->
+
+{% endblock %}

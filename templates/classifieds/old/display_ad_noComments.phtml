@@ -1,0 +1,83 @@
+{% extends "classifieds/class-base2.phtml" %}
+
+{% block raw-javascript %}
+// not in use currently
+function subForm() {
+  var subject = document.getElementById('em-subject');
+  var title = "{{ad.title}}";
+  var title_array = title.split(" ");
+  for (var i = 0; i < title_array.length; i++) {
+    if (i !== 0) {subject.value += "_";}
+    subject.value += title_array[i];
+  }
+
+  var ferm = document.getElementById('form-email');
+  ferm.submit()
+}
+
+{% endblock %}
+
+<!-- Only variable necessary is 'ad' -->
+{% block content %}
+{{block.super}}
+
+<div class="row">
+  <div class="col-md-5 col-sm-5">
+    <h1>
+     {{ad.title}}
+    </h1>
+    <p class="lead">
+      <span class="text-muted">
+        ({{ad.creator}}){% if ad.timestamp_time %} at {{ad.timestamp_time}}{% endif %}<br>
+	on {{ad.timestamp}}.
+
+      </span>
+    </p>
+    {% if ad.creator == request.user %}
+    <div class="row">
+      <div class="col-sm-3 col-md-3">
+      <form action="/webapps/classifieds/edit/{{ad.id}}/">
+
+        <button class="btn btn-primary btn-sm"
+                type="submit">
+
+          <span class="glyphicon glyphicon-edit"></span>&nbsp;
+          Edit
+        </button>
+      </form>
+      </div>
+      <div class="col-sm-3 col-md-3">
+      <form action="/webapps/classifieds/delete/{{ad.id}}/">
+
+        <button class="btn btn-primary btn-sm"
+                type="submit">
+
+          <span class="glyphicon glyphicon-remove"></span>&nbsp;
+          Delete
+        </button>
+      </form>
+      </div>
+    </div>
+    {% else %}
+      <form action="mailto:{{ad.creator_email}}" method="GET" id="form-email">
+        <input name="subject" type="hidden" value="[SINEPOSTS]&nbsp;Re:&nbsp;Post&nbsp;{{ad.id}} - {{ad.title}}" id="em-subject" />
+        <button class="btn btn-primary btn-sm" type="submit">
+          <span class="glyphicon glyphicon-send"></span>&nbsp;
+          Email Post Author
+        </button>
+      </form>      
+    {% endif %}
+    
+  </div> <!-- /.col-md-5 ... -->
+  <div class="col-md-7 col-sm-7">
+    <br />
+    <div class="well well-lg">
+      {{ad.text}}
+    </div> <!-- /.well -->
+  </div>
+</div> <!-- /.row -->
+<hr class="featurette-divider">
+
+{% include "classifieds/includes/classif-nav.phtml" %}
+
+{% endblock %}

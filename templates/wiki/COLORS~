@@ -1,0 +1,11 @@
+
+.l {
+  /* light green */
+  color: rgba(189,208,156,1);
+}
+
+.m {
+  /* dark blue  */
+  color: rgba(78,97,114,1);
+}
+

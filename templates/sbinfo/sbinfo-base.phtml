@@ -1,0 +1,14 @@
+{% extends "base.phtml" %}
+
+{% block html-title %}Student Body Information{% endblock %}
+{% block header-title %}<a href="/webapps/sbinfo/" class="app-body-sidebar-link">Student Body Information</a>{% endblock %}
+
+{% block sidebar %}
+
+<div class="app-body-sidebar-link-container">
+  <a href="/webapps/sbinfo/submit/" class="app-body-sidebar-link">Submit an Entry</a>
+</div>
+<div class="app-body-sidebar-link-container">
+  <a href="/webapps/sbinfo/current/" class="app-body-sidebar-link">View Current Submissions</a>
+</div>
+{% endblock %}

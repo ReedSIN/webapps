@@ -1,0 +1,18 @@
+
+<nav class="navbar-side" role="navigation">
+  <div class="navbar-collapse sidebar-collapse collapse">
+    <ul id="side" class="nav navbar-nav side-nav">
+      <li class="side-user hidden-xs"></li>
+      <li class="panel">
+	<a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#charts">
+	  <!-- glyph and name--> Stuff
+	</a>
+	<ul class="nav in" id="charts"
+	    style="height:auto;">
+	  <li><a href="#"> stuffa </a></li>
+	  <li><a href="#"> stuffb </a></li>
+	</ul>
+      </li>
+    </ul>
+  </div>
+</nav>

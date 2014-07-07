@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15">
+<link href='http://fonts.googleapis.com/css?family=Buenard:400,700' rel='stylesheet' type='text/css'>
+
+{% block head %}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="/css/webapps/app-style-new.css" />
+{% endblock %}
+
+{% block javascript %}{% endblock %}
+
+<title>{% block html-title %}{% endblock %}</title>
+
+</head>
+
+<body>
+<img id="owl" src="http://sin.reed.edu/images/Owl.svg"><!--Can use Django template reference instead-->
+<div id="rectangle"><h1>SIN</h1></div><div id="header"><!--don't break up this line, will break inline style-->
+
+    {% block header-title %}{% endblock %}
+
+  </div>
+
+<div id="spacer"></div>  
+<div>
+	<div id="sidebar">
+      {% block sidebar %}{% endblock %}
+       <p><b>Logged in as:</b></br>
+       {{user}}</br>
+       <a href="/webapps/logout">Log out</a> </p>
+	</div>
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+</div>
+
+  <div id="footer">
+    <div id="footer-content">
+      {% block footer %}{% endblock %}
+    </div>
+  </div>
+</div>
+</body>
+</html>

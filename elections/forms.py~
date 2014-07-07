@@ -1,0 +1,17 @@
+from django import forms
+from webapps.elections.models import *
+
+"""
+
+-- Jacob Menick
+-- April 2014
+
+Forms for the elections app. 
+
+"""
+
+class ElectionForm(forms.Form):
+    position = forms.CharField(max_length = 50)
+    numSeats = forms.IntegerField()
+    
+    

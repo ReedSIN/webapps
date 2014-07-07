@@ -1,0 +1,41 @@
+{% extends "forms/form-base.phtml" %}
+
+{% block stylesheets %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="/css/webapps/object-detail-style.css" />
+{% endblock %}
+
+{% block content %}
+
+<div class="object-div">
+  <div class="object-div-title">
+  User:
+  </div>
+  <div class="object-div-content">
+  {{ user }}
+  </div>
+</div>
+
+{% for f in data.get_field_data %}
+{% if f.field_model.is_textarea %}
+<div class="object-div">
+  <div class="object-div-textarea-title">
+  {{ f.field_model.title }}:
+  </div>
+  <div class="object-div-textarea-content">
+  {{ f.get_value }}
+  </div>
+</div>
+{% else %}
+<div class="object-div">
+  <div class="object-div-title">
+  {{ f.field_model.title }}:
+  </div>
+  <div class="object-div-content">
+  {{ f.get_value }}
+  </div>
+</div>
+{% endif %}
+{% endfor %}
+
+{% endblock %}

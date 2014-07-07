@@ -1,0 +1,112 @@
+{% extends "fundingpoll/fundingpoll-base.phtml" %}
+
+{% load fundingpoll_tags %}
+
+{% block stylesheets %}
+{{ block.super }}
+<!--<link rel="stylesheet" type="text/css" href="/css/webapps/object-detail-style.css" />-->
+<!--<link rel="stylesheet" type="text/css" href="/css/webapps/view-one-budget-style.css" />-->
+{% endblock %}
+
+{% block content %}
+{{block.super}}
+
+<div class="row">
+  <div class="col-lg-5 col-md-4 col-sm-4">
+    <h2 class="featurette-heading">
+      {{ budget.organization.organization.name }}
+      <span class="text-muted">({{budget.signator_user.get_full_name}})</span>
+    </h2>
+    <p class="lead">{{budget.signator_user.first_name}} requested ${{budget.requested}}.</p>
+    <p> 
+      You can direct specific inquiries to {{budget.organization.organization.name}} by email (<a href="mailto:{{budget.organization.organization.email|nbsp|safe}}?Subject={{budget.organization.organization.name}}%20Budget">{{budget.organization.organization.email|nbsp|safe}}</a>).
+    </p>
+  </div> <!-- /.col-lg-5 ... -->
+  <div class="col-lg-7 col-md-8 col-sm-8">
+    <div class="table-responsive">
+    <table class="table table-hover">
+      <tr>
+        <td class="table-header">Created</td>
+	<td>{{ budget.created_on|date:"h:i A F d, Y" }}</td>
+      </tr>
+      <tr>
+        <td class="table-header">Modified</td>
+	<td>{{budget.modified_on|date:"h:i A F d, Y" }}</td>
+      </tr>
+      <tr>
+        <td class="table-header">Description</td>
+	<td>{{budget.description|nbsp|safe}}</td>
+      </tr>
+    </table>
+    </div> <!-- /.table-responsive -->
+  </div> <!-- /.col-lg-7 ...-->
+</div> <!-- /.row -->
+
+<hr class="featurette-divider">
+
+{% for i in items %}
+<div class="row featurette">
+  <div class="col-lg-5 col-md-4 col-sm-3">
+    <h2 class="featurette-heading">
+      {{ i.name|safe }}<h2><h2><span class="text-muted">(${{i.requested}})</span>
+    </h2>
+  </div>
+  <div class="col-lg-7 col-md-8 col-sm-9">
+  <p>{{ i.description|nbsp|safe }} </p>
+<!--    <table class="table table-hover"><tr><td>{{ i.description|nbsp|safe }}</td></tr></table> -->
+  </div>
+</div>
+{% endfor %}
+
+<fieldset>
+<legend>General Info:</legend>
+<div class="budget-big-div">                                                              
+  <div class="object-div">                                                   
+    <div class="object-div-title">Signator:</div>                           
+    <div class="object-div-content">{{ budget.signator_user.get_full_name }}</div>                                
+  </div>                                                                              
+  <div class="object-div">                                                      
+    <div class="object-div-title">Email:</div>                                 
+    <div class="object-div-content">{{ budget.organization.organization.email|nbsp|safe }}</div>                                   
+  </div>                                                                              
+  <div class="object-div">                                               
+    <div class="object-div-title">Organization:</div>                   
+    <div class="object-div-content">{{ budget.organization.organization.name }}</div>                            
+  </div>                                                                              
+  <div class="object-div">                                                  
+    <div class="object-div-title">Requested:</div>                         
+    <div class="object-div-content">${{ budget.requested }}</div>                               
+  </div>                                                                              
+  <div class="object-div">                                                 
+    <div class="object-div-title">Created:</div>                          
+    <div class="object-div-content">{{ budget.created_on|date:"h:i A F d, Y" }}</div>                              
+  </div>                                                                              
+  <div class="object-div">                                                
+    <div class="object-div-title">Modified:</div>                        
+    <div class="object-div-content">{{ budget.modified_on|date:"h:i A F d, Y" }}</div>                             
+  </div>                                                                              
+  <div class="object-div">                                                
+    <div class="object-div-title">Description:</div>                     
+    <div class="object-div-content">{{ budget.description|nbsp|safe }}</div>                             
+  </div>                                                                              
+</div>
+</fieldset>
+{% for i in items %}
+  <fieldset>
+  <legend>Budget Item:</legend>
+    <div class="object-item-div">
+       <div class="object-item-div-title">Item Name:</div>
+       <div class="object-item-div-content">{{ i.name|safe }}</div>
+    </div>
+    <div class="object-item-div">
+       <div class="object-item-div-textarea-title">Description:</div>
+       <div class="object-item-div-textarea-content">{{ i.description|nbsp|safe }}</div>
+    </div>
+    <div class="object-item-div">
+       <div class="object-item-div-title">Requested:</div>
+       <div class="object-item-div-content">${{ i.requested }}</div>
+    </div>
+  </fieldset>
+{% endfor %}
+
+{% endblock %}

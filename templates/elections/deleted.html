@@ -1,0 +1,17 @@
+{% extends "elections/elec-base.html" %}
+<!-- Only variable necessary is 'ad' -->
+{% block content %}
+{{block.super}}
+
+<div class="jumbotron">
+<h1> We just Old Yellered your Election. </h1>
+<h3 class="featurette-heading"><span class="text-muted">Bye, puppy :(</span></h3>
+<div class="right">
+  <a href="/webapps/elections/admin/" class="btn btn-lg btn-primary">
+    <span style="color: white;">Return to elections manager&nbsp;
+    <span class="glyphicon glyphicon-circle-arrow-right"></span></span>
+  </a>
+</div>
+</div>
+
+{% endblock %}

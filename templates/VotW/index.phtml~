@@ -1,0 +1,8 @@
+{% extends booty-base.phtml %}
+
+{% block content %}
+{{block.super}}
+<center>
+<iframe width="560" height="315" src="//www.youtube.com/embed/UjoXOIC7Aqg" frameborder="0" allowfullscreen></iframe>
+</center>
+{% endblock %}

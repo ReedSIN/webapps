@@ -1,0 +1,3 @@
+{% extends "wiki/wiki-style1.html" %}
+
+{% block html-title %}{{block.super}}Test{% endblock %}

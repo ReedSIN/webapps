@@ -1,0 +1,96 @@
+{% extends "finance/finance-base.phtml" %}
+
+{% block content %}
+<fieldset>
+<legend>Unapproved Budgets</legend>
+<form method="get" onsubmit="this.method = form_method; this.action = '/webapps/finance/my_budgets/' + form_action + '/' + budget + '/';">
+<table class="budget-table" border=1>
+  <tr class="budget-header-row">
+     <td class="budget-row-organization">
+     Organization
+     </td>
+     <td class="budget-row-requested">
+        Requested
+     </td>
+     <td class="budget-row-allocated">
+        Allocated
+     </td>
+     <td class="budget-row-created_on">
+        Created
+     </td>
+     <td class="budget-row-modified_on">
+        Modified
+     </td>
+</tr>
+{% for b in unapproved_budgets %}
+  <tr class="budget-row {% cycle even,odd %}" onclick="javascript:document.location.href = 'view_budgets/{{ b.id }}';" onmouseover="fakeLinkHover(this, true)" onmouseout="fakeLinkHover(this, false)">
+     <td class="budget-row-organization">
+        {{ b.organization.name }}
+     </td>
+     <td class="budget-row-requested">
+        <a href="view_budgets/{{ b.id }}" class="budget-row-detailed-link">${{ b.requested }}</a>
+     </td>
+     <td class="budget-row-allocated">
+        <a href="view_budgets/{{ b.id }}" class="budget-row-detailed-link">${{ b.allocated }}</a>
+     </td>
+     <td class="budget-row-created_on">
+        {{ b.created_on|date:"m-d-Y" }}
+     </td>
+     <td class="budget-row-modified_on">
+       {{ b.modified_on|date:"m-d-Y" }}
+     </td>
+     <td class="budget-row-edit-button">
+       <input type="submit" value="edit" onclick="budget = {{ b.id }}; form_action = 'edit'; form_method = 'get';"></input>
+     </td>
+     <td class="budget-row-delete-button">
+       <input type="submit" value="delete" onclick="if(confirm('Are you sure you wish to delete this budget?')){budget = {{ b.id }}; form_action = 'delete'; form_method = 'post';return true;} return false;"></input>
+     </td>
+  </tr>
+{% endfor %}
+</table>
+</form>
+</fieldset>
+
+<fieldset>
+<legend>Approved Budgets:</legend>
+<table class="budget-table" border=1>
+  <tr class="budget-header-row">
+     <td class="budget-row-organization">
+     Organization
+     </td>
+     <td class="budget-row-requested">
+        Requested
+     </td>
+     <td class="budget-row-allocated">
+        Allocated
+     </td>
+     <td class="budget-row-created_on">
+        Created
+     </td>
+     <td class="budget-row-modified_on">
+        Modified
+     </td>
+</tr>
+{% for b in approved_budgets %}
+  <tr class="budget-row {% cycle even,odd %}" onclick="javascript:document.location.href = 'view_budgets/{{ b.id }}';" onmouseover="fakeLinkHover(this, true)" onmouseout="fakeLinkHover(this, false)">
+     <td class="budget-row-organization">
+        {{ b.organization.name }}
+     </td>
+     <td class="budget-row-requested">
+        <a href="view_budgets/{{ b.id }}" class="budget-row-detailed-link">${{ b.requested }}</a>
+     </td>
+     <td class="budget-row-allocated">
+        <a href="view_budgets/{{ b.id }}" class="budget-row-detailed-link">${{ b.allocated }}</a>
+     </td>
+     <td class="budget-row-created_on">
+        {{ b.created_on|date:"m-d-Y" }}
+     </td>
+     <td class="budget-row-modified_on">
+       {{ b.modified_on|date:"m-d-Y" }}
+     </td>
+  </tr>
+{% endfor %}
+</table>
+</fieldset>
+
+{% endblock %}

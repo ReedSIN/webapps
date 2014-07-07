@@ -1,0 +1,35 @@
+{% extends "sbinfo/sbinfo-base.phtml" %}
+
+{% block stylesheets %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="/css/webapps/object-detail-style.css" />
+<link rel="stylesheet" type="text/css" href="/css/webapps/appointments/application-detail-style.css" />
+{% endblock %}
+
+{% block content %}
+
+<form method="post" action="/webapps/sbinfo/entry/edit/{{ entry.id }}">
+
+<fieldset>
+<legend>Student Body Info Submission:</legend>
+<div class="object-div">
+  <div class="object-div-title">Title:</div>
+  <div class="object-div-content">
+    <input type="text" name="Title" value="{{ entry.title }}" />
+  </div>
+</div>
+<div class="object-div">
+  <div class="object-div-textarea-title">Message:</div>
+  <div class="object-div-textarea-content">
+  <textarea class="object-div-textarea" name="message">{{ entry.message }}</textarea>    
+  </div>
+</div>
+
+<input type="submit" value="Submit" />
+
+<input type="text" name="text" />
+
+
+</form>
+</fieldset>
+{% endblock %}

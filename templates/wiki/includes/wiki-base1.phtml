@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block html-title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="description" content="SWIKI: Sin WIkis">
+    <meta name="author" content="Brett Beutell">
+    {% block stylesheets %}
+      <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+      
+    {% endblock %} 
+  </head>
+  <body>
+    <!-- Fixed navbar -->                                                                                                                                
+    <nav>                                                                                                                                                    
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">               
+        <div class="navbar-header">      
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+	     <span class="icon-bar"></span> 
+          </button>                                      
+	  <a class="navbar-brand" href="#"><span id="cursive-brand">B. Beutell</span></a>  
+	</div>  
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>   
+            <li><a href="cv.html">C.V.</a></li>            
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Other Stuff <b class="caret"></b></a>
+              <ul class="dropdown-menu">                                                                                        
+                <li><a href="http://people.reed.edu/~bbeutell/emacs/basic-commands.html" target="_blank">Paideia Emacs Intro</a></li>                
+                <li><a href="http://people.reed.edu/~bbeutell/fel-rod/felrod-fp-s14.html" target="_blank">Improv Ad (New)</a></li>                  
+                <li><a href="fel-rod/Fall13/fellatio_F13.html" target="_blank">Improv Ad (Old)</a></li>
+               <!-- <li><a href="code/this-site.html">Bootstrap</a></li> -->                                                                                 
+                <li class="divider"></li>
+                <li class="dropdown-header">If you are on campus or have the Reed VPN</li>
+                <li><a href="http://sin.reed.edu/" target="_blank">Student Information Network</a></li>
+              </ul>
+            </li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Back to Web Apps<b class="caret"></b></a>
+              <ul class="dropdown-menu">                                                                                        
+                <li><a href="http://sin.reed.edu/webapps/">SIN Home</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">More Stuff</li>
+              </ul>
+            </li>
+
+	  {% block social-icons %}
+	  <li>
+             <a class="social"
+                href="http://linkedin.com/in/brettbeutell/"
+		target="_blank" >
+	     <img src=""
+		  height=""
+		  width=""
+		  alt="" />
+	     </a>
+	  </li>
+	  </ul>
+	</div> <!-- /.nav-collapse -->
+      </div>
+    </div> <!-- /.nav -->
+    </nav>
+
+
+    <script src="/bootstrap/assets/js/jquery.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script>
+      // SLIDEDOWN ANIMATION FOR NAV //
+      $('.dropdown').on('show.bs.dropdown', function(e){
+        $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+      });
+
+      // SLIDEUP ANIMATION FOR NAV //
+      $('.dropdown').on('hide.bs.dropdown', function(e){
+        $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+      });
+
+      // TOOLTIP INIT
+      $(function(){
+        $('').tooltip();
+      });
+
+      $(document).read(function() {
+        {% block on-load %}
+        {% endblock %}
+      });
+    </script>
+  </body>
+</html>

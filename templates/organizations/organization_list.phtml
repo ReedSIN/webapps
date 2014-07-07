@@ -1,0 +1,80 @@
+{% extends "organizations/organizations-base.phtml" %}
+
+{% block javascript %}
+{{ block.super }}
+{% if sao %}
+  <!-- <script type="text/javascript" src="/js/jquery-1.3.2.min.js"></script>-->
+  <script type="text/javascript">
+    function archive(oid, stat) {
+      $.get("/webapps/organization-manager/orgs/archive", {"oid" : oid, "status" : stat}, function(data) {
+          if(parseInt(data) > -1) {
+            $('#' + data).parent().parent().remove();
+            $('tr:odd').removeClass('odd').addClass('even');
+            $('tr:even').removeClass('even').addClass('odd');
+          }
+        });
+    }
+
+    </script>
+{% endif %}
+
+{% endblock %}
+
+{% block content %}
+{{block.super}}
+	<input class="btn btn-primary" type="submit" value="Get Organization List as CSV" onclick="document.location='/webapps/organization-manager/orgs/csv-list';"></input>
+
+{% if sao %}
+{% if archived %}
+<a href="html-list">View Current Organizations</a>
+<br>
+<br>
+{% else %}
+<a href="html-list?archived=true">View Archived Organizations</a>
+<br>
+<br>
+{% endif %}
+{% endif %}
+<div class="table-responsive">
+<table class="table table-hover">
+
+  <tr class="table-header">
+    <td>
+      Name
+    </td>
+    <td>
+      Signator
+    </td>
+    <td>
+      Email
+    </td>
+  </tr>
+
+  <tbody>
+  {% for o in orgs %}
+    <tr class="{% cycle even,odd %}" onmouseover="fakeLinkHover(this, true)" onmouseout="fakeLinkHover(this, false)">
+      <td onclick="javascript:document.location='{{ o.id }}/detail';" >
+        {{ o.name }}
+      </td>
+      <td onclick="javascript:document.location='{{ o.id }}/detail';" >
+        {{ o.signator.get_full_name }}
+      </td>
+      <td onclick="javascript:document.location='{{ o.id }}/detail';" >
+        {{ o.email }}
+      </td>
+      {% if sao %}
+	  {% if archived %}
+      <td class="button">
+        <input type="submit" id="{{ o.id }}" value="De-Archive" onclick="archive({{ o.id }}, false);">
+      </td>
+	  {% else %}
+      <td class="button">
+        <input type="submit" id="{{ o.id }}" value="Archive" onclick="archive({{ o.id }}, true);">
+      </td>
+      {% endif %}
+	  {% endif %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

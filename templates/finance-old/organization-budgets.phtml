@@ -1,0 +1,111 @@
+{% extends "finance/finance-base.phtml" %}
+
+{% block javascript %}
+{{ block.super }}
+<script type="text/javascript">
+window.onload=function() {
+	document.orgSearch.org.style.color = "#999999";
+	document.orgSearch.org.onfocus = function() {
+		document.orgSearch.org.style.color = "black";
+		if(document.orgSearch.org.value == 'Organization Name') {
+			document.orgSearch.org.value = '';
+		}
+	};
+	document.orgSearch.org.onblur = function() {
+		if(document.orgSearch.org.value == '') {
+			document.orgSearch.org.style.color = "#999999";
+			document.orgSearch.value = 'Organization Name';
+		}
+	};
+	document.orgSearch.onsubmit = function() {
+		if(document.orgSearch.org.value == 'Organization Name') {
+			document.orgSearch.org.value = '';
+		}
+	}
+}
+
+</script>
+{% endblock %}
+
+{% block content %}
+
+<h3>Organization Budget Search</h3>
+
+<form name="orgSearch" action="organization_budgets" method="GET">
+<input type="text" name="org" value="Organization Name">
+<input type="submit" value="Search">
+</form>
+
+{% if organization %}
+  <h3>{{ organization.name }} Budgets</h3>
+  
+  {% if budgets %}
+  
+    {% if admin %}
+    
+    <form method="get" action="" onsubmit="this.action = '/webapps/finance/view_budgets/respond/edit/' + budget_id;">
+    {% endif %}
+    <table class="budget-table">
+      <tr class="budget-header-row">
+         <td class="budget-row-requested">
+            Requested
+         </td>
+         <td class="budget-row-allocated">
+            Allocated
+         </td>
+		 {% if admin %}
+		 <td>
+		 	Claimed
+		 </td>
+		 {% endif %}
+         <td class="budget-row-created_on">
+            Created
+         </td>
+         <td class="budget-row-modified_on">
+            Modified
+         </td>
+    </tr>
+    {% for b in budgets %}
+      <tr class="budget-row {% cycle even,odd %}" onclick="javascript:document.location.href = 'view_budgets/{{ b.id }}';" onmouseover="fakeLinkHover(this, true)" onmouseout="fakeLinkHover(this, false)">
+         <td class="budget-row-requested">
+            ${{ b.requested }}
+         </td>
+         <td class="budget-row-allocated">
+            ${{ b.allocated }}
+         </td>
+		 {% if admin %}
+		 <td>
+		 	${{ b.claimed }}
+		 </td>
+		 {% endif %}
+         <td class="budget-row-created_on">
+            {{ b.created_on|date:"m-d-Y" }}
+         </td>
+         <td class="budget-row-modified_on">
+            {{ b.modified_on|date:"m-d-Y" }}
+         </td>
+      {% if admin %}
+         <td class="budget-row-respond">
+            <input type="submit" value="respond" onclick="budget_id = {{ b.id }};"></input>
+         </td>
+      {% endif %}
+      </tr>
+    {% endfor %}
+    </table>
+  
+    {% if admin %}
+    </form>
+    {% endif %}
+
+  {% else %}
+    <p>No budgets found.</p>
+
+  {% endif %}
+
+{% else %}
+  {% if searchTerm %}
+    <p>Sorry, no Organizations match the search term {{ searchTerm }}. Please try a different term.</p>
+  {% endif %}
+{% endif %}
+
+{% endblock %}

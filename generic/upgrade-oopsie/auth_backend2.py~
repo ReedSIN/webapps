@@ -1,0 +1,84 @@
+# auth_backend.py:
+
+from django.conf import settings
+from django.contrib.auth.backends import RemoteUserBackend
+from django.core.exceptions import ImproperlyConfigured
+from django.db.models import get_model
+
+## integrating MKs old model Backend
+## BB
+from webapps.generic.models import SinUser
+
+def get_response():
+  from django.http import HttpResponseForbidden
+  from django.template.loader import render_to_string
+  return HttpResponseForbidden(render_to_string('errors/http_forbidden.phtml'))
+
+class Http403(Exception):
+  _cached_response = None
+
+  def get_response(self):
+    if self._cached_response == None:
+      self._cached_response = get_response()
+    return self._cached_response
+
+def get_user(request):
+  name = request.META.get('REMOTE_USER','')
+  try:
+    user = SinUser.objects.get(username = name)
+  except SinUser.DoesNotExist:
+    user = SinUser.get_ldap_user(username = name)
+  return user
+
+class LazyUser(object):
+  def __get__(self, request, obj_type=None):
+    if not hasattr(request, '_cached_user'):
+      request._cached_user = get_user(request)
+    return request._cached_user
+
+class SinUserModelBackend(RemoteUserBackend):
+    def authenticate(self, remote_user):
+        """
+        This code is the same as the authenticate function from 
+        django.contrib.auth.backends.RemoteUserBackend,
+        except with a way to specify our extended User model.  
+                    The idea for the self.user_class property comes 
+                    from Scott Barnham.
+        """
+        if not remote_user:
+            return
+        user = None
+        username = self.clean_username(remote_user)
+
+        if self.create_unknown_user:
+            user, created = self.user_class.objects.get_or_create(username=username)
+            if created:
+                user = self.configure_user(user)
+        else:
+            try:
+                user = self.user_class.objects.get(username=username)
+            except self.user_class.DoesNotExist:
+                pass
+        return user
+
+    def process_request(self, request):
+        try:
+            request.__class__.user = LazyUser()
+        except Http403:
+            return Http403.response
+        return None
+
+    @property
+    def user_class(self):
+        """
+        This code was written by Scott Barnham.
+        """
+        if not hasattr(self, '_user_class'):
+            self._user_class = get_model(*settings.CUSTOM_USER_MODEL.split('.', 2))
+            if not self._user_class:
+                raise ImproperlyConfigured('Could not get custom user model')
+        return self._user_class
+
+
+
+

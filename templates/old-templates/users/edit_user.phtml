@@ -1,0 +1,75 @@
+{% extends "users/users-base.phtml" %}
+
+{% block stylesheets %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="/css/webapps/object-detail-style.css"/>
+{% endblock %}
+
+{% block content %}
+<form method="post" action="">
+<div class="object-div">
+  <div class="object-div-title">
+  Id:
+  </div>
+  <div class="object-div-content">
+  {{ user.id }}
+  </div>
+</div>
+<div class="object-div">
+  <div class="object-div-title">
+  Username:  
+  </div>
+  <div class="object-div-content">
+  {{ user.username }}
+  </div>
+</div>
+<div class="object-div">
+  <div class="object-div-title">
+  Name:  
+  </div>
+  <div class="object-div-content">
+  {{ user }}
+  </div>
+</div>
+<div class="object-div">
+  <div class="object-div-title">
+  Email:
+  </div>
+  <div class="object-div-content">
+  {{ user.email }}
+  </div>
+</div>
+<div class="object-div">
+  <div class="object-div-title">
+  Signator Trained:
+  </div>
+  <div class="object-div-content">
+  {{ user.attended_signator_training }}
+  </div>
+</div>
+<div class="object-div">
+  <div class="object-div-title">
+  First Logged In:
+  </div>
+  <div class="object-div-content">
+  {{ user.date_joined }}
+  </div>
+</div>
+<h3>Factors:</h3>
+{% for f in factors %}
+<div class="object-div">
+  <div class="object-div-title">
+  {{ f.name }}
+  </div>
+  <div class="object-div-content">
+  {% if f.has_factor %}
+  <input type="checkbox" name="{{ f.id }}" value="{{ f.id }}" checked="yes"/>
+  {% else %}
+  <input type="checkbox" name="{{ f.id }}" value="{{ f.id }}"/>
+  {% endif %}
+  </div>
+</div>
+{% endfor %}
+<input type="submit" value="update">
+</form>
+{% endblock %}

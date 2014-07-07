@@ -1,0 +1,103 @@
+{% extends "forms/form-base.phtml" %}
+
+{% block javascript %}
+<script type="text/javascript" language="JavaScript" src="/js/webapps/generic/onload.js"></script>
+<script type="text/javascript" language="JavaScript" src="/js/json2_min.js"></script>
+<script type="text/javascript" language="JavaScript" src="/js/webapps/forms/edit_form.js"></script>
+
+{% ifnotequal form_model None %}
+<script type="text/javascript" language="JavaScript">
+
+addLoadEvent(function() {
+  var obj = null;
+  {% for field in form_model.formfieldmodel_set.all %}
+  obj = {
+    'title' : "{{ field.title }}",
+    'type' : {{ field.type }},
+    'core' : {{ field.core }},
+    'admin' : {{ field.admin_only }}
+  };
+  
+  create_and_init_new_field(obj);
+  {% endfor %}
+});
+
+</script>
+{% endifnotequal %}
+
+{% endblock %}
+
+{% block stylesheets %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="/css/webapps/object-detail-style.css" />
+{% endblock %}
+
+{% block content %}
+<fieldset>
+<legend>Create New Form</legend>
+<form onsubmit="submit_form(this,'{{ form_model.id }}'); return false;" id="main-form">
+<div class="object-div">
+  <div class="object-div-title">Form Title:</div>
+  <div class="object-div-content">
+    <input type="text" name="name" id="form-title-field" value="{{ form_model.name }}">
+  </div>
+</div>
+<div class="object-div">
+  <div class="object-div-title">Organization:</div>
+  <div class="object-div-content">
+    <select name="organization" id="select-organization">
+      {% for o in organizations %}
+      <option value="{{ o.id }}">{{ o.name }}</option>
+      {% endfor %}
+   </select>
+  </div>
+</div>
+<div class="object-div">
+  <div class="object-div-textarea-title">
+  Description:
+  </div>
+  <div class="object-div-textarea-content">
+  <textarea class="object-div-textarea" name="description" id="description-textarea">{{ form_model.description }}</textarea>
+  </div>
+</div>
+<div class="object-div">
+  <div class="object-div-title">
+  Results via Email
+  </div>
+  <div class="object-div-content">
+  {% ifequal form_model None %}
+  None <input type="radio" name="radio-email" value="0" checked="true"/>
+  Single <input type="radio" name="radio-email" value="1"/>
+  Digest <input type="radio" name="radio-email" value="2"/>
+  {% else %}
+    {% ifequal form_model.email_signator 0 %}
+    None <input type="radio" name="radio-email" value="0" checked="true"/>
+    Single <input type="radio" name="radio-email" value="1"/>
+    Digest <input type="radio" name="radio-email" value="2"/>
+    {% else %}
+      {% ifequal form_model.email_signator 1 %}
+      None <input type="radio" name="radio-email" value="0"/>
+      Single <input type="radio" name="radio-email" value="1" checked="true"/>
+      Digest <input type="radio" name="radio-email" value="2"/>
+      {% else %}
+         {% ifequal form_model.email_signator 2 %}
+         None <input type="radio" name="radio-email" value="0"/>      
+         Single <input type="radio" name="radio-email" value="1"/>
+         Digest <input type="radio" name="radio-email" value="2" checked="true"/>
+         {% else %}
+           None <input type="radio" name="radio-email" value="0" checked="true"/>
+           Single <input type="radio" name="radio-email" value="1"/>
+           Digest <input type="radio" name="radio-email" value="2"/>
+         {% endifequal %}
+      {% endifequal %}
+    {% endifequal %}
+  {% endifequal %}
+  </div>
+</div>
+<fieldset id="fields_list">
+<legend>Fields</legend>
+</fieldset>
+<input type="submit" value="Save Form"/><input type="button" id="add-new-field-link" onclick="create_new_field(); return false;" value="Add New Field"/>
+</form>
+<div id="hidden_div"></div>
+{% endblock %}

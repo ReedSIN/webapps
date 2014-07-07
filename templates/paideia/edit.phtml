@@ -1,0 +1,34 @@
+{% extends "paideia/paideia_base.phtml" %}
+
+{% block html-title %}Edit Your Classes{% endblock %}
+
+{% block javascript %}
+{{ block.super }}
+{% if admin %}
+  <script type="text/javascript" language="JavaScript" src="/js/webapps/paideia/czar.js"></script>
+{% endif %}
+
+{% endblock %}
+
+{% block content %}
+
+<div id="listingWrapper">
+
+{% for class in classes %}
+  <div class="listing editListing" id="listing-{{ class.id }}">
+    <span class="title">{{ class.name }}</span> 
+    (<a href="javascript:editClass({{ class.id }})"><span id="edit-{{ class.id }}">edit</span></a>)
+    (<a href="javascript:deleteClass({{ class.id }},'{{ class.name }}')">delete</a>)<br>
+    {{ class.time|date:"l, M j" }} at {{ class.time|date:"g" }}:00 {{ class.time|date:"a"|cut:"." }}, in {{ class.location }}
+    <div class="editFormDiv" id="efd-{{ class.id }}"></div>
+  </div>
+{% endfor %}
+
+{% if not classes %}
+  You are not teaching any classes listed on the schedule.
+{% endif %}
+
+</div>
+
+
+{% endblock %}

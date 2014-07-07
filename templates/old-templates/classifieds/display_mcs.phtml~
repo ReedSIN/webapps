@@ -1,0 +1,41 @@
+{% extends "classifieds/class-base2.phtml" %}
+
+{% block content %}
+{{block.super}}
+
+{% include 'classifieds/includes/classif-nav.phtml' %}
+
+<div class="table-responsive">
+  <table class="table table-hover table-ads">
+  {% for ad in relevant_ads reversed %}
+    <tr>
+<!-- COMMENTED OUT UNTIL FUNCTIONAL
+      <td class="ad-rank">{{ad.rank}}</td>
+      <td class="rank-arrows">
+        <span id="rank-up" class="glyphicon glyphicon-arrow-up"></span>
+ 	&nbsp; &nbsp;
+	<span id="rank-down" class="glyphicon glyphicon-arrow-down"></span>
+      </td>
+-->
+      <td onclick="javascript: document.location = '/webapps/classifieds/mc/{{ad.id}}/';">
+        <div class="row mc-text">
+	  <div class="col-md-1 col-sm-1">
+  	    <strong>#{{ad.id}}</strong> 
+	  </div>
+	  <div class="col-md-11 col-sm-11">
+	  {{ad.title}}
+	  </div>
+	</div> <!-- /.row ... -->
+      </td>
+    </tr>
+  {% endfor %}
+  </table>
+</div> <!-- /.table-responsive -->
+
+{% include 'classifieds/includes/classif-nav.phtml' %}
+
+<hr class="featurette-divider">
+{% include "classifieds/includes/class-nav-primary.phtml" %}
+<hr class="featurette-divider">
+
+{% endblock %}

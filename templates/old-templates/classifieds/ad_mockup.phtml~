@@ -1,0 +1,21 @@
+{% extends "classifieds/classif-base.phtml" %}
+<!-- Only variable necessary is 'ad' -->
+{% block content %}
+
+   <center>
+       <div class="title-section">
+       	    <h1 class="ad-title">Assless Chaps</h1>
+       	    <h3 class="ad-author">bbeutell</h3>
+       </div>
+
+       <div class="post-body">
+       <p class="post-text">I've got som sick assless chaps for sale. I'm only selling them because I'm transferring to Lewis and Clark, and people aren't as down for nudity over there.  I hope someone will have as great a time in these as I've had.  This includes 4 orgies, 18 SU dance parties, and one visit to Colin Diver's office.  HMU if u agree</p>
+       </div>
+   
+   </center>
+	
+{% endblock %}
+
+{% block breadcrumb-trail %}
+
+{% endblock %}

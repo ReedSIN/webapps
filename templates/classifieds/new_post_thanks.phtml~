@@ -1,0 +1,17 @@
+{% extends "classifieds/class-base2.phtml" %}
+<!-- Only variable necessary is 'ad' -->
+{% block content %}
+{{block.super}}
+
+<div class="jumbotron">
+<h1> Thanks! </h1>
+<h3 class="featurette-heading">We just created your post.</h3>
+<div class="right">
+  <a href="/webapps/classifieds/" class="btn btn-lg btn-primary">
+    <span style="color: white;">Return to sinpost</span>&nbsp;
+    <span class="glyphicon glyphicon-circle-arrow-right"></span>
+  </a>
+</div>
+</div>
+
+{% endblock %}

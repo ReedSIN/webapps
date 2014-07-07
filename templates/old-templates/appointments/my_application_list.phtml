@@ -1,0 +1,40 @@
+{% extends "appointments/appointments-base.phtml" %}
+
+{% block content %}
+{{block.super}}
+{% if not my_apps %}
+{% comment %}
+  If there are no apps do stuff here
+{% endcomment %}
+{% endif %}
+<h2>My Applications</h2>
+
+{% if user.username == "lbowcock" %}
+<h4> Hi, Liam ;) </h4>
+<h5> Only you can see this. </h5>
+<h6 class="text-muted">Is that creepy?</h6>
+{% endif %}
+
+<form onsubmit="return false;">
+<table class="table table-hover table-responsive">
+  <tr class="table-header">
+    <td>Position</td>
+    <td>Created On</td>
+<td>Modified On</td>
+<td> Manage </td>
+</tr>
+
+{% for a in my_apps %}
+<tr>
+<td>{{ a.position.name }}</td>
+<td>{{ a.created_on|date:"h:i A F d, Y" }}</td>
+<td>{{ a.modified_on|date:"h:i A F d, Y" }}</td>
+<td>
+<input class="btn btn-primary btn-sm" type="submit" value="Edit" onclick="window.location = '/webapps/appointments/my_applications/edit/{{ a.id }}';"/>
+
+<input class="btn btn-primary btn-sm" type="submit" value="Delete" onclick="var c = confirm('Are you sure you wish to delete this application?'); if (c) { window.location = '/webapps/appointments/my_applications/delete/{{ a.id }}';}"/>
+</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

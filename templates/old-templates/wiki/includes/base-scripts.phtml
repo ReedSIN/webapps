@@ -1,0 +1,33 @@
+{% comment %}
+ %%%%%%%%%%%% %%%%%%%%%%%% %%%%%%%%%%%% %%%%%%%%%%%%%%%%%%
+ % Loads jquery, bootstrap.min.js
+ % Includes animation for dropdown menus, 
+ % Initializes bootstrap tooltips (is that even necessary?)
+ %
+ % Has nested on-load block for any additional js needed
+ %%%%%%%%%%%%%% %%%%%%%%%%%%%% %%%%%%%%%%%%%% %%%%%%%%%%%%%
+{% endcomment %}
+
+    <script src="/bootstrap/assets/js/jquery.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script>
+      // SLIDEDOWN ANIMATION FOR NAV //
+      $('.dropdown').on('show.bs.dropdown', function(e){
+        $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+      });
+
+      // SLIDEUP ANIMATION FOR NAV //
+      $('.dropdown').on('hide.bs.dropdown', function(e){
+        $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+      });
+
+      // TOOLTIP INIT
+      $(function(){
+        $('').tooltip();
+      });
+
+      $(document).onload(function() {
+        {% block on-load %}
+        {% endblock %}
+      });
+    </script>

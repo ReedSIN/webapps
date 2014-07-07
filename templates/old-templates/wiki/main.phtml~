@@ -1,0 +1,38 @@
+{% extends "wiki/wiki-style0.phtml" %}
+
+{% block stylesheets %}
+{{block.super}}
+<link href="/css/webapps/wiki/main.css" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+<div class="container">
+<h1>
+  <span class="glyphicon glyphicon-globe"></span>&nbsp;
+  Welcome to n&uuml; wiki.<h1>
+<h2 class="text-muted"> (We're under construction right now.)</h2>
+
+<a href="/webapps/wiki/wiki-apps/create" class="btn btn-primary">
+Apply to Make a Wiki for Your Organization &raquo;
+</a>
+</div> <!-- /.container -->
+</div> <!--/.jumbotron -->
+<div class="container">
+<div class="row">
+  <div class="col-md-4 col-sm-4">
+    <h3> </h3>
+    <p> </p>
+  </div>
+  <div class="col-md-4 col-sm-4">
+    <h3> </h3>
+    <p> </p>
+  </div>
+  <div class="col-md-4 col-sm-4">
+    <h3> </h3>
+    <p> </p>
+  </div>
+</div> <!-- /.row -->
+</div> <!-- /.container -->
+
+{% endblock %}

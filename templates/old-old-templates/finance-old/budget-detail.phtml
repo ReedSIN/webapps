@@ -1,0 +1,96 @@
+{% extends "finance/finance-base.phtml" %}
+
+{% load finance_tags %}
+
+{% block stylesheets %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="/css/webapps/object-detail-style.css"></link>
+{% endblock %}
+
+
+{% block content %}
+
+<fieldset>
+<legend>General Info:</legend>
+<div class="budget-big-div">                                                              
+  <div class="object-div">                                                   
+    <div class="object-div-title">Signator:</div>                           
+    <div class="object-div-content">{{ budget.organization.signator.get_full_name }}</div>
+  </div>                                                                              
+  <div class="object-div">                                                      
+    <div class="object-div-title">Email:</div>                                 
+    <div class="object-div-content">{{ budget.organization.email }}</div>
+  </div>                                                                              
+  <div class="object-div">                                               
+    <div class="object-div-title">Organization:</div>                   
+    <div class="object-div-content">{{ budget.organization.name }}</div>
+  </div>                                                                              
+  <div class="object-div">                                                  
+    <div class="object-div-title">Total Requested:</div>                         
+    <div class="object-div-content">${{ budget.requested }}</div>                               
+  </div>
+  <div class="object-div">
+    <div class="object-div-title">Total Allocated:</div>
+    <div class="object-div-content">${{ budget.allocated }}</div>
+  </div>
+  <div class="object-div">
+    <div class="object-div-title">Total Spent:</div>
+    <div class="object-div-content">${{ budget.claimed }}</div>
+  </div>
+  <div class="object-div">                                                 
+    <div class="object-div-title">Created:</div>                          
+    <div class="object-div-content">{{ budget.created_on|date:"h:i A F d, Y" }}</div>
+  </div>                                                                              
+  <div class="object-div">                                                
+    <div class="object-div-title">Modified:</div>                        
+    <div class="object-div-content">{{ budget.modified_on|date:"h:i A F d, Y" }}</div>
+  </div>                                                                              
+  <div class="object-div">                                                
+    <div class="object-div-textarea-title">Description:</div>
+    <div class="object-div-textarea-content">{{ budget.description|safe }}</div>
+  </div>                                                                              
+  {% if admin or budget.is_finalized %}
+  <div class="object-div">                                                   
+    <div class="object-div-textarea-title">Response:</div>                           
+    <div class="object-div-textarea-content">{{ budget.response|nbsp|safe }}</div>
+  </div>                                                                              
+  {% endif %}
+</div>
+</fieldset>
+{% for i in items %}
+  <fieldset>
+  <legend>Budget Item:</legend>
+<!--  <div class="object-item-div"> -->
+     <div class="object-div">
+       <div class="object-div-title">Item Name:</div>
+       <div class="object-div-content">{{ i.name|safe }}</div>
+     </div>
+     <div class="object-div">
+       <div class="object-div-textarea-title">Description:</div>
+       <div class="object-div-textarea-content">{{ i.description|nbsp|safe }}</div>
+     </div>
+     {% if admin or budget.is_approved %}
+     <div class="object-div">
+       <div class="object-div-textarea-title">Response:</div>
+       <div class="object-div-textarea-content">{{ i.response|nbsp|safe }}</div>
+     </div>
+     {% endif %}
+     <div class="object-div">
+       <div class="object-div-title">Requested:</div>
+       <div class="object-div-content">${{ i.requested }}</div>
+     </div>
+     {% if admin or budget.is_finalized %}
+     <div class="object-div">
+       <div class="object-div-title">Allocated:</div>
+       <div class="object-div-content">${{ i.allocated }}</div>
+     </div>
+     <div class="object-div">
+       <div class="object-div-title">Spent:</div>
+       <div class="object-div-content">${{ i.claimed }}</div>
+     </div>
+     {% endif %}
+<!--   </div>  -->
+  </fieldset>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "forms/form-base.phtml" %}
+
+{% load hash_filter %}
+
+{% block content %}
+<h2>{{ model.name }} Results:</h2>
+<input type="button" value="Get Results as CSV" onclick='location.href = location.href + "?csv=1"'/>
+<table border=1>
+<tr>
+<td>User</td>
+{% for f in fields %}
+{% if f.core %}
+<td>{{ f.title }}</td>
+{% endif %}
+{% endfor %}
+</tr>
+{% for data in form_data %}
+<tr>
+<td>
+{{ data.user }}
+</td>
+{% for f in data.get_field_data %}
+{% if f.field_model.core %}
+<td>{{ f.get_value  }}</td>
+{% endif %}
+{% endfor %}
+<td><input type="submit" value="view detailed" onclick="window.location = '/webapps/forms/my_forms/results/{{ model.id }}/{{ data.id }}';" /></td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

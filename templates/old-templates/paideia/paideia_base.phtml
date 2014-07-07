@@ -1,0 +1,46 @@
+{% extends "base.phtml" %}
+
+{% block html-title %}Paideia Calendar{% endblock %}
+
+{% block header-title %}Paideia Calendar{% endblock %}
+
+{% block stylesheets %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="/css/webapps/paideia/style.css" />
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" language="JavaScript" src="/js/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" language="JavaScript" src="/js/webapps/paideia/calendar.js"></script>
+{% endblock %}
+
+{% block sidebar %}
+
+<div class="app-body-sidebar-link-container">
+  <a href="/webapps/paideia/" class="app-body-sidebar-link">Paideia Calendar</a>
+</div>
+<div class="app-body-sidebar-link-container">
+  <a href="/webapps/paideia/search" class="app-body-sidebar-link">Search Classes</a>
+</div>
+{% if teacher or admin %}
+<div class="app-body-sidebar-link-container">
+  <a href="/webapps/paideia/add" class="app-body-sidebar-link">Add a Class</a>
+</div>
+{% endif %}
+{% if teacher %}
+<div class="app-body-sidebar-link-container">
+  <a href="/webapps/paideia/edit" class="app-body-sidebar-link">Edit My Classes</a>
+</div>
+{% endif %}
+{% if not admin %}
+<div class="app-body-sidebar-link-container">
+  <a href="mailto:reedpaideia@gmail.com" class="app-body-sidebar-link">Email the Czars</a>
+</div>
+{% endif %}
+{% if admin %}
+<div class="app-body-sidebar-link-container">
+  <a href="/webapps/paideia/admin" class="app-body-sidebar-link">Add Teachers</a>
+</div>
+{% endif %}
+
+{% endblock %}

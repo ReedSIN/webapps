@@ -1,0 +1,77 @@
+{% extends "forms/form-base.phtml" %}
+
+{% block stylesheets %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="/css/webapps/object-detail-style.css" />
+<link rel="stylesheet" type="text/css" href="/css/webapps/forms/form-detail-style.css" />
+{% endblock %}
+
+{% block content %}
+
+<form method="post" action="" onsubmit="var c = confirm('Submission is final! Are you sure you wish to submit this form?'); return c;">
+<fieldset class="object-fieldset">
+<legend>Form Information</legend>
+
+<div class="object-div">
+  <div class="object-div-title">
+  Title:
+  </div>
+  <div class="object-div-content">
+  {{ model.name }}
+  </div>
+</div>
+
+<div class="object-div">
+  <div class="object-div-title">
+  Organization:
+  </div>
+  <div class="object-div-content">
+  {{ model.organization.name }}
+  </div>
+</div>
+
+<div class="object-div">
+  <div class="object-div-textarea-title">
+  Description:
+  </div>
+  <div class="object-div-textarea-content">
+  {{ model.description }}
+  </div>
+</div>
+
+</fieldset>
+
+<fieldset class="object-fieldset">
+<legend>Form Fields</legend>
+{% for f in fields %}
+
+{% if f.is_textarea %}
+
+<div class="object-div">
+  <div class="object-div-textarea-title">
+  {{ f.title }}
+  </div>
+  <div class="object-div-textarea-content">
+  <textarea class="object-div-textarea" name="{{ f.id }}"></textarea>
+  </div>
+</div>
+
+{% else %}
+
+<div class="object-div">
+  <div class="object-div-title">
+  {{ f.title }}
+  </div>
+  <div class="object-div-content">
+  <input type="{{ f.get_type }}" name="{{ f.id }}" />
+  </div>
+</div>
+
+
+{% endif %}
+{% endfor %}
+<input type="submit" value="submit" />
+</fieldset>
+</form>
+
+{% endblock %}

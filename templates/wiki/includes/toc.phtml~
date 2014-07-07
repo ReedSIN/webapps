@@ -1,0 +1,6 @@
+
+<ul class="wiki-article-toc">
+    {% block toc-body %}
+
+    {% endblock %}
+</ul>

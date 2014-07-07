@@ -1,0 +1,128 @@
+{% extends "organizations/organizations-base.phtml" %}
+
+{% block javascript %}
+<script type="text/javascript" language="JavaScript" src="/js/webapps/organizations/submit.js"></script>
+{% endblock %}
+
+{% block stylesheets %}
+{{ block.super }}
+<link rel="stylesheet" href="/css/webapps/object-detail-style.css" />
+<link rel="stylesheet" type="text/css" href="/css/webapps/organizations/my-organizations-style.css" />
+{% endblock %}
+
+{% block content %}
+{{block.super}}
+<h2 class="featurette-header">Manage Your Current Organizations</h2>
+{% if signator %}
+<form method="get" action="/webapps/organizations/my_organizations/edit/">
+<input class="btn btn-default" type="submit" value="Create a New Organization &raquo;"/>
+</form>
+
+{% endif %}
+<hr class="featurette-divider">
+
+{% comment %}
+{% if signator %}
+{% if reg_alert %}
+ <div class="alert alert-danger">
+ <p>
+  <h4>
+         <span class="glyphicon glyphicon-flag"></span>
+	 Funding Poll registration is open, but...
+  </h4> 
+
+  <p>Our Database tells us that you have at least 1 unregistered organiztaion.</p>
+  <p><span class="text-muted" style="margin-right: 1.8em;">(Just so ya know.)</span>
+ 
+  <input class="btn btn-primary" type="submit" value="Register for Funding Poll &raquo;" 
+        onclick="window.location='/webapps/fundingpoll/my_registrations';" />
+  </p>
+ </p>
+  </div>
+  <hr class="featurette-divider" />
+{% endif %}
+{% if create_alert %}
+ <div class="alert alert-danger">
+ <p>
+  <h4>
+         <span class="glyphicon glyphicon-info-sign"></span>
+	 Funding Poll registration is open, but...
+  </h4> 
+    <p>
+      You haven't created any organizations. 
+      <span class="text-muted"> Do that first.</span>
+    </p>
+ </p>
+<hr class="featurette-divider" />
+{% endif %}
+{% endif %}
+{% endcomment %}
+
+{% for o in organizations %}
+
+<div class="row">
+  <div class="col-md-5 col-sm-5">
+    <h2 class="featurette-heading">
+      {{o.name}}
+      <span class="text-muted">({{o.signator.get_full_name}})</span>
+    </h2>
+    <p class="lead"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;{{o.description}}</p>
+  </div>
+  <div class="col-md-5 col-sm-5">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <tr><td><span class="glyphicon glyphicon-briefcase"></span>&nbsp;Signator</td>
+            <td>{{o.signator.get_full_name}}</td></tr>
+        <tr><td><span class="glyphicon glyphicon-send"></span>&nbsp;Email</td>
+            <td>{{o.email}}</td></tr>
+        <tr><td><span class="glyphicon glyphicon-globe"></span>&nbsp;Location</td>
+            <td>{{o.location}}</td></tr>
+        <tr><td><span class="glyphicon glyphicon-phone-alt"></span>&nbsp;Phone</td><td>{{o.phone_number}}</td></tr>
+        <tr><td><span class="glyphicon glyphicon-cloud"></span>&nbsp;Website</td>
+            <td>{{o.website}}</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="col-md-2 col-sm-2">
+
+    <button type="button" class="btn btn-default btn-block btn-sm" disabled="disabled">
+      Options<b class="caret"></b>
+    </button>
+
+     
+      <form method="get" 
+            action="/webapps/organization-manager/orgs/{{ o.id }}/edit/" 
+  	    onsubmit="add_data_to_form(this,{{ o.id }});">
+       <button class="btn btn-primary btn-sm btn-block" type="submit"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button>
+      </form>
+     
+    
+    <form method="post" 
+          action="/webapps/organization-manager/orgs/{{ o.id }}/delete/" 
+  	  onsubmit="return delete_alert('{{ o.name }}');">
+     <button class="btn btn-primary btn-sm btn-block" type="submit"><span class="glyphicon glyphicon-remove"></span>&nbsp;Delete</button>
+    </form>
+    
+    
+<!--    <form method="post" 
+          action="/webapps/organization-manager/orgs/{{ o.id }}/renew/">
+     <button class="btn btn-primary btn-sm btn-block" type="submit"><span class="glyphicon glyphicon-refresh"></span>&nbsp;Renew</button>
+    </form>
+-->    
+    
+    <form method="get" 
+          action="/webapps/organization-manager/orgs/{{ o.id }}/change-signator/">
+     <button class="btn btn-primary btn-sm btn-block" type="submit"><span class="glyphicon glyphicon-transfer"></span>&nbsp;Swap Signator</button>
+    </form>
+    
+  </div> <!-- /.col-md-2 .col-sm-2 -->
+</div>
+{% endfor %}
+
+{% if signator %}
+<form method="get" action="/webapps/organizations/my_organizations/edit/">
+<input class="btn btn-primary btn-lg" type="submit" value="Create a New Organization &raquo;"/>
+</form>
+{% endif %}
+{% endblock %}

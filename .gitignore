@@ -1,0 +1,14 @@
+*.svn
+*_socket
+
+# sensitive
+settings.py
+
+# compiled files and emacs autosaves. 
+*.pyc
+*.#
+*.~
+
+# Stuff that should be deleted soon.
+destroy*
+fix_fuckup

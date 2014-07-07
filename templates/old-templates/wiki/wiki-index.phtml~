@@ -1,0 +1,4 @@
+{% extends "wiki/wiki-style1" %}
+
+{% block home_url %}#{% endblock %}
+

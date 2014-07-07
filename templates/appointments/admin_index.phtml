@@ -1,0 +1,55 @@
+{% extends "appointments/appointments-base.phtml" %}
+
+{% block content %}
+{{block.super}}
+<p class="lead">
+  <span class="glyphicon glyphicon-dashboard"></span>
+  Welcome <span class="text-muted">to the Appointments Admin Dashboard.</span>
+</p>
+<hr class="featurette-divider">
+<form onsubmit="return false;">
+
+<table class="table table-hover table-responsive">
+  <tr>
+    <td colspan=5>
+      <button type="submit" class="btn btn-primary btn-block"
+               onclick="window.location = '/webapps/appointments/admin/create/';">
+        <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Create New Position  
+      </button>
+    </td>
+  </tr>
+  <tr class="table-header">    
+    <td>Name</td>
+    <td>Num Apps</td>
+    <td>Expires On</td>
+    <td>Created On</td>
+    <td>Manage Position</td>
+  </tr>
+
+  {% for p in positions %}
+  <tr>
+    <td>{{ p.name }}</td>
+    <td class="simple-center">{{ p.application_set.count }}</td>
+    <td>{{ p.expires_on|date:"m-d-Y" }}</td>
+    <td>{{ p.created_on|date:"m-d-Y" }}</td>
+    <td>
+      <button type="submit" class="btn btn-primary btn-sm"
+               onclick="window.location = '/webapps/appointments/admin/position-{{ p.id }}/';">
+        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;View
+      </button>
+    &nbsp;
+      <button type="submit" class="btn btn-primary btn-sm"
+               onclick="window.location = '/webapps/appointments/admin/edit/{{ p.id }}';">
+        <span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit
+      </button>
+    &nbsp;
+      <button type="submit" class="btn btn-primary btn-sm"
+             onclick="var c=confirm('Are you sure you wish to delete this position?'); if(c){window.location = '/webapps/appointments/admin/delete/{{ p.id }}';}">
+       <span class="glyphicon glyphicon-remove"></span>&nbsp;Delete
+      </button>
+    </td>
+  </tr>
+{% endfor %}
+</table>
+</form>
+{% endblock %}

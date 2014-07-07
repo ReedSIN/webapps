@@ -1,0 +1,49 @@
+{% extends "wiki/wiki-style1.phtml" %}
+
+{% block content %}
+{{block.super}}
+
+  {% if article_is_flagged %}
+    <!-- show flags -->
+  {% endif %}
+
+  <div class="row">
+    <div class="col-lg-12">
+      <h2>{{article.title}}</h2>
+      {% if user_is_mod %}
+        <!-- Display Edit Button -->
+      {% endif %}
+    </div>
+  </div> <!-- /.row -->
+  <hr />
+  <div class="row">
+    <div class ="col-md-8">
+      {% include "wiki/includes/toc.phtml" %}
+        {% block toc-body %}
+	  {% for section in article.sections %}
+	     <li><a href="#{{section.id}}">{{section.title}}</a></li>
+	  {% endfor %}
+	{% endblock %}
+    </div>
+    <div class ="col-md-4">
+      <!-- should house article photo -->
+    </div>
+  </div> <!-- /.row -->
+  <hr />
+  {% for section in article.sections %}
+    <div class="row">
+      <div class="col-md-3 col-md-offset-1">
+        <h4 id="{{section.id}}">{{section.title}}</h4>
+        {% if user_is_mod %}
+          <!-- Display Edit Button -->
+        {% endif %}
+      </div>
+      <div class="col-md-8">
+        <p class="article-section-body">
+	   {{section.body|safe}}
+	</p>
+      </div>
+    </div> <!-- /.row -->
+    <hr />
+  {% endfor %}
+{% endblock %}

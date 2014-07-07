@@ -1,0 +1,62 @@
+{% extends "paideia/paideia_base.phtml" %}
+
+{% block html-title %}Paideia Calendar{% endblock %}
+
+{% block javascript %}
+{{ block.super }}
+<script type="text/javascript" language="JavaScript">
+$(document).ready(function() {
+  fillOverview();
+
+});
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+Welcome to the 2011 Paideia Calendar! <br>
+
+<p>Please <a href="mailto:reedpaideia2011@gmail.com">email the Paideia Czars</a> if you have any questions.</p>
+
+<p>If you're looking for a specific class or teacher, click the "Search" link in the sidebar.</p>
+
+<div id="overviewWrapper">
+
+<table id="overview">
+  <tr class="calHeader">
+    <td>Time</td>
+    {% for day in days %}
+      <td>&nbsp;<a href="javascript:examineDay({{ forloop.counter0|add:"16" }})">{{ day }}</a></td>
+    {% endfor %}
+  </tr>
+
+  {% for hour in hours %}
+    <tr class="{% cycle 'even' 'odd' %}">
+    <td>{{ hour }}</td>
+  
+    {% for day in days %}
+      <td class="timeBlock" id="jan-{{ forloop.counter0|add:"16" }}-{{ forloop.parentloop.counter0|add:"1" }}"></td>
+    {% endfor %}
+    
+    </tr>
+  {% endfor %}
+
+</table>
+
+
+</div>
+
+<br>
+
+<a name="classes"/>
+<div id="listingWrapper">
+
+Please click on a day to view that day's class listings.
+
+</div>
+
+<br>
+
+
+{% endblock %}

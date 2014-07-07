@@ -1,0 +1,12 @@
+.budget-header-div { 
+                     height: 100px;
+                     overflow: hidden;
+ }
+
+.budget-header-div-left { 
+                   float: left;
+ }
+
+.budget-header-div-right { 
+                    float: right;
+ }

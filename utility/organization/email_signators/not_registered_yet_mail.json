@@ -1,0 +1,5 @@
+{
+  'subject' : 'Funding Poll Deadline Approaching!',
+  'message' : "Dear %s,\n\nThis is just a reminder that funding poll registration ends tonight at midnight. If you are having problems registering, just shoot me an e-mail. If you haven't registered, and you haven't contacted me by midnight tonight, then you'll have to convince the Treasury to let you register late. If you have any questions or concerns about your status, please e-mail me. Otherwise, Happy Funding!\n\n-Dan"
+  'target_source' : '/var/django/webapps/utility/organization/current_signator_usernames.txt'
+}

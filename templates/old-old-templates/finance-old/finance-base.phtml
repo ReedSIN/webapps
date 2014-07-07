@@ -1,0 +1,44 @@
+{% extends "base.phtml" %}
+
+{% block javascript %}
+<script type="text/javascript">
+function fakeLinkHover(row, focused) {
+	if (focused) {
+		rows = document.getElementsByTagName('tr');
+		for (i = 0; i < rows.length; i++) {
+			rows[i].style.backgroundColor = '';
+		}
+		row.style.backgroundColor = '#C45E5B';
+		row.style.cursor = 'hand';
+	} else {
+		row.style.backgroundColor = '';
+		row.style.cursor = 'pointer';
+	}
+};
+</script>
+
+{% endblock %}
+
+{% block html-title %}Finance Committee{% endblock %}
+
+{% block header-title %}<a href="/webapps/finance" class="app-body-sidebar-link">Finance Committee</a>{% endblock %}
+
+{% block sidebar %}
+
+<div class="app-body-sidebar-link-container">
+  <a href="/webapps/finance/view_budgets" class="app-body-sidebar-link">View Pending Budgets</a>
+</div>
+<div class="app-body-sidebar-link-container">
+<a href="/webapps/finance/approved_budgets" class="app-body-sidebar-link">View Approved Budgets</a>
+</div>
+<div class="app-body-sidebar-link-container">
+<a href="/webapps/finance/organization_budgets" class="app-body-sidebar-link">Search for Budgets</a>
+</div>
+<div class="app-body-sidebar-link-container">
+  <a href="/webapps/finance/submit_budget" class="app-body-sidebar-link">Submit Budget</a>
+</div>
+<div class="app-body-sidebar-link-container">
+  <a href="/webapps/finance/my_budgets" class="app-body-sidebar-link">My Budgets</a>
+</div>
+
+{% endblock %}

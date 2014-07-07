@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="sin sinning sinful evil devil morality">
+    <meta name="author" content="BooJay Labs">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta property="og:site_name" content="sin" />
+    <meta property="og:title" content="the student information network"/>
+    <meta property="og:description" content="host of webapps for reed college students" />
+    <meta property="og:image" content=""> <!-- TODO logo -->
+    <meta property="og:url" content="http://sin.reed.edu">
+    
+    <title>s i n | yet another sin </title>
+
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./main-app-styles.css" rel="stylesheet">
+    <script src="./jquery.js"></script>
+</head>
+<body>
+<div class="side-bar hide-bar">
+	<ul>
+		<li>
+			<div>home</div>
+		</li>
+		<li>
+			<div>wiki</div>
+		</li>
+		<li>
+			<div>appoint</div>
+		</li>
+		<li>
+			<div>finance</div>
+		</li>
+		<hr>
+		<li>
+			<div>funding poll</div>
+		</li>
+		<li>
+			<div>elections</div>
+		</li>				
+	</ul>
+</div>
+<div class="top-bar">
+	<div id="toggle-button" class="left-thing hide-bar" onclick="toggle_sidebar();">
+			<span class="glyphicon glyphicon-fire"></span>
+	</div>
+
+	<div class="right-thing">
+		<p class="smaller">
+			<span class="glyphicon glyphicon-user"></span>
+			B. Beutell
+		</p>
+		<p class="sin-muted smaller">
+			<a href="#">Logout</a>
+		</p>
+	</div>
+</div>
+<div class="middle-thing">
+	<div class="other-button">
+		<a href="#">
+			<span class="glyphicon glyphicon-home"></span>
+		</a>
+	</div>
+</div>
+
+<div class="big-wrap hide-bar">
+<div class="main">
+	<header> 
+		<div class="app-name">
+			Application Name
+		</div>
+		<div class="app-nav">
+			<ul>
+				<li class=""><a href="#"><div>home</div></a></li>
+				<li class=""><a href="#"><div>new</div></a></li>
+				<li class=""><a href="#"><div>edit</div></a></li>
+				<li class=""><a href="#"><div>other</div></a></li>
+			</ul>
+		</div>
+		<hr>
+	</header>
+
+	<div class="container">	
+		<div class="row">
+			<div class="col-md-4">
+				Test
+			</div>
+			<div class="col-md-4">
+				lorem
+			</div>
+			<div class="col-md-4">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus reprehenderit est eaque atque necessitatibus sunt nisi ad facilis minima. Dolores architecto perferendis at autem veniam qui eveniet doloremque eaque minima.
+			</div>
+		</div>
+		<div class="row">
+		</div>
+	</div>
+</div> <!-- /.main -->
+</div> <!-- /.big-wrap -->
+	<footer>
+		<div class="footer-item gasp">
+			<p>
+				<span class="gasp-b">Having problems?</span>
+				Feel free to contact the webmasters: 
+				<a href="mailto:sin@lists.reed.edu?subject=Sinquiry">sin@lists.reed.edu</a>
+			</p>			
+		</div>
+	</footer>
+<script src="./bootstrap/js/bootstrap.min.js"></script>
+<script>
+    function toggle_sidebar() {
+    	$(".side-bar").toggleClass("hide-bar");
+    	$(".big-wrap").toggleClass("hide-bar");
+    	$(".app-name").toggleClass("hide-bar");
+    	$("header hr").toggleClass("hide-bar");
+    	$("#toggle-button").toggleClass("hide-bar");
+    }
+</script>
+</body>
+
+</html>

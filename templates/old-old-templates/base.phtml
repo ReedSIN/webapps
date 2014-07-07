@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15">
+
+{% block head %}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="/css/webapps/app-style.css" />
+{% endblock %}
+{% block javascript %}{% endblock %}
+
+<title>{% block html-title %}{% endblock %}</title>
+
+</head>
+
+<body>
+
+<div id="app-outer-mat">
+  <div id="app-header">
+    <div id="app-header-text">
+      {% block header-title %}{% endblock %}
+    <span>
+    </span>
+   </div>
+  </div>
+  <div id="app-body">
+    <div id="app-body-sideboard">
+      <div id="app-body-inner-sideboard">
+      {% block sidebar %}{% endblock %}
+       <p>{{user}}<br>
+       <a href="/webapps/logout">Log out</a> </p>
+      </div>
+    </div>
+    <div id="app-body-content">
+      <div id="app-body-inner-content">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+  </div>
+  <div id="app-footer">
+    <div id="app-footer-content">
+      {% block footer %}{% endblock %}
+    </div>
+  </div>
+</div>
+</body>
+</html>

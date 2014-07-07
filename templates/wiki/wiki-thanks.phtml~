@@ -1,0 +1,13 @@
+{% extends "wiki/wiki-style1.phtml" %}
+
+{% block html-title %}{{block.super}}Thanks!{% endblock %}
+
+{% block content %}
+<h1> Thanks. </h1>
+<p> You just did something worh of Thanks </p>
+
+<button class="btn btn-primary btn-lg">
+Go Back to Wiki Centraal &raquo;
+</button>
+{% endblock %}
+

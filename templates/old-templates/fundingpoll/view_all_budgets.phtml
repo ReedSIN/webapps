@@ -1,0 +1,35 @@
+{% extends "fundingpoll/fundingpoll-base.phtml" %}
+
+{% block content %}
+{{block.super}}
+<button type="submit" class="btn btn-primary btn-block btn-lg" 
+        onclick="window.location='/webapps/fundingpoll/budgets/csv-list';">
+  <span class="glyphicon glyphicon-download-alt"></span>&nbsp;Download the .CSV File
+</button>
+<div class="table-responsive">
+<table class="budget-table table table-hover">
+  <tr class="table-header">
+    <td>Rank</td>
+    <td>Group</td>
+    <td colspan=2>Budget</td>
+  </tr>
+{% for b in budgets %}
+  <tr class="budget-row">
+     <td>{{ counter.next }}</td>
+     <td class="budget-row-signator">
+        <a href="/webapps/fundingpoll/admin/view_budgets/{{ b.id }}" class="budget-row-detailed-link">{{ b.organization.organization.signator_user.get_full_name }}</a>
+     </td>
+     <td class="budget-row-organization">
+        <a href="/webapps/fundingpoll/admin/view_budgets/{{ b.id }}" class="budget-row-detailed-link">{{ b.organization.organization.name }}</a>
+     </td>
+     <td class="budget-row-requested">
+        <a href="/webapps/fundingpoll/admin/view_budgets/{{ b.id }}" class="budget-row-detailed-link">${{ b.requested }}</a>
+     </td>
+</tr>
+{% endfor %}
+</table>
+</div>
+{% if admin %}
+</form> <!-- why is this here? -->
+{% endif %}
+{% endblock %}

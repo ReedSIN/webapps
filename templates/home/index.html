@@ -1,0 +1,55 @@
+{% extends "home/home-base.html" %}
+
+{% block stylesheets %}
+<link href="/css/webapps/bb-redux/bb-home.css" rel="stylesheet">
+{% endblock %}
+
+{% block src-javascript %}
+<script src="/js/webapps/bb-redux/bb-home.js"></script>
+{% endblock %}
+{% block on-load %}
+  say_hello();
+  set_btn_events();
+{% endblock %}
+
+{% block app-nav %} {% endblock %}
+
+{% block content %} 
+<div class="row-condensed greeting hide-o">
+  <h1 class="hello">hello</h1>
+  <h2 class="iam">i am sin</h2>
+  <p class="center caudex sin-muted">
+    click the icons to see what i do
+  </p>
+  <div class="center-me center">
+    <div class="btn-group btn-group-sm">
+            <button data-app-name="wiki" type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-globe"></span>
+            </button>
+            <button data-app-name="appointments" type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-tower"></span>
+            </button>
+            <button data-app-name="orgs" type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-paperclip"></span>
+            </button>
+            <button data-app-name="fin" type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-usd"></span>
+            </button>
+            <button data-app-name="sinpost" type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-comment"></span>
+            </button>
+            <button data-app-name="fund" type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-stats"></span>
+            </button>
+	    <!-- 
+            <button data-app-name="elect"  type="button" class="btn btn-default disabled">
+              <span class="glyphicon glyphicon-bullhorn"></span>
+            </button>
+	    -->
+    </div> <!-- /.btn-group -->
+    </div> <!-- /.center-me -->
+</div> <!-- /.row .greeting -->
+<div class="row">
+  {% include "includes/home/verbose-index.html" %}
+</div>
+{% endblock %}

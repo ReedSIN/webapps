@@ -1,0 +1,285 @@
+{% extends "home/home-base.phtml" %}
+
+{% block html-title %} The Home of SIN {% endblock %}
+
+{% block fancy-header %}{{block.super}}.HOME{% endblock %}
+
+{% block scroll-spy-tag %}
+data-spy="scroll" data-target="#home-sidenav"
+{% endblock %}
+
+{% block content %} 
+<hr class="featurette-divider">
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 col-sm-3">
+      <div class="home-sidenav-width-hack"></div>
+      <div id="home-sidenav" class="home-sidebar hidden-print affix" role="navigation" data-spy="affix">
+        <ul class="nav home-sidenav">
+	  <li>&nbsp;
+	    <span class="glyphicon glyphicon-info-sign"></span>&nbsp;
+	    <span class="text-muted">App Descriptions</span></li>
+	  <li class>
+	    <a href="#welcome">[ Welcome ]<a>
+	  </li>
+	  <li class>
+	    <a href="#wiki">[ The Wiki ]</a>
+	  </li>
+	  <li class>
+	    <a href="#appointments">[ Appointments ]</a>
+	  </li>
+	  <li class>
+	    <a href="#orgs">[ Organizations ]</a>
+	  </li>
+	  <li class>
+	    <a href="#fund">[ Funding Poll ]</a>
+	  </li>
+	  <li class>
+	    <a href="#fin">[ Finance ]</a>
+	  </li>
+	  <li class>
+	    <a href="#sinpost">[ sinpost ]</a>
+	  </li>
+	</ul>
+      </div> <!-- /.home-navbar ... affix -->
+    </div> <!-- /.col-md-3 -->
+
+    <div class="col-md-9 col-sm-9" role="main">
+
+      <div id="welcome" class="home-info-section">
+        <div class="page-header"> 
+          <h1> 
+	    <span class="glyphicon glyphicon-star-empty"></span>&nbsp;
+	    Welcome to N&uuml; Olde SIN.
+	  </h1>
+        </div>
+
+	<div class="row">
+	 <div class="col-md-2">
+  	  <p class="lead">
+	    <span class="text-muted">Let's get re-started.</span>
+	  </p>
+	  </div>
+	  <div class="col-md-10">
+	  <p>
+	    Hey, the Webmasters did some stuff with SIN.
+	    <span class="text-muted">Dooooope</span>
+	  </p>
+	  <p>
+	    If you are a SIN veteran,
+	    proceed as usual, but first 
+	    <b><span style="font-size:larger;">take a gander
+	    at the <i>*new*</i> sinpost app.</span>
+	  </b></p>
+	  <p>
+	    If this is your first time, or you would like
+	    a general tour of the N&uuml; Olde SIN, 
+	    continue reading to find out what
+	    SIN has to offer.
+	  </p>
+	 </div>
+
+
+	</div> <!-- /.row -->
+      </div>
+      <div id="wiki" class="home-info-section">
+        <div class="page-header">
+          <h2>
+	    <span class="glyphicon glyphicon-globe"></span>&nbsp;
+	    The Wiki
+	  </h2>
+        </div>
+
+	<div class="row">
+	 <div class="col-md-5">
+	  <p class="lead">
+	    <span class="text-muted">
+	      Read the bylaws. All of them.
+	      <center>
+	      <a class="btn btn-sm btn-default"
+	         href="/senate">
+		 Visit Da Wiki &raquo;
+		 </a>
+		 </center>
+	    </span>
+	  </p>
+	 </div>
+	 <div class="col-md-7">
+ 	  <p><b>
+	     Educate yourself!
+	  </b></p>
+	  <p>
+	    On the Senate wiki, you will find a glorious amount of
+	    information pertaining to student governance.
+	    You'll also find info on RKSK and Sound Kollektiv.
+	  </p>
+	 </div>
+	</div> <!-- /.row -->
+
+      </div>
+
+      <div id="appointments" class="home-info-section">
+        <div class="page-header">
+          <h2>
+	    <span class="glyphicon glyphicon-tower"></span>&nbsp;
+	    Appointments
+	  </h2>
+        </div>
+
+	<div class="row">
+	 <div class="col-md-5">
+	  <p class="lead"><span class="text-muted">
+	    Delete the rambling J-board App you wrote
+	    when you were half-drunk.
+	  </span></p>
+	 </div>
+	 <div class="col-md-7">
+	  <p><b>
+	    Student Body Positions
+	  </b></p>
+	  <p>
+	    Through the Appointments Committee Web App, 
+	    you can submit (and revise) applications for positions within the Student Body.
+	  </p>
+	 </div>
+	</div> <!-- /.row -->
+
+      </div>
+      <div id="orgs" class="home-info-section">
+        <div class="page-header">
+          <h2>
+	    <span class="glyphicon glyphicon-paperclip"></span>
+	    Organization Manager
+	  </h2>
+        </div>
+
+	<div class="row">
+	 <div class="col-md-5">
+	  <p class="lead"><span class="text-muted">
+	    Delete the Kony 2012 Organization you made 
+	    when you were fully-drunk.
+	  </span></p>
+	 </div>
+	 <div class="col-md-7">
+	  <p><b>
+	    The Organization Manager is where you can make the 
+	    <span class="glyphicon glyphicon-fire"></span>hottest<span class="glyphicon glyphicon-fire"></span>
+	     <small><span class="text-muted">(Ah! Fire!)</span></small> new group.</b></p> 
+	  <p>
+	    After that, register for Funding Poll, or request money from Finance Committee.
+	  </p>
+	  <p>
+	  <div class="well">
+	    <span class="glyphicon glyphicon-exclamation-sign"></span>
+	    <i>
+	    Remember, you must have attended signator training
+	    to use the Organization Manager.</i>
+	    <br />
+	    <strong>
+            Our latest intelligence shows that you
+            {% if user.attended_signator_training %}
+              have done so
+	      <span style="font-size:larger;">☺</span>.
+            {% else %}
+              have not done so ☹.
+            {% endif %}
+	    </strong>
+	    </div>
+ 	  </p>
+	 </div>
+	</div> <!-- /.row -->
+
+      </div>
+      <div id="fund" class="home-info-section">
+        <div class="page-header">
+          <h2>
+	    <span class="glyphicon glyphicon-stats"></span>&nbsp;
+	    Funding Poll
+	  </h2>
+        </div>
+
+	<div class="row">
+	 <div class="col-md-5">
+	  <p class="lead"><span class="text-muted">
+	    Deep Six all the Ayn Rand Appreciation groups.
+	  </span></p>
+	 </div>
+	 <div class="col-md-7">
+	  <p><b>
+	    Funding Poll is Cool.</b>
+	  </p>
+	  <p>
+	    <i>You</i> actually get a say <span class="text-muted">(yay!)</span> in what groups
+	    receive funds for the upcoming semester. Voting! Huzzah!
+	  </p>
+	 </div>
+	</div> <!-- /.row -->
+
+      </div>
+      <div id="fin" class="home-info-section">
+        <div class="page-header">
+          <h2>
+	    <span class="glyphicon glyphicon-usd"></span>&nbsp;
+	    Finance Committee
+	  </h2>
+        </div>
+
+	<div class="row">
+	 <div class="col-md-5">
+	  <p class="lead"><span class="text-muted">
+	    Write <i>well-commented</i> budgets, and
+	    $oberly $ubmit them to Finance Committee.
+  	  </span></p>
+	 </div>
+	 <div class="col-md-7">
+	  <p><b>
+	    The Finance Committee Web Application allows you
+	    to electronically submit budget requests.
+	  </b></p>
+	  <p>
+	    Whether it be for pie supplies or the latest 
+	    "*<i>insert-my-niche-music-interest-here</i>* Ball",
+	    this is where
+	    you can provide a cohesive argument why you
+	    deserve a slice of Student Body funds.
+	  </p>
+	 </div>
+	</div> <!-- /.row -->
+
+      </div>
+      <div id="sinpost" class="home-info-section">
+        <div class="page-header">
+          <h2>
+	    <span class="glyphicon glyphicon-fire"></span>&nbsp;
+	    sinpost <small>*new*</small>
+	  </h2>
+        </div>
+	<div class="row">
+	 <div class="col-md-5">
+  	  <p class="lead"><span class="text-muted">
+	    Our private classifieds service.
+	  </span></p>
+	 </div>
+	 <div class="col-md-7">
+	  <p><b>
+	    sinpost is an umbrella term for
+	    Missed Connections, Lost & Found, Trade, Happenings, and Ramblings.
+	  </b></p>
+	  <p>
+	    You can anonymously submit missed connections,
+	    and then create, edit, or comment on posts in any of its
+	    other sections.
+	  </p>
+	  <p>
+	    <b>sinpost</b>, 
+	    like the majority of SIN, is closed off from non-students. 
+	  </p>
+	 </div>
+	</div> <!-- /.row -->
+
+      </div>
+    </div> <!-- /.col-md-9 -->
+  </div> <!-- /.row -->
+</div>
+{% endblock %}

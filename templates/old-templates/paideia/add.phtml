@@ -1,0 +1,99 @@
+{% extends "paideia/paideia_base.phtml" %}
+
+{% block html-title %}Add Paideia Class{% endblock %}
+
+{% block stylesheets %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="/css/webapps/paideia/style.css" />
+{% endblock %}
+
+{% block content %}
+
+{% if teacher and not admin %}
+
+<h3>Register a Class/Event</h3>
+
+<div class="blurbWrapper">You've been granted access because your application was approved!  Please add the class as you described, <i>at the correct time and location</i>, by filling out the form below.  After you add your class, you will be able to edit only the title, Facebook link, and description.  If you wish to change time or location, please email the Czars.</div>
+
+<form action="/webapps/paideia/register" onsubmit="return validate_registration(this)" method="post">
+<div class="formTitle">Title:</div>
+<input type="text" name="name" size=50>
+
+<div id="timeSelect">
+<div class="formTitle">Time:</div>
+Starts at
+<select name="hour">
+{% for hour in hours %}
+  <option value="{{ forloop.counter0|add:"1" }}">{{ hour }}</option>
+{% endfor %}
+</select> on 
+<select name="day">
+{% for day in vdays %}
+  <option value="{{ forloop.counter0|add:"16"}}">{{ day }}</option>
+{% endfor %}
+</select>,
+lasts for <input type="text" name="length" size="1" maxlength="1"> hour(s).
+</div>
+
+<div class="formTitle">Location:</div>
+<input type="text" name="location" size=50>
+
+<div class="formTitle">Facebook Event URL : <span style="color: gray;">Optional</span></div> 
+<input type="text" name="fbevent" size="50"><br>
+
+<div class="formTitle">Description:</div>
+<textarea name="description" cols="49" rows="7"></textarea>
+<br>
+<div class="formTitle"><input type="submit" value="Add My Class"></div>
+
+</form>
+<br>
+
+{% endif %}
+
+{% if admin %}
+
+<form action="/webapps/paideia/register" onsubmit="return validate_registration(this)" method="post">
+<div class="formTitle">Title:</div>
+<input type="text" name="name" size="50">
+
+<div class="formTitle">Teacher:</div>
+<input type="text" name="teacher" size="50">
+
+<div id="timeSelect">
+<div class="formTitle">Time:</div>
+Starts at
+<select name="hour">
+{% for hour in hours %}
+  <option value="{{ forloop.counter0|add:"1" }}">{{ hour }}</option>
+{% endfor %}
+</select> on 
+<select name="day">
+{% for day in vdays %}
+  <option value="{{ forloop.counter0|add:"16"}}">{{ day }}</option>
+{% endfor %}
+</select>,
+lasts for <input type="text" name="length" size="1" maxlength="1"> hour(s).
+</div>
+
+<div class="formTitle">Location:</div>
+<input type="text" name="location" size=50>
+
+<div class="formTitle">Facebook Event URL : <span style="color: gray;">Optional</span></div> 
+<input type="text" name="fbevent" size="50"><br>
+
+<div class="formTitle">Description:</div>
+<textarea name="description" cols="49" rows="7"></textarea>
+<br>
+
+<div class="formTitle">Notes:</div>
+<textarea name="notes" cols="49" rows="7"></textarea>
+<br>
+
+<div class="formTitle"><input type="submit" value="Add the Class"></div>
+
+</form>
+<br>
+
+{% endif %}
+{% endblock %}

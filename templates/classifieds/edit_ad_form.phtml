@@ -1,0 +1,128 @@
+{% extends "classifieds/classif-base.phtml" %}
+<!-- Only variable necessary is 'ad' -->
+{% block content %}
+{{block.super}}
+
+
+<form action="" method="post">
+<div class="row">
+  <div class="col-md-4 col-sm-4">
+    <h2 class="featurette-heading">
+      Edit Post
+    </h2>
+    <p class="lead">
+      Any field marked with an asterisk
+      <span class="text-muted">(*)</span>
+      is required.
+    </p>
+  </div>
+  <div class="col-md-8 col-sm-8 col-md-offset-0 col-sm-offset-0">
+    <div class="table-responsive">
+    <table class="table">
+      <tr>
+        <td>Category*</td>
+	<td>
+	  {{form.category.errors}}
+	  <label class="sr-only" for="id_category">Category</label>
+	  {{form.category}}	
+	</td>
+      </tr>
+      <tr>
+        <td>Email</td>
+	<td>
+	  {{form.email.errors}}
+	  <label class="sr-only" for="id_email">Email</label>
+	  {{form.email}}
+	</td>
+      </tr>
+      <tr>
+        <td>Phone</td>
+	<td>
+	  {{form.phone.errors}}
+	  <label class="sr-only" for="id_phone">Phone</label>
+	  {{form.phone}}
+	</td>
+      </tr>
+      <tr>
+        <td>Post Title*</td>
+	<td>
+	  {{form.title.errors}}
+	  <label class="sr-only" for="id_title">Title</label>
+	  {{form.title}}
+	</td>
+      </tr>
+      <tr>
+        <td>Post Body*</td>
+	<td>
+	  {{form.text.errors}}
+	  <label class="sr-only" for="id_text">Text</label>
+	  {{form.text}}
+	</td>
+      </tr>
+    </table>
+    </div>
+  </div>
+</div> <!-- /.row -->
+
+<!--
+
+  <h1> Create a new Ad </h1>
+<br>
+
+
+<div class="field">
+{{ form.category.errors }}
+            <label for="category">Category:</label>
+{{ form.category }}
+</div>
+
+<br>
+
+<div class="field">
+{{ form.email.errors }}
+            <label for="email">Email Address (optional!): </label>
+{{ form.email }}
+</div>
+
+<div class="field">
+{{ form.phone.errors }}
+            <label for="phone">Phone Number (optional!): </label>
+{{ form.phone }}
+</div>
+
+<div class="field">
+{{ form.title.errors }}
+            <label for="title">Title:</label>
+{{ form.title }}
+</div>
+
+<br>
+
+<div class="field">
+{{ form.text.errors }}
+            <label for=text">Ad Text:<br></label>
+{{ form.text }}
+</div>
+
+-->
+
+<div class="row">
+  <div class="col-md-12 col-sm-12">
+    <button class="btn btn-primary btn-block btn-lg" type="submit" value="Submit">
+      <span class="glyphicon glyphicon-ok-sign"></span>&nbsp;
+      Submit
+    </button>
+
+    <a href="/webapps/classifieds/">
+      <button type="button" class="btn btn-lg btn-default btn-block">
+      <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;
+      Cancel</button></a>
+  </div>
+</div>
+</form>
+
+{% endblock %}
+
+{% block breadcrumb-trail %}
+
+{% endblock %}

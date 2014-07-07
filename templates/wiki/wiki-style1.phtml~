@@ -1,0 +1,19 @@
+{% extends "wiki/wiki-base1.phtml" %}
+
+{% block html-title %}
+   SWIKI | {{wiki.name}}
+{% endblock %}
+
+{% block stylehseets %}
+   {{block.super}} 
+   <link href="/css/webapps/wiki/bootstrap-nav-style-1.css" rel="stylesheet" />
+
+   {% block font-set %}
+   
+   {% endblock %}
+   <link href="/css/webapps/wiki/style1.css" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+
+{% endblock %}

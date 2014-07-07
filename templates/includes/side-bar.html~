@@ -1,0 +1,75 @@
+{% comment %}
+  If the hacky jQuery thing that adds an active class is not working,
+  try putting blocks in each link-class. It's a total pain, I know,
+  but that's the price to pay for a dynamic nav bar.
+{% endcomment %}
+<nav class="side-bar">
+        <ul>
+        <li>
+                <a href="/webapps/home/" class="">
+                        <div>
+                                <span class="glyphicon glyphicon-home"></span>
+                        </div>
+                        <div class="">home</div>
+                </a>
+        </li>
+        <li>
+                <!-- The wiki is a separate entity, so open in a new tab / window -->
+                <a href="/senate/" target="_blank">
+                        <div>
+                                <span class="glyphicon glyphicon-globe"></span>
+                        </div>
+                        <div class="">wiki</div>
+                </a>
+        </li>
+        <li>
+                <a href="/webapps/appointments/" class="">
+                        <div>
+                                <span class="glyphicon glyphicon-tower"></span>
+                        </div>
+                        <div class="">appoint</div>
+                </a>
+        </li>
+        <li>
+                <a href="/webapps/organization-manager/" class="">
+                        <div>
+                                <span class="glyphicon glyphicon-paperclip"></span>
+                        </div>
+                        <div class="">organize</div>
+                </a>
+        </li>
+        <li>
+                <a href="/webapps/finance/" class="">
+                        <div>
+                                <span class="glyphicon glyphicon-usd"></span>
+                        </div>
+                        <div class="">finance</div>
+                </a>
+        </li>
+        <li>
+                <a href="/webapps/classifieds/" class="">
+                        <div>
+                                <span class="glyphicon glyphicon-comment"></span>
+                        </div>
+                        <div class="">post</div>
+                </a>
+        </li>
+        <hr />
+        <li>
+                <a href="/webapps/fundingpoll/" class="">
+                        <div>
+                                <span class="glyphicon glyphicon-stats"></span>
+                        </div>
+                        <div class="">poll</div>
+                </a>
+        </li>
+        <li>
+                <a href="/webapps/elections/" class="">
+                        <div>
+                                <span class="glyphicon glyphicon-bullhorn"></span>
+                        </div>
+                        <div class="">elections</div>
+                </a>
+        </li>
+        </ul>
+</nav>

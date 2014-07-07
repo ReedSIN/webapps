@@ -1,0 +1,28 @@
+{% extends "elections/elec-base.html" %}
+
+{% block stylesheets %}
+{{block.super}}
+<link href="/css/webapps/elections/elections-style.css" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+{{block.super}}
+  {% if vote_success %}
+    <div class="alert alert-success">
+      <h1> Congrats! Your vote was submitted. </h1>
+      <p> ~ <em>Your voice matters</em> ~ </p>
+    </div>
+  {% endif %}
+  <div class="container-narrow">
+    <div class="jumbotron">
+    {% if elections_toVote or elections_hasVoted %}
+      <h1>Seriously, thanks for voting.</h1>
+        <p> 
+	  You can head back to vote in other elections by clicking 
+	  <a href="http://sin.reed.edu/webapps/elections/">here</a>.
+	</p>
+      <hr />
+    </div><!-- jumbotron -->
+  </div> <!-- container-narrow -->
+
+{% endblock %}

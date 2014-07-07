@@ -1,0 +1,295 @@
+<! -- NOTES:
+   --        There are excessive changes to the normal bootstrap stylings
+   --        Also, I removed the "active" class from list items in the nav
+   --
+   -->
+
+{% comment %}
+This is a comment
+note the JS used on mouseover is defined in the booty-base.phtml template
+{% endcomment %}
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="#">
+      <img src="/css/webapps/griffin_2.png" /> </a>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav">
+
+
+      <li>
+        <a href="/webapps/" id="navbar-home-font">
+          <span class="glyphicon glyphicon-home"></span>
+          <span class="navbar-top-font"> Home </span>
+        </a>
+      </li>
+
+      <li>
+        <a href="/senate/" id="navbar-home-font">
+          <span class="glyphicon glyphicon-globe"></span>
+          <span class="navbar-top-font"> Wiki </span>
+        </a>
+      </li>
+
+      <li class="dropdown">
+        <a href="#" id="appt"
+	   class="dropdown-toggle js-activated" data-toggle="dropdown">
+          <span class="glyphicon glyphicon-tower"></span>
+          <span class="navbar-top-font">Appointments</span>
+        </a>
+             <!-- * neglecting our vitamin a.
+                  * commenting out carets
+                  <b class="caret"></b>
+               -->
+
+
+        <ul class="dropdown-menu">
+          <li><a href="/webapps/appointments/">
+	    Home
+          </a></li>
+          <li class="divider"></li>
+          <li><a href="/webapps/appointments/my_applications/">
+	  	 My Applications</a></li>
+
+          <li><a href="/webapps/appointments/open_positions/">
+	  	 Open Positions</a></li>
+
+	  <li class="divider"></li>
+	  <li role="presentation" class="dropdown-header">
+	    ADMIN
+	  </li>
+          <li><a href="/webapps/appointments/admin/">
+		Appointments Manager</a></li>
+
+          <li class="divider"></li>
+          <li class="divider"></li>
+        </ul>
+     </li>
+
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle js-activated" data-toggle="dropdown">
+        <span class="glyphicon glyphicon-paperclip"></span>
+        <span class="navbar-top-font">Organizations</span>
+
+             <!-- * neglecting our vitamin a.
+                  * commenting out carets
+                  <b class="caret"></b>
+               -->
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="/webapps/organization-manager/">
+              Home</a></li>
+          <li class="divider"></li>
+          <li><a href="/webapps/organization-manager/my-organizations">
+              My Organizations</a></li>
+          <li><a href="/webapps/organization-manager/orgs/html-list">
+              All Organizations</a></li>
+	  {% if user.attended_signator_training %}
+          <li><a href="/webapps/organizations/my_organizations/edit/?">
+              Create Organization</a></li>
+	  {% endif %}
+          <li class="divider"></li>
+          <li class="divider"></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle js-activated" data-toggle="dropdown">
+	<span class="glyphicon glyphicon-stats"></span>
+        <span class="navbar-top-font">Funding Poll</span>
+
+             <!-- * neglecting our vitamin a.
+                  * commenting out carets
+                  <b class="caret"></b>
+               -->
+	</a>
+        <ul class="dropdown-menu">
+          <li><a href="/webapps/fundingpoll/">
+              Home</a></li>
+          <li class="divider"></li>
+
+          <li><a href="/webapps/fundingpoll/vote">
+              Vote</a></li>
+
+          <li><a href="/webapps/fundingpoll/my_registrations/">
+              My Registrations</a></li>
+          <li><a href="/webapps/fundingpoll/registered">
+              All Registrations</a></li>
+
+          <li><a href="/webapps/fundingpoll/schedule/">
+              Schedule</a></li>
+          <li><a href="/webapps/fundingpoll/results">
+              Results</a></li>
+          <!-- Need if statement for admin -->
+          {% if user.is_admin %}
+          <li><a href="/webapps/fundingpoll/admin/view_budgets">
+              View Budgets</a></li>
+          {% endif %}
+          <li class="divider"></li>
+          <li class="divider"></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle js-activated" data-toggle="dropdown">
+	  <span class="glyphicon glyphicon-usd"></span>
+	  <span class="navbar-top-font">Finance</span>
+
+             <!-- * neglecting our vitamin a.
+                  * commenting out carets
+                  <b class="caret"></b>
+               -->
+        </a>
+
+        <ul class="dropdown-menu">
+          <li><a href="/webapps/finance/">
+              Home</a></li>
+          <li class="divider"></li>
+         <li><a href="/webapps/finance/my_budgets">
+              My Budgets</a></li>
+          <li><a href="/webapps/finance/submit_budget">
+              Submit Budgets</a></li>
+          <li><a href="/webapps/finance/view_budgets">
+              Pending Budgets</a></li>
+          <li><a href="/webapps/finance/approved_budgets">
+              Approved Budgets</a></li>
+          <li><a href="/webapps/finance/organization_budgets">
+              Search Budgets</a></li>
+          <li class="divider"></li>
+          <li class="divider"></li>
+        </ul>
+
+      <li class="dropdown">
+        <a href="/webapps/classifieds/" class="dropdown-toggle js-activated" data-toggle="dropdown">
+	  <span class="glyphicon glyphicon-fire"></span>
+	  <span class="navbar-top-font">sinpost</span>
+
+             <!-- * neglecting our vitamin a.
+                  * commenting out carets
+                  <b class="caret"></b>
+               -->
+        </a>
+
+        <ul class="dropdown-menu">
+          <li><a href="/webapps/classifieds/">
+              Home</a></li>
+          <li class="divider"></li>
+	  <li><a href="/webapps/classifieds/new/">
+	      Post Something
+	      </li></a>
+	  <li><a href="/webapps/classifieds/my_posts/">
+	      My Posts
+	      </li></a>
+          <li class="divider"></li>
+          <li><a href="/webapps/classifieds/trade">
+              Trade</a></li>
+          <li><a href="/webapps/classifieds/ramblings">
+               Ramblings</a></li>  
+          <li><a href="/webapps/classifieds/lost_found">
+              Lost &amp; Found</a></li>
+          <li><a href="/webapps/classifieds/happenin">
+              Things Happenin'</a></li>
+          <li><a href="/webapps/classifieds/we_almost_boned">
+              Missed Connections</a></li> 
+          <li class="divider"></li>
+          <li class="divider"></li>
+        </ul>
+      </li>
+    </ul>
+
+    <!-- SEARCH BOX COMMENTED OUT
+     
+    <form class="navbar-form navbar-left" role="search">
+      <div class="form-group">       
+        <input type="text" class="form-control" placeholder="Search"> 
+      </div>                               
+      <button type="submit" class="btn btn-default">Submit</button> 
+    </form> 
+
+    -->
+
+<!-- Right Nav
+     ============= -->
+
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle js-activated" data-toggle="dropdown">
+	<span class="smaller-font">
+          Elsewhere <b class="caret"></b></a>
+	  </span>
+        <ul class="dropdown-menu">
+          <li class="divider"></li>
+          <li><a href="/senate">Senate Wiki</a></li>
+          <li><a href="/senate/SoundKollektivInstructions">Sound Kollektiv Instructions</a></li>
+          <li><a href="/webapps/votw">FUN VID</a></li>
+          <li><a href="/questarchives">Quest Archives</a></li>
+          <li class="divider"></li>
+          <li class="divider"></li>
+        </ul>
+      </li>
+
+      <!-- ALERTS: Unsure if this will ever be useful
+      <li>
+        <a href="#">
+          <span class="glyphicon glyphicon-bell"></span>
+	  <span class="smaller-font">Alerts</span>
+	</a>
+      </li>
+      -->
+
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle js-activated" data-toggle="dropdown">
+	  <span class="glyphicon glyphicon-user"></span>
+	  <span class="smaller-font">
+	  	{{user}} <b class="caret"></b>
+	  </span>
+	</a>
+	<ul class="dropdown-menu">
+	  <li role="presentation" class="dropdown-header">
+	   Look in the Mirror
+	  </li>	  
+	  <li><a href="#">My Profile</a></li>
+	  <li class="divider"></li>
+<!-- FOR LATER USE: CUSTOMIZED FAVORITE LINKS? 
+	  {{userLinks}}
+	  <li><a href="#">My Classifieds</a></li>
+	  <li><a href="#">User-specific links</a></li>
+	  <li class="divider"></li>
+-->
+	  <li role="presentation" class="dropdown-header">
+	    Customize Your Sin
+	  </li>
+	  <li><a href="#">
+	    <span class="glyphicon glyphicon-cog"> </span>
+	    Settings
+	  </a></li>
+	  <li class="divider"></li>
+
+	  <li role="presentation" class="dropdown-header">
+	    GTFO
+	  </li>
+      <li>
+        <a href="/webapps/logout">
+          <span class="glyphicon glyphicon-plane"></span>
+	  <span class="">Logout</span>
+	</a>
+      </li>	  
+	  <li class="divider"></li>
+	  <li class="divider"></li>
+	</ul>
+      </li>
+
+
+    </ul>
+  </div><!-- /.navbar-collapse -->
+</nav>

@@ -1,0 +1,42 @@
+{% extends "fundingpoll/fundingpoll-base.phtml" %}
+
+{% block src-javascript %}
+<!--<script type="text/javascript" language="JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>-->
+<script type="text/javascript" language="JavaScript" src="/js/json2_min.js"></script>
+{% endblock %}
+
+{% block content %}
+{{block.super}}
+
+<h3>My Registered Organizations in Top 40</h3>
+<table class="table table-hover" id="org-table">
+  <tr class="table-header">
+    <td>
+    Id
+    </td>
+    <td>
+    Name
+    </td>
+    <td>
+    Manage
+    </td>
+  </tr>
+{% for o in reg_orgs %}
+<tr>
+<td id="organization-id-{{ o.id }}">
+  {{ o.organization.id }}
+</td>
+<td id="organization-name-{{ o.id }}">
+  {{ o.organization.name }}
+</td>
+<td>
+
+<form method="get" action="/webapps/fundingpoll/budgets/edit/{{ o.organization.id }}">
+  <button type="submit" class="btn btn-primary btn-sm btn-block"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit Budget</button>
+</form>
+
+</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

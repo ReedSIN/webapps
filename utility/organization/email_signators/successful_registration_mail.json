@@ -1,0 +1,5 @@
+{
+  'subject' : 'Successful Registration for Funding Poll!',
+  'message' : "Dear %s,\n\nThis is just a notice that you have successfully registered for fundingpoll. The purpose of this email is to quiet concerns among Signators that their organizations have not been registered for funding poll. This is my fault, I should have put some sort of pop up that said you successfully did so. This issue has now been rectified.\n\nThank you for your patience,\nMichael",
+  'target_source' : '/var/django/webapps/utility/organization/current_signator_usernames.txt'
+}

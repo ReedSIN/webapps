@@ -1,0 +1,208 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="sin sinning sinful evil devil morality">
+    <meta name="author" content="BooJay Labs">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta property="og:site_name" content="sin" />
+    <meta property="og:title" content="the student information network"/>
+    <meta property="og:description" content="host of webapps for reed college students" />
+    <meta property="og:image" content=""> <!-- TODO logo -->
+    <meta property="og:url" content="http://sin.reed.edu">
+    
+    <title>s i n | yet another sin </title>
+
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./main-app-styles.css" rel="stylesheet">
+    <script src="./jquery.js"></script>
+    <script>
+    	$(document).ready(function(){
+    		var fire = $("#toggle-button span");
+    		fire.toggleClass("flipX-glyph");
+    		setTimeout(function() {
+    			fire.toggleClass("flipX-glyph");
+    		},600);
+
+    		$(function() {
+    			// we use the index 2 because of /webapps/...
+    			var p = location.pathname.split("/");
+    			var c = $('nav a[href^="/' + p[1] + '/' + p[2] + '"]');
+    			console.log(c)
+    			c.addClass('active');
+   				console.log(c)
+    		});
+    	});
+    </script>
+</head>
+<body>
+
+<div class="top-bar">
+	<div id="toggle-button" class="left-thing hide-bar" onclick="toggle_sidebar();">
+			<span class="glyphicon glyphicon-fire"></span>
+	</div>
+	<div class="sin-letters">
+		<div class="sin-letter">
+			s
+		</div>
+		<div class="sin-letter">
+			i
+		</div>		
+		<div class="sin-letter">
+			n
+		</div>
+	</div>
+	<div class="right-thing">
+		<p class="smaller">
+			<span class="glyphicon glyphicon-user"></span>
+			B. Beutell
+		<br />
+			<a href="#">
+				<span class="glyphicon glyphicon-log-out"></span>
+				Logout
+			</a>
+		</p>
+	</div>
+</div>
+<div class="middle-thing">
+	<div class="other-button">
+		<a href="#" class="hide-bar">
+			<span class="glyphicon glyphicon-home"></span>
+		</a>
+	</div>
+</div>
+<header>
+
+	<div class="app-name hide-bar">		
+		app name
+	</div>
+	<div class="app-nav">
+		<ul>
+			<li class=""><a href="#"><div>home</div></a></li>
+			<li class=""><a href="#"><div>new</div></a></li>
+			<li class=""><a href="#"><div>edit</div></a></li>
+			<li class=""><a href="#"><div>other</div></a></li>
+		</ul>
+	</div>
+	<hr>
+</header>
+<div class="big-wrap">
+<nav class="side-bar hide-bar">
+	<ul>
+	<li>
+		<a href="#" class="active">
+			<div>
+				<span class="glyphicon glyphicon-home"></span>
+			</div>			
+			<div class="">home</div>
+		</a>
+	</li>
+	<li>
+		<a href="/Users/brettbeutell">
+			<div>
+				<span class="glyphicon glyphicon-globe"></span>
+			</div>
+			<div class="">wiki</div>
+		</a>
+	</li>
+	<li>
+		<a href="#">
+			<div>
+				<span class="glyphicon glyphicon-tower"></span>
+			</div>
+			<div class="">appoint</div>
+		</a>
+	</li>
+	<li>
+		<a href="#">
+			<div>
+				<span class="glyphicon glyphicon-usd"></span>
+			</div>
+			<div class="">finance</div>
+		</a>
+	</li>
+	<hr>
+	<li>
+		<a href="#">
+			<div>
+				<span class="glyphicon glyphicon-stats"></span>
+			</div>
+			<div class="">fund poll</div>
+		</a>
+	</li>	
+	<li>
+		<a href="#">
+			<div>
+				<span class="glyphicon glyphicon-bullhorn"></span>
+			</div>
+			<div class="">elections</div>
+		</a>
+	</li>	
+	</ul>
+</nav>
+<div class="main hide-bar">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque aliquid minima alias quas, cum excepturi!
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque aliquid minima alias quas, cum excepturi!
+			</div>
+			<div class="col-md-6">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus reprehenderit est eaque atque necessitatibus sunt nisi ad facilis minima. Dolores architecto perferendis at autem veniam qui eveniet doloremque eaque minima.
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque aliquid minima alias quas, cum excepturi!
+			</div>
+			<div class="col-md-4">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus reprehenderit est eaque atque necessitatibus sunt nisi ad facilis minima. Dolores architecto perferendis at autem veniam qui eveniet doloremque eaque minima.
+			</div>
+			<div class="col-md-4">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt, rem.
+			</div>
+		</div>
+	</div>
+</div> <!-- /.main -->
+</div> <!-- /.big-wrap -->
+	<footer>
+		<div class="footer-item gasp">
+			<p>
+				<span class="gasp-b">Having problems?</span>
+				Feel free to contact the webmasters: 
+				<a href="mailto:sin@lists.reed.edu?subject=Sinquiry">sin@lists.reed.edu</a>
+			</p>			
+		</div>
+	</footer>
+<script src="./bootstrap/js/bootstrap.min.js"></script>
+<script>
+    function toggle_sidebar() {
+    	var revealing = false;
+    	if ($(".side-bar").hasClass("hide-bar")) {
+    		console.log("hi");
+    		revealing = true;
+    	}
+    	$(".side-bar").toggleClass("hide-bar");
+    	$(".app-name").toggleClass("hide-bar");
+    	$(".other-button a").toggleClass("hide-bar");
+    	$("#toggle-button").toggleClass("hide-bar");
+    	$("#toggle-button span").toggleClass("flipY-glyph");
+    	$(".sin-letter").each(function(index) {
+    		var letter = $(this);
+    		var i = 2 - index;
+    		if (revealing) {
+    			i = index;
+    		}
+    		setTimeout(function() {
+    			letter.toggleClass("new-bg");
+    		},100*(i));
+    	});
+    }
+</script>
+</body>
+</html>

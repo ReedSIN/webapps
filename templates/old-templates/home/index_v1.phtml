@@ -1,0 +1,55 @@
+{% extends "home/home-base.phtml" %}
+
+{% block html-title %} The Home of SIN {% endblock %}
+
+{% block fancy-header %}{{block.super}}{% endblock %}
+
+{% block content %} 
+<hr class="featurette-divider">
+  <div class="row">
+    <div class="col-md-3 col-sm-6">
+          <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140" alt="Generic placeholder image">
+          <h2>Appointments</h2>
+	  <p>
+	    Edit that rambling J-board app you wrote when you were half-drunk. 
+          </p>
+          <p><a class="btn btn-default" href="appointments">
+	    Take Me There, Shorty &raquo;
+	  </a></p>
+        </div><!-- /.col-md-3 col-sm-6 -->
+
+    <div class="col-md-3 col-sm-6">
+          <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140" alt="Generic placeholder image">
+          <h2>Organizations</h2>
+          <p> 
+	    Delete that Kony 2012 group you made when you were fully-drunk. 
+	  </p>
+          <p><a class="btn btn-default" href="/webapps/organization-manager">
+	    Take Me There, Shorty &raquo;
+	  </a></p>
+        </div><!-- /.col-md-3 col-sm-6 -->
+
+        <div class="col-md-3 col-sm-6">
+          <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140" alt="Generic placeholder image">
+          <h2>Finance</h2>
+	  <p> Write clean budget$ 
+	      and $oberly $ubmit them to Finance Committee. </p>
+          <p><a class="btn btn-default" href="/webapps/finance">Take Me There, $horty &raquo;</a></p>
+        </div><!-- /.col-md-3 col-sm-6 -->
+
+        <div class="col-md-3 col-sm-6">
+          <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140" alt="Generic placeholder image">
+          <h2>Classifieds</h2>
+	  <p> Coming soon! <br />
+	  You betcha!</p>
+          <p><a class="btn btn-default" href="/webapps/classifieds">Take Me There, Shorty &raquo;</a></p>
+        </div><!-- /.col-md-3 col-sm-6 -->
+      </div><!-- /.row -->
+
+<hr class="featurette-divider">
+
+{% endblock %}
+
+{% block breadcrumb-trail %}
+
+{% endblock %}

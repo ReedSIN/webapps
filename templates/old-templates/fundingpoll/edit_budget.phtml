@@ -1,0 +1,100 @@
+{% extends "fundingpoll/fundingpoll-base.phtml" %}
+
+{% load fundingpoll_tags %}
+
+{% block src-javascript %}
+<!--<script type="text/javascript" language="JavaScript" src="/js/webapps/generic/onload.js"></script>-->
+<script type="text/javascript" language="JavaScript" src="/js/json2_min.js"></script>
+<!--<script type="text/javascript" language="JavaScript" src="/js/jquery-1.3.2.min.js"></script> -->
+<script type="text/javascript" language="JavaScript" src="/js/webapps/fundingpoll/create_budget.js"></script>
+{% endblock %}
+
+{% block on-load %}
+{{block.super}}
+{% if items %}
+{% for i in items %}
+budgetitem({
+	'name' : "{{ i.name|escapejs }}",
+	'description' : "{{ i.description|escapejs }}",
+	'requested' : "{{ i.requested|escapejs }}"
+});
+{% endfor %}
+{% else %}
+budgetitem({
+  'name' : 'Administration Costs',
+  'description' : '',
+  'requested' : ''
+});
+budgetitem({
+  'name' : 'Refreshments',
+  'description' : '',
+  'requested' : ''
+});
+budgetitem({
+  'name' : 'Entertainment',
+  'description' : '',
+  'requested' : ''
+});
+budgetitem({
+  'name' : 'Capital Improvements',
+  'description' : '',
+  'requested' : ''
+});
+budgetitem({
+  'name' : 'Frozen',
+  'description' : '',
+  'requested' : ''
+});
+budgetitem({
+  'name' : 'Miscellaneous',
+  'description' : '',
+  'requested' : ''
+});
+{% endif %}
+budgetID = '{{ budget.id }}';
+
+{% endblock %}
+
+{% block stylesheets %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="/css/webapps/object-detail-style.css" />
+<link rel="stylesheet" type="text/css" href="/css/webapps/budget-style.css" />
+{% endblock %}
+
+{% block content %}
+{{block.super}}
+<fieldset class="create-budget-fieldset" id="create-budget-fieldset" >
+<legend class="create-budget-legend">Create Budget</legend>
+
+<form class="create-budget-form" method="post" action="" onsubmit="return false;">
+<div class="object-div">
+  <div class="object-div-title">Signator:</div>
+  <div class="object-div-content">{{ user.get_full_name }}</div>
+</div>
+<div class="object-div">
+  <div class="object-div-title">Organization:</div>
+  <div class="object-div-content">
+    <select name="organization" class="create-budget-organization-input" id="organization_select">
+      <option value="{{ org.organization.id }}">{{ org.organization.name }}</option>
+    </select>
+  </div>
+</div>
+<div class="object-div">
+  <div class="object-div-textarea-title">Description:</div>
+  <div class="object-div-textarea-content">
+  <textarea class="object-div-textarea" id="description-textarea" name="description">{{ budget.description|nbsp|safe }}</textarea>
+  </div>
+</div>
+
+<fieldset class="add-budget-frameset" id="budget-item-fieldset" style="padding-bottom:15px;">
+<legend>Budget Items</legend>
+</fieldset>
+<p><b>Important: You MUST click Save Budget first! If you Preview your budget immediately, any changes you've just made will be lost.</b></p>
+<div class="object-bottom-menu">
+<input type="submit" value="Save Budget" onclick="submit_form(this.parentNode);"/>
+<input type="button" value="Preview Budget" onclick="window.location = '/webapps/fundingpoll/budgets/preview/{{ budget.id }}/';"/>
+</div>
+</form>
+</fieldset>
+
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "classifieds/class-base2.phtml" %}
+<!-- Only variable necessary is 'ad' -->
+{% block content %}
+{{block.super}}
+
+
+
+<div class="row">
+  <div class="col-md-4 col-sm-4">
+    <h1>
+     {{ad.title}}
+      <span class="text-muted">
+        (#{{ad.id}})
+      </span>
+    </h1>
+    {% if ad.creator == request.user %}
+      <form action="/webapps/classifieds/edit/{{ad.id}}/">
+
+        <button class="btn btn-primary btn-sm"
+                type="submit">
+
+          <span class="glyphicon glyphicon-edit"></span>&nbsp;
+          Edit
+        </button>
+      </form>
+      <form action="/webapps/classifieds/delete/{{ad.id}}/">
+
+        <button class="btn btn-primary btn-sm"
+                type="submit">
+
+          <span class="glyphicon glyphicon-remove"></span>&nbsp;
+          Delete
+        </button>
+      </form>
+    {% for message in relevant_messages %}
+      <!-- Show Requests -->
+      <p>Request</p>
+    {% endfor %}
+   {% endif %}
+   <!-- if request.user in ad.approved -->
+   <!-- show 'email author' button -->
+  </div>
+  <div class="col-md-8 col-sm-8">
+  <br />
+    <div class="well well-lg">
+      <p>{{ad.text|linebreaks}}</p>
+    </div> <!-- /.well -->
+  </div> <!-- /.col-md-7 -->
+</div> <!-- /.row -->
+
+
+<!-- OOf, this styling is horrendous!!!! -->
+
+{% if not_creator %}
+<div class="row">
+<div class="col-md-7">
+<div class="well" id="new_comment">
+  <form action="" method="post">
+    {{form.body.errors}}
+    <label for="id_body" class="sr-only">Include a little message if you'd like.</label>
+    {{form.body}}
+  <br>
+  <button class="btn btn-primary btn-block" type="submit" value="submit">
+    <span class="glyphicon glyphicon-send"></span>&nbsp;
+    Request Contact Info
+  </button>
+  </form>
+</div>
+</div>
+</div>
+{% endif %}
+
+<hr class="featurette-divider">	
+{% include "classifieds/includes/classif-nav.phtml" %}
+<hr class="featurette-divider">
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "classifieds/classif-base.phtml" %}
+<!-- Only variable necessary is 'ad' -->
+{% block content %}
+<h1> Edit My Ad </h1>
+<br>
+<form action="" method="post">
+
+{{ form.category.errors }}
+            <label for="category">Category:</label>
+{{ form.category }}
+
+{{ form.email.errors }}
+            <label for="email">Email Address (optional!): </label>
+{{ form.email }}
+
+{{ form.phone.errors }}
+            <label for="phone">Phone Number (optional!): </label>
+{{ form.phone }}
+
+{{ form.title.errors }}
+            <label for="title">Title:</label>
+{{ form.title }}
+
+{{ form.text.errors }}
+            <label for=text">Ad Text:</label>
+{{ form.text }}
+
+
+<input type="submit" value="Submit">
+<a href="/webapps/classifieds/"><button type="button" class="btn btn-default">Cancel</button></a>
+</form>
+	
+{% endblock %}
+
+{% block breadcrumb-trail %}
+
+{% endblock %}

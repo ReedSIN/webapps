@@ -1,0 +1,52 @@
+{% extends "classifieds/classif-base.phtml" %}
+
+{% block content %}
+   <center>
+	<button type="button" class="btn-classifieds" href="#">
+		<span class="glyphicon glyphicon-heart"></span> Community
+	</button>
+	<button type="button" class="btn-classifieds" href="#">
+		<span class="glyphicon glyphicon-th-list"></span> Trade
+	</button>
+	<button type="button" class="btn-classifieds" href="#">
+		<span class="glyphicon glyphicon-tree-deciduous"></span> Switchboardhq
+	</button>
+
+   </center>
+   <center>
+   <div class="container">
+   <div class="container">
+   <div style="text-align: left">
+   <table class="title-row" style="background-color: #5e0501; color: #FFFFFF">
+   	  <tr><td class="t-cell"><span class="glyphicon glyphicon-fire"></span></td><td class="trc">sin classifieds |</td><td class="trc">community ads |</td><td class="trc">missed connections |</td><td class="trc">new posting</td></tr>
+	  </table>
+	  </div>
+	  </div>
+	  <div class="container">
+	  <div style="text-align: left">
+	  <table class="classifieds-table" style="background-color: #dcdcdc">
+	  {% for ad in relevant_ads %}
+   	  <tr style="height:10px">
+	      <td style="post-rank">{{ ad.rank }}</td>
+	      <td><span class="glyphicon glyphicon-chevron-up"></span></td>
+	      <td><span class="glyphicon glyphicon-chevron-down"></span></td>
+	      <td style="post-title">{{ ad.title }}</td>
+	      <td style="post-poster">({{ ad.creator }})</td>
+	      <td></td>
+	  </tr>
+	  <tr style="height:6px">
+	      <td style="post-rank">{{ ad.score }}</td>
+	      <td style="post-poster">{{ ad.comments_on_post|length }} comments </td>
+	  </tr>
+	  {% endfor %}
+	 
+   </table>
+   </div>
+   </div>
+   </div>
+   </center>
+{% endblock %}
+
+{% block breadcrumb-trail %}
+
+{% endblock %}
