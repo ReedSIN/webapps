@@ -61,7 +61,7 @@ def organization_list(request):
 	'archived' : archived
   }
   
-  return render_to_response('organizations/organization_list.phtml', template_args, context_instance=RequestContext(request))
+  return render_to_response('organizations/organization_list.html', template_args, context_instance=RequestContext(request))
 
 def organization_detail(request, org_id):
   authenticate(request,VALID_FACTORS)
@@ -70,7 +70,7 @@ def organization_detail(request, org_id):
     'org' : Organization.objects.get(id = org_id)
   }
   
-  return render_to_response('organizations/organization_detail.phtml', template_args, context_instance=RequestContext(request))
+  return render_to_response('organizations/organization_detail.html', template_args, context_instance=RequestContext(request))
   
 def escape(s):
   if type(s) != str and type(s) != unicode:
@@ -110,7 +110,7 @@ def csv_list(request):
 def index(request):
   authenticate(request, VALID_FACTORS)
     
-  return render_to_response('organizations/index.phtml', context_instance=RequestContext(request))
+  return render_to_response('organizations/index.html', context_instance=RequestContext(request))
 
 def my_organizations(request):
   authenticate(request, VALID_FACTORS)
@@ -154,7 +154,7 @@ def my_organizations(request):
     'create_alert': create_alert,
   }
   
-  return render_to_response('organizations/my_organizations.phtml',template_args, context_instance=RequestContext(request))
+  return render_to_response('organizations/my_organizations.html',template_args, context_instance=RequestContext(request))
 
 def edit_org(request, org_id):
   authenticate(request, VALID_FACTORS)
@@ -181,7 +181,7 @@ def edit_org(request, org_id):
     'org' : o
   }
   
-  return render_to_response('organizations/edit_org.phtml', template_args, context_instance=RequestContext(request))
+  return render_to_response('organizations/edit_org.html', template_args, context_instance=RequestContext(request))
 
 def delete_org(request, org_id):
   authenticate(request, VALID_FACTORS)
@@ -311,7 +311,7 @@ def change_signator_get(request, org_id):
     'o' : o
   }
   
-  return render_to_response('organizations/change_signator.phtml',template_args, context_instance=RequestContext(request))
+  return render_to_response('organizations/change_signator.html',template_args, context_instance=RequestContext(request))
 
 def change_signator_post(request, org_id, new_signator_username):
   authenticate(request, VALID_FACTORS)
