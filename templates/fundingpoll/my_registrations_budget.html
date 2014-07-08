@@ -1,4 +1,4 @@
-{% extends "fundingpoll/fundingpoll-base.phtml" %}
+{% extends "fundingpoll/fundingpoll-base.html" %}
 
 {% block src-javascript %}
 <!--<script type="text/javascript" language="JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>-->
@@ -7,8 +7,9 @@
 
 {% block content %}
 {{block.super}}
-
-<h3>My Registered Organizations in Top 40</h3>
+<div class="row-extra-padding">
+  <h2>My Registered Organizations in Top 40</h3>
+</div>
 <table class="table table-hover" id="org-table">
   <tr class="table-header">
     <td>

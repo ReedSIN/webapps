@@ -1,0 +1,63 @@
+{% extends "fundingpoll/fundingpoll-base.html" %}
+
+{% block content %}
+<div class="row-extra-padding">
+	<h2>Current Status</h2> 
+	<p class="lead">{{ status }}</p>
+	<h2>Current Time</h2> 
+	<p class="lead">{{ time|date:"h:i:s A F d, Y" }}</p>
+</div>
+<div class="row">
+	<h2>Current Schedule</h2>
+	<table class="table table-hover">
+	<tr>
+	<td>
+	Organization Registration Start: 
+	</td>
+	<td>
+	{{ fp.start_registration|date:"h:i:s A F d, Y" }}
+	</td>
+	</tr>
+	<tr>
+	<td>
+	Organization Registration End: 
+	</td>
+	<td>
+	{{ fp.end_registration|date:"h:i:s A F d, Y" }}
+	</td>
+	</tr>
+	<tr>
+	<td>
+	Voting Start: 
+	</td>
+	<td>
+	{{ fp.start_voting|date:"h:i:s A F d, Y" }}
+	</td>
+	</tr>
+	<tr>
+	<td>
+	Voting End: 
+	</td>
+	<td>
+	{{ fp.end_voting|date:"h:i:s A F d, Y" }}
+	</td>
+	</tr>
+	<tr>
+	<td>
+	Budget Submission Start: 
+	</td>
+	<td>
+	{{ fp.start_budgets|date:"h:i:s A F d, Y" }}
+	</td>
+	</tr>
+	<tr>
+	<td>
+	Budget Submission End: 
+	</td>
+	<td>
+	{{ fp.end_budgets|date:"h:i:s A F d, Y" }}
+	</td>
+	</tr>
+	</table>
+</div>
+{% endblock %}

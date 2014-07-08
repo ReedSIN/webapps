@@ -1,4 +1,4 @@
-{% extends "fundingpoll/fundingpoll-base.phtml" %}
+{% extends "fundingpoll/fundingpoll-base.html" %}
 
 {% load fundingpoll_tags %}
 
@@ -9,10 +9,16 @@
 
 {% block content %}
 {{block.super}}
-<h2>Results</h2>
-<p>
-*Note* Score is not the actual vote count, but is the accumulated total of all the votes once top 6/deep 6/etc has been applied.
-</p>
+<div class="row-extra-padding">
+	<h2>Results</h2>
+</div>
+<div class="row">
+	<h3><i>note</i></h3>
+	<p class="lead">
+		Score is not the actual vote count, but is the accumulated total of all the votes 
+		once top6, deep6, etc. have been applied.
+	</p>
+</div>
 <hr class="featurette-divider">
 <p>
 Participation: {{ total_votes }}/{{ total_users }} - {{ ratio }}

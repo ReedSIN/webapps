@@ -144,7 +144,7 @@ def index(request):
      'reg_open' : False,
     }
 
-  return render_to_response('fundingpoll/index.phtml', template_args, context_instance=RequestContext(request))
+  return render_to_response('fundingpoll/index.html', template_args, context_instance=RequestContext(request))
 
 def decamelcase(s):
   i = s.index('_')
@@ -165,7 +165,7 @@ def schedule(request):
     'time' : current_time
   }
   
-  return render_to_response('fundingpoll/schedule.phtml', template_args, context_instance=RequestContext(request))
+  return render_to_response('fundingpoll/schedule.html', template_args, context_instance=RequestContext(request))
 
 def registered(request):
   authenticate(request, VALID_FACTORS)
@@ -177,7 +177,7 @@ def registered(request):
     'forgs' : forgs
   }
 
-  return render_to_response('fundingpoll/registered.phtml', template_args, context_instance=RequestContext(request))
+  return render_to_response('fundingpoll/registered.html', template_args, context_instance=RequestContext(request))
 
 def vote_main2(request):
   admin = ('admin' == authenticate(request, VALID_FACTORS))
@@ -198,7 +198,7 @@ def vote_main2(request):
         }
         target = os.path.join(TEMPLATE_DIRS[0],'fundingpoll/vote_dump.phtml')
         f = codecs.open(target,'w','utf-8')
-        f.write(render_to_string('fundingpoll/vote_main.phtml'),template_args)
+        f.write(render_to_string('fundingpoll/vote_main.html'),template_args)
         f.close()
       refresh_dump()
     return render_to_response('fundingpoll/vote_dump.phtml', context_instance=RequestContext(request))
@@ -225,7 +225,7 @@ def vote_main(request):
     'forgs' : forgs
   }
   
-  return render_to_response('fundingpoll/vote_main.phtml', template_args, context_instance=RequestContext(request))
+  return render_to_response('fundingpoll/vote_main.html', template_args, context_instance=RequestContext(request))
   #return render_to_response('fundingpoll/vote_dump.phtml', context_instance=RequestContext(request))
 
 def admin_voting(request):
@@ -239,7 +239,7 @@ def admin_voting(request):
     'forgs' : forgs
   }
   
-  return render_to_response('fundingpoll/vote_main.phtml', template_args, context_instance=RequestContext(request))
+  return render_to_response('fundingpoll/vote_main.html', template_args, context_instance=RequestContext(request))
 
 def submit_vote(request):
   authenticate(request, VALID_FACTORS)
@@ -266,7 +266,7 @@ def submit_vote(request):
       r.write('<p>Error, you may not vote twice in fundingpoll.</p>')
       return r
   
-  return render_to_response('fundingpoll/voting_success.phtml', context_instance=RequestContext(request))
+  return render_to_response('fundingpoll/voting_success.html', context_instance=RequestContext(request))
 
 def organize_orgs(request):
   authenticate(request, ADMIN_FACTORS)
@@ -358,7 +358,7 @@ def my_registrations(request):
       'unreg_orgs' : unregistered_orgs,
     }
     
-    return render_to_response('fundingpoll/my_registrations.phtml', template_args, context_instance=RequestContext(request))    
+    return render_to_response('fundingpoll/my_registrations.html', template_args, context_instance=RequestContext(request))    
   else:
     registered_orgs = filter(lambda x: x.organization.signator == request.user,get_top_40())
  
@@ -375,7 +375,7 @@ def my_registrations(request):
       'reg_orgs' : registered_orgs,
     }
     
-    return render_to_response('fundingpoll/my_registrations_budget.phtml', template_args, context_instance=RequestContext(request))
+    return render_to_response('fundingpoll/my_registrations_budget.html', template_args, context_instance=RequestContext(request))
 
 def save_registration(request):
   authenticate(request, VALID_FACTORS)
@@ -459,7 +459,7 @@ def view_all_budgets(request):
     'counter' : counter()
   }
   
-  return render_to_response('fundingpoll/view_all_budgets.phtml', template_args, context_instance=RequestContext(request))
+  return render_to_response('fundingpoll/view_all_budgets.html', template_args, context_instance=RequestContext(request))
 
 def view_one_budget(request, budget_id):
   authenticate(request, TREASURER_FACTORS)
@@ -473,7 +473,7 @@ def view_one_budget(request, budget_id):
     'items' : items
   }
   
-  return render_to_response('fundingpoll/view_one_budget.phtml', template_args, context_instance=RequestContext(request))
+  return render_to_response('fundingpoll/view_one_budget.html', template_args, context_instance=RequestContext(request))
 
 def view_results(request):
   admin = ('admin' == authenticate(request, VALID_FACTORS))
@@ -501,7 +501,7 @@ def view_results(request):
     'counter' : counter()
   }
   
-  return render_to_response('fundingpoll/results.phtml',template_args, context_instance=RequestContext(request))
+  return render_to_response('fundingpoll/results.html',template_args, context_instance=RequestContext(request))
 
 
 def admin_view_results(request):
@@ -514,7 +514,7 @@ def admin_view_results(request):
     "counter" : counter()
   }
   
-  return render_to_response('fundingpoll/results.phtml',template_args, context_instance=RequestContext(request))
+  return render_to_response('fundingpoll/results.html',template_args, context_instance=RequestContext(request))
 
 def preview_budget(request, budget_id):
   factor = authenticate(request, VALID_FACTORS)
@@ -532,7 +532,7 @@ def preview_budget(request, budget_id):
     'items' : items
   }
   
-  return render_to_response('fundingpoll/view_one_budget.phtml', template_args, context_instance=RequestContext(request))
+  return render_to_response('fundingpoll/view_one_budget.html', template_args, context_instance=RequestContext(request))
 
 def edit_budget(request, org_id):
   factor = authenticate(request, VALID_FACTORS)
@@ -573,7 +573,7 @@ def edit_budget(request, org_id):
     'items' : budget_items
   }
   
-  return render_to_response('fundingpoll/edit_budget.phtml', template_args, context_instance=RequestContext(request))
+  return render_to_response('fundingpoll/edit_budget.html', template_args, context_instance=RequestContext(request))
 
 import re
 

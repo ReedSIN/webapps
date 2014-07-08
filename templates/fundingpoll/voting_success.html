@@ -1,0 +1,19 @@
+{% extends "fundingpoll/fundingpoll-base.html" %}
+
+{% block html-title %}
+success! redirecting funding poll...
+{% endblock %}
+
+{% block on-load %}
+	setTimeout(function() {
+	  window.location = "/webapps/fundingpoll/";
+	}, 3000);
+{% endblock %}
+
+{% block content %}
+	<div class="row-extra-padding">
+		<h2>
+			Thank you for voting! Redirecting you to the Funding Poll Index in 3 seconds...
+		</h2>
+	</div>
+{% endblock %}

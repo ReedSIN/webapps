@@ -1,17 +1,9 @@
-{% extends "fundingpoll/fundingpoll-base.phtml" %}
+{% extends "fundingpoll/fundingpoll-base.html" %}
 
 {% load fundingpoll_tags %}
 
-{% block stylesheets %}
-{{ block.super }}
-<!--<link rel="stylesheet" type="text/css" href="/css/webapps/object-detail-style.css" />-->
-<!--<link rel="stylesheet" type="text/css" href="/css/webapps/view-one-budget-style.css" />-->
-{% endblock %}
-
 {% block content %}
-{{block.super}}
-
-<div class="row">
+<div class="row-extra-padding">
   <div class="col-lg-5 col-md-4 col-sm-4">
     <h2 class="featurette-heading">
       {{ budget.organization.organization.name }}
