@@ -1,7 +1,6 @@
 {% extends "appointments/appointments-base.html" %}
 
-{% block javascript %}
-
+{% block src-javascript %}
 <script type="text/javascript">
 function checkSubmit() {
   var position_name = document.getElementById('form-position-name');
@@ -22,17 +21,12 @@ function checkSubmit() {
   return true;
 }
 </script>
-
-
 {% endblock %}
 
 {% block content %}
-{{block.super}}
-<ul class="nav nav-pills">
-  <li class="active"><a href="/webapps/appointments/admin/">&laquo; Back</a></li>
-  <li class="disabled"><a href="#">Edit</li></a>
-</ul>
-
+<div class="row-extra-padding">
+  <p class="lead"> forms are cool. please fill this out. </p>
+</div>
 <form role="form" 
       method="post" action="/webapps/appointments/admin/submit/" onSubmit='return checkSubmit();'>
 <table class="form-group table table-hover table-responsive">

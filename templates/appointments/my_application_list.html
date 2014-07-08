@@ -7,15 +7,11 @@
   If there are no apps do stuff here
 {% endcomment %}
 {% endif %}
-<h2>My Applications</h2>
-
-{% if user.username == "lbowcock" %}
-<h4> Hi, Liam ;) </h4>
-<h5> Only you can see this. </h5>
-<h6 class="text-muted">Is that creepy?</h6>
-{% endif %}
-
+<div class="row-extra-padding">
+	<h2>your applications</h2>
+</div>
 <form onsubmit="return false;">
+<div class="table-responsive">
 <table class="table table-hover table-responsive">
   <tr class="table-header">
     <td>Position</td>
@@ -37,4 +33,5 @@
 </tr>
 {% endfor %}
 </table>
+</div>
 {% endblock %}

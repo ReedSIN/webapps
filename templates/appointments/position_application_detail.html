@@ -7,12 +7,10 @@
 
 
 {% block content %}
-{{block.super}}
-
 <div class="row">
-<div class="col-lg-5 col-md-4 col-sm-3">
-  <h2 class="featurette-heading">{{ app.position.name }}
-   <span class="text-muted" style="font:smaller;">({{ app.applicant }})</span>
+<div class="col-md-4">
+  <h2 class="">{{ app.position.name }}
+   <span class="text-muted smaller">({{ app.applicant }})</span>
   </h2>
   <p class="lead">
         <span class="name"></span> is a <strong>
@@ -34,7 +32,7 @@
     <a href="mailto:{{app.email}}?Subject=Your%20{{app.position.name}}%20Application">{{app.email}}</a>.
   </p>
 </div> <!-- /.col-lg-5 ... -->
-<div class="col-lg-7 col-md-8 col-sm-9">
+<div class="col-md-8">
  <p class="lead">&nbsp;</p> <!-- for aesthetics / alignment -->
  <div class="table-responsive">
   <table class="table table-hover">
@@ -80,9 +78,6 @@
     </tr>
   </table>
  </div>
-</div> <!-- /.col-lg-7 ... -->
+</div> <!-- /.col-md-8 ... -->
 </div> <!-- /.row -->
-
-
-
 {% endblock %}

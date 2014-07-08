@@ -1,22 +1,16 @@
 {% extends "appointments/appointments-base.html" %}
 
 {% block content %}
-{{block.super}}
-
-<ul class="nav nav-pills">
-  <li class="active"><a href="/webapps/appointments/admin/">&laquo; Admin</a></li>
-  <li class="active"><a href="/webapps/appointments/admin/create">New</a></li>
-  <li class="disabled"><a href="#">Edit</li></a>
-</ul>
-{% if success %}
-   <p class="submit-success">
-     Success! You are now in editing mode. Make changes to the "{{position.name}}" position, or click New to create another position.
-   </p>
-{% endif %}
-
-<hr class="featurette-divider">
-
+  <div class="row-extra-padding">
+    {% if success %}
+    <div class="well">
+       Success! You are now in editing mode. Make changes to the "{{position.name}}" position, or click New to create another position.
+    </div>
+    {% endif %}
+    <p class="lead"> this is the place to create and edit positions. just so ya know.</p>
+  </div>
 <form action="" method="post" role="form">
+<div class="table-responsive">
 <table class="table table-hover table-responsive">
   <tr>
   <td width=50>
@@ -52,4 +46,5 @@
   </tr>
 </table>
 </form>
+</div> <!-- /.table-responsive -->
 {% endblock %}

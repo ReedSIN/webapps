@@ -1,15 +1,9 @@
 {% extends "appointments/appointments-base.html" %}
 
-{% block stylesheets %}
-{{ block.super }}
-<!--<link rel="stylesheet" type="text/css" href="/css/webapps/object-detail-style.css" />-->
-
-<!--<link rel="stylesheet" type="text/css" href="/css/webapps/appointments/application-detail-style.css" /> -->
-{% endblock %}
-
 {% block content %}
-{{block.super}}
-
+<div class="row-extra-padding">
+  you are now editing your application.
+</div>
 <form method="post" action="/webapps/appointments/my_applications/edit/{{ app.id }}">
 
 <div class="row">

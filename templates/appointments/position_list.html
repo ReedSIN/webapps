@@ -1,10 +1,11 @@
 {% extends "appointments/appointments-base.html" %}
 
 {% block content %}
-{{block.super}}
-<h2>Current Open Positions</h2>
-<hr class="featurette-divider">
-
+<div class="row-extra-padding">
+  <h2>Current Open Positions</h2>
+  <hr>
+</div>
+<div class="table-responsive">
 <table class="table table-hover table-responsive">
   <tr class="table-header">
   <td>
@@ -39,4 +40,5 @@
 </tr>
 {% endfor %}
 </table>
+</div>
 {% endblock %}

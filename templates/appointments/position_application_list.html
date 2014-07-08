@@ -1,17 +1,10 @@
 {% extends "appointments/appointments-base.html" %}
 
 {% block content %}
-{{block.super}}
+<div class="row-extra-padding">
+  <h2>Applications <span class="text-muted">for {{position.name}}</span></h2>
+</div>
 
-
-    <h2>Applications <span class="text-muted">for {{position.name}}</span></h2>
-
-    <ul class="nav nav-pills">
-      <li class="active"><a href="/webapps/appointments/admin/">&laquo; Admin</a></li>
-      <li class="active"><a href="/webapps/appointments/admin/edit/{{position.id}}">Edit Position Info</a></li>
-    </ul>
-
-<hr class="featurette-divider">
 <table class="table table-hover">
   <tr class="table-header">
     <td>Applicant Name</td>
