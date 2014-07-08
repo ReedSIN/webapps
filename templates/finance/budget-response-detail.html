@@ -58,8 +58,14 @@ function update_total_claimed(widget) {
 {% endblock %}
 
 {% block content %}
-{{block.super}}
-
+<div class="row-extra-padding">
+    <h2 class="">
+        here is that budget you requested or whatever
+    </h2>
+    <p class="text-muted lead">
+        you're welcome
+    </p>
+</div>
 <fieldset>
 <form method="post" action="/webapps/finance/view_budgets/respond/save/{{ budget.id }}/">
 <div class="row">

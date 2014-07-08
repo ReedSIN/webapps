@@ -1,15 +1,12 @@
-{% extends "finance/finance-base.phtml" %}
+{% extends "finance/finance-base.html" %}
 
 {% block src-javascript %}
-<!--<script type="text/javascript" language="JavaScript" src="/js/webapps/generic/onload.js"></script>-->
-
 <script type="text/javascript" language="JavaScript" src="/js/json2_min.js"></script></script>
 <script type="text/javascript" language="JavaScript" src="/js/webapps/finance/edit_budget.js"></script>
 {% endblock %}
 
-{% block raw-javascript %}
+{% block on-load %}
 
-$(document).ready(function(){
 {% for i in items %}
 budgetitem({
 	'name' : '{{ i.name|escapejs }}',
@@ -17,15 +14,20 @@ budgetitem({
 	'requested' : '{{ i.requested|escapejs }}'
 });
 {% endfor %}
-});
+
 budgetID = '{{ budget.id }}';
 
 {% endblock %}
 
 {% block content %}
-{{block.super}}
-
-
+<div class="row-extra-padding">
+    <h2 class="">
+        here is that budget editing form you requested
+    </h2>
+    <p class="text-muted lead">
+        you're welcome
+    </p>
+</div>
 <fieldset class="create-budget-fieldset" id="create-budget-fieldset" >
 <legend class="create-budget-legend">Create Budget</legend>
 <form class="create-budget-form" method="post" action="/webapps/finance/submit_budget/create/" onsubmit="return false;">

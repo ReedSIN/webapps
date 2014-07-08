@@ -1,8 +1,14 @@
-{% extends "finance/finance-base.phtml" %}
+{% extends "finance/finance-base.html" %}
 
 {% block content %}
-{{block.super}}
-
+<div class="row-extra-padding">
+    <h2 class="">
+        here is a list of approved budgets
+    </h2>
+    <p class="text-muted lead">
+        you're welcome
+    </p>
+</div>
 {% if admin %}
 <form method="get" action="" onsubmit="this.action = '/webapps/finance/view_budgets/respond/edit/' + budget_id;">
 {% endif %}

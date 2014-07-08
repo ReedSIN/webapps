@@ -1,7 +1,6 @@
-{% extends "finance/finance-base.phtml" %}
+{% extends "finance/finance-base.html" %}
 
-{% block javascript %}
-{{ block.super }}
+{% block src-javascript %}
 <script type="text/javascript">
 window.onload=function() {
 	document.orgSearch.org.style.color = "#999999";
@@ -23,13 +22,17 @@ window.onload=function() {
 		}
 	}
 }
-
 </script>
 {% endblock %}
 
 {% block content %}
-{{block.super}}
-<h2>Organization Budget Search</h2>
+<div class="row-extra-padding">
+  <h2>here's that organization search you requested</h2>  
+  <p class="lead text-muted">
+    you're welcome
+  </p>
+</div>
+
 
 <form name="orgSearch" action="organization_budgets" method="GET">
 <input class="form-control" type="text" name="org" 

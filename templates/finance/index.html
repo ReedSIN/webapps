@@ -1,23 +1,20 @@
-{% extends "finance/finance-base.phtml" %}
+{% extends "finance/finance-base.html" %}
 
 {% block content %}
-{{block.super}}
 <div class="col-md-9">
-<div class="jumbotron">
-  <h1>Welcome to the Finance Committee Web Application.</h1>
-  <p class="lead">For more information about the members of Finance Committee, procedures, forms, etc., click the appealing bar below.
-</p>
-    <a href="/wiki/senate/Funding" class="btn btn-primary btn-block btn-lg">
-      Visit the Finance Committee Senate Wiki &raquo;</a>
-
+  <div class="jumbotron">
+    <h1>Welcome to the Finance Committee Web Application.</h1>
+    <p class="lead">For more information about the members of Finance Committee, procedures, forms, etc., click the appealing bar below.
+  </p>
+      <a href="/wiki/senate/Funding" class="btn btn-primary btn-block btn-lg">
+        Visit the Finance Committee Senate Wiki &raquo;</a>
+  </div> <!-- /.jumbotron -->
 </div>
-</div>
-  <div class="col-md-3">
+<div class="col-md-3">
     <a href="/webapps/finance/submit_budget" class="btn btn-primary btn-block btn-lg">
       Create a Budget &raquo;</a>
     <br />
     <div class="thumbnail big-money">
-    <!--  <img data-src="holder.js/300x200" alt="..."> -->
       <div class="caption">
         <h3>Meet Big Money</h3>
         <p>Your Head Treasurer</p>
@@ -30,7 +27,7 @@
            </a>
         </p>
       </div>
-      </div>
+    </div>
     <div class="thumbnail big-money">
     <!--  <img data-src="holder.js/300x200" alt="..."> -->
       <div class="caption">
@@ -45,7 +42,7 @@
       </div>
   </div> 
 </div> <!-- /.jumbotron -->
-
+</div>
 
 
 <div class="newLine">

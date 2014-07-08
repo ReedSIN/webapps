@@ -1,17 +1,19 @@
-{% extends "finance/finance-base.phtml" %}
+{% extends "finance/finance-base.html" %}
 
 {% block content %}
-{{block.super}}
-
-
+<div class="row-extra-padding">
+    <h2> here are your budgets </h2>
+    <p class="lead text-muted">
+        you're welcome
+    </p>
+</div>
+<hr> 
 <button type="submit"
 	class="btn btn-block btn-primary"
 	onclick="javascript: document.location='/webapps/finance/submit_budget/';">
 Create New Budget &raquo;
 </button>
-
-<hr class="featurette-divider">
-
+<hr>
 <p class="lead"> Unapproved Budgets </p>
 
 <form method="get" onsubmit="this.method = form_method; this.action = '/webapps/finance/my_budgets/' + form_action + '/' + budget + '/';">
