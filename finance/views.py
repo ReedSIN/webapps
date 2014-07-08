@@ -35,7 +35,7 @@ def is_admin_factor(factor):
 def index(request):
   factor = authenticate(request, VALID_FACTORS)
   
-  return render_to_response('finance/index.phtml',context_instance=RequestContext(request))
+  return render_to_response('finance/index.html',context_instance=RequestContext(request))
 
 def view_all_budgets(request):
   factor = authenticate(request, VALID_FACTORS)
@@ -46,7 +46,7 @@ def view_all_budgets(request):
     'budgets' : Budget.objects.select_related().order_by('-created_on').filter(approved = 0)
   }
   
-  return render_to_response('finance/budget-list.phtml',template_args,context_instance=RequestContext(request))
+  return render_to_response('finance/budget-list.html',template_args,context_instance=RequestContext(request))
 
 def json_approved_budgets(request):
   factor = authenticate(request, VALID_FACTORS)
@@ -120,7 +120,7 @@ def view_approved_budgets(request):
     #'count' : num_per_page,
   }
   
-  return render_to_response('finance/approved-budget-list.phtml',template_args,context_instance=RequestContext(request))
+  return render_to_response('finance/approved-budget-list.html',template_args,context_instance=RequestContext(request))
 
 def view_one_budget(request, budget_id):
   factor = authenticate(request, VALID_FACTORS)
@@ -135,7 +135,7 @@ def view_one_budget(request, budget_id):
     'items' : items
   }
   
-  return render_to_response('finance/budget-detail.phtml', template_args,context_instance=RequestContext(request))
+  return render_to_response('finance/budget-detail.html', template_args,context_instance=RequestContext(request))
 
 def create_budget(request):
   factor = authenticate(request, VALID_FACTORS)
@@ -182,7 +182,7 @@ def my_budgets(request):
     'approved_budgets' : approved_budgets
   }
   
-  return render_to_response('finance/my-budgets-list.phtml', template_args, context_instance=RequestContext(request))
+  return render_to_response('finance/my-budgets-list.html', template_args, context_instance=RequestContext(request))
 
 def edit_my_budget(request, budget_id):
   factor = authenticate(request, VALID_FACTORS)
@@ -201,7 +201,7 @@ def edit_my_budget(request, budget_id):
     'items' : items,
   }
   
-  return render_to_response('finance/edit-budget.phtml', template_args, context_instance=RequestContext(request))
+  return render_to_response('finance/edit-budget.html', template_args, context_instance=RequestContext(request))
 
 def budget_respond_get(request, budget_id):
   factor = authenticate(request, ADMIN_FACTORS)
@@ -217,7 +217,7 @@ def budget_respond_get(request, budget_id):
     'items' : items
   }
   
-  return render_to_response('finance/budget-response-detail.phtml', template_args, context_instance=RequestContext(request))
+  return render_to_response('finance/budget-response-detail.html', template_args, context_instance=RequestContext(request))
 
 def budget_respond_post(request, budget_id):
   factor = authenticate(request, ADMIN_FACTORS)
@@ -340,10 +340,10 @@ def budget_search(request):
   try:
     orgName = request.GET['org']
   except MultiValueDictKeyError:
-    return render_to_response('finance/organization-budgets.phtml',context_instance=RequestContext(request))
+    return render_to_response('finance/organization-budgets.html',context_instance=RequestContext(request))
   
   if orgName == 'Organization Name' or orgName == '':
-    return render_to_response('finance/organization-budgets.phtml',context_instance=RequestContext(request))
+    return render_to_response('finance/organization-budgets.html',context_instance=RequestContext(request))
 
   try:
     org = Organization.objects.get(name__icontains=orgName)
@@ -353,14 +353,14 @@ def budget_search(request):
       "searchTerm" : orgName,
       "orgs" : orgs
     }
-    return render_to_response('finance/organization-disambig.phtml', template_args,context_instance=RequestContext(request))
+    return render_to_response('finance/organization-disambig.html', template_args,context_instance=RequestContext(request))
   except Organization.DoesNotExist:
     orgs = []
     
     template_args = {
       'searchTerm' : orgName
     }
-    return render_to_response('finance/organization-budgets.phtml', template_args,context_instance=RequestContext(request))
+    return render_to_response('finance/organization-budgets.html', template_args,context_instance=RequestContext(request))
 
   budgets = Budget.objects.select_related().order_by('-created_on').filter(organization = org)
 
@@ -370,7 +370,7 @@ def budget_search(request):
     'organization' : org
   }
 
-  return  render_to_response('finance/organization-budgets.phtml', template_args,context_instance=RequestContext(request))
+  return  render_to_response('finance/organization-budgets.html', template_args,context_instance=RequestContext(request))
 
 def add_signator(request):
   authenticate(request, ADMIN_FACTORS)
@@ -384,7 +384,7 @@ def add_signator(request):
   try:
     uid = request.POST['uid']
   except MultiValueDictKeyError:
-    return render_to_response('finance/signator.phtml',{"currentSignators":currentSignators},context_instance=RequestContext(request))
+    return render_to_response('finance/signator.html',{"currentSignators":currentSignators},context_instance=RequestContext(request))
 
   try:
     student = SinUser.objects.get(username__iexact=uid)
@@ -400,4 +400,4 @@ def add_signator(request):
     "currentSignators" : currentSignators 
  }
 
-  return render_to_response('finance/signator.phtml', template_args,context_instance=RequestContext(request))
+  return render_to_response('finance/signator.html', template_args,context_instance=RequestContext(request))

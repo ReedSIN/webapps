@@ -1,0 +1,80 @@
+{% extends "finance/finance-base.phtml" %}
+
+{% block content %}
+{{block.super}}
+
+{% if admin %}
+<form method="get" action="" onsubmit="this.action = '/webapps/finance/view_budgets/respond/edit/' + budget_id;">
+{% endif %}
+
+<div class="table-responsive">
+<table class="table table-hover">
+ <tr class="table-header-alt" id="table-header-bg">
+    <td>
+      <span class="glyphicon glyphicon-briefcase"></span>
+      Signator
+    </td>
+    <td>
+    <span class="glyphicon glyphicon-paperclip"></span>&nbsp;
+     Organization
+     </td>
+     <td>
+     <span class="glyphicon glyphicon-euro"></span>&nbsp;
+        Requested
+     </td>
+     <td>
+     <span class="glyphicon glyphicon-usd"></span>
+        Allocated
+     </td>
+     <td>
+     <span class="glyphicon glyphicon-plus-sign"></span>&nbsp;
+        Created
+     </td>
+     <td>
+     <span class="glyphicon glyphicon-edit"></span>&nbsp;
+        Modified
+     </td>
+     <td>
+     <span class="glyphicon glyphicon-cog"></span>&nbsp;
+       Action
+     </td>
+  </tr>
+
+{% for b in budgets %}
+  <tr class="budget-row">
+     <td onclick="javascript:document.location='view_budgets/{{b.id}}';">
+        {{ b.organization.signator.get_full_name }}
+     </td>
+     <td onclick="javascript:document.location='view_budgets/{{b.id}}';">     
+        {{ b.organization.name }}
+     </td>
+     <td onclick="javascript:document.location='view_budgets/{{b.id}}';">
+        ${{ b.requested }}
+     </td>
+     <td onclick="javascript:document.location='view_budgets/{{b.id}}';">
+        ${{ b.allocated }}
+     </td>
+     <td onclick="javascript:document.location='view_budgets/{{b.id}}';">
+        {{ b.created_on|date:"H:i M d, Y" }}
+     </td>
+     <td onclick="javascript:document.location='view_budgets/{{b.id}}';">
+        {{ b.modified_on|date:"H:i m-d-Y" }}
+     </td>
+  {% if admin %}
+     <td class="budget-row-respond">
+       <button class="btn btn-sm btn-primary" type="submit"
+               onclick="budget_id = {{b.id}};">
+         <span class="glyphicon glyphicon-share-alt"></span>&nbsp;
+         Respond
+       </button>
+     </td>
+  {% endif %}
+  </tr>
+{% endfor %}
+</table>
+</div> <!-- /.table-responsive -->
+
+{% if admin %}
+</form>
+{% endif %}
+{% endblock %}

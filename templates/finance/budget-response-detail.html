@@ -1,0 +1,167 @@
+{% extends "finance/finance-base.phtml" %}
+
+{% block raw-javascript %}
+
+money_re = /^\$?((?:(?:\d+)|(?:\d{1,3}(?:,\d{3})*))(?:\.\d{0,2})?)$/;
+
+function escape_money(s) {
+  var output = money_re.exec(s);
+  if (null === output) {
+    throw "Invalid Currency Amount";
+  }
+
+  return parseFloat(output[0]);
+}
+
+allocations = {};
+var total_allocated = {{ budget.allocated }};
+
+function update_total_allocated(widget) {
+  
+  var value = 0;
+  var new_widget_value = escape_money(widget.value);
+  
+  if (!(widget.id in allocations)) {
+     allocations[widget.id] = new_widget_value;
+     value = new_widget_value;
+  } else {
+     value = new_widget_value - allocations[widget.id];
+     allocations[widget.id] = new_widget_value;
+  }
+  total_allocated += value;
+  
+  var allocated_td = document.getElementById('total_allocated-allocated-td');
+  allocated_td.innerHTML = '$' + total_allocated;
+}
+
+claims = {};
+var total_claimed = {{ budget.claimed }}
+
+function update_total_claimed(widget) {
+  
+  var value = 0;
+  var new_widget_value = escape_money(widget.value);
+  
+  if (!(widget.id in claims)) {
+     claims[widget.id] = new_widget_value;
+     value = new_widget_value;
+  } else {
+     value = new_widget_value - claims[widget.id];
+     claims[widget.id] = new_widget_value;
+  }
+  total_claimed += value;
+  
+  var claimed_td = document.getElementById('total-claimed-td');
+  claimed_td.innerHTML = '$' + total_claimed;
+}
+
+{% endblock %}
+
+{% block content %}
+{{block.super}}
+
+<fieldset>
+<form method="post" action="/webapps/finance/view_budgets/respond/save/{{ budget.id }}/">
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <h2> General Info 
+      <span class="text-muted">({{budget.organization.name}})</span>
+    </h2>
+    <p class="lead"> 
+      {{budget.organization.signator.get_full_name}} is requesting
+      <strong>${{ budget.requested }}</strong> for {{budget.organization.name}}.
+    </p>
+    <p> You can email the signator at
+      <a href="mailto:{{budget.organization.email}}?Subject=Budget%20request%20for%20{{budget.organization.name}}">{{budget.organization.email}}</a>.
+    </p>
+  </div> <!-- /.col-lg-4 ... -->
+  <div class="col-lg-8 col-md-8 col-sm-8">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <tr>
+	  <td> Total Allocated </td>
+	  <td id="total_allocated-allocated-td">${{budget.allocated}}</td>
+	</tr>
+	<tr>
+	  <td> Total Claimed </td>
+	  <td id="total-claimed-td">${{budget.claimed}}</td>
+	</tr>
+	  <td> Description </td>
+	  <td> {{budget.description|safe}} </td>
+        {% if admin or budget.is_finalized %}
+	<tr>
+	  <td> Response </td>
+	  <td>
+	    <textarea name="main-response" class="form-control">{{budget.response}}</textarea>
+	  </td>
+	</tr>
+	{% endif %}
+      </table>
+    </div>
+  </div> <!-- /.col-lg-8 ... --> 
+</div> <!-- /.row -->
+</fieldset>
+<hr class="featurette-divider">
+{% for i in items %}
+<fieldset>
+ <div class="row">
+   <div class="col-lg-6 col-md6 col-sm-6">
+     <h3> 
+       Budget Item
+       <span class="text-muted">({{i.name|safe}})</span>
+     </h3>
+     <p>
+       {{i.description|safe}}
+     </p>
+   </div> <!-- /.col-lg-6 .. -->
+   <div class="col-lg-6 col-md-6 col-sm-6">
+     <div class="table-responsive">
+       <table class="table table-hover">
+	 <tr>
+	   <td>Requested</td>
+	   <td>${{i.requested}}</td>
+	 </tr>
+	 <tr>
+	   <td>Allocated</td>
+	   <td>
+	   <input class="form-control" 
+                  onchange="update_total_allocated(this);" 
+		  type="text" value="{{ i.allocated }}" 
+		  id="allocation-{{ i.id }}" name="allocation-{{ i.id }}"/>
+	   </td>
+	 </tr>
+	 <tr>
+	   <td>Claimed</td>
+	   <td>
+	     <input class="form-control" onchange="update_total_claimed(this);"
+	            type="text" value="{{i.claimed}}" id="claimed-{{i.id}}"
+		    name="claimed-{{i.id}}" />
+	   </td>
+	 </tr>
+	 <tr>
+	   <td>Response</td>
+	   <td>
+	     <textarea class="form-control item-response-textarea" name="response-{{ i.id }}">{{ i.response }}</textarea>
+	   </td>
+	 </tr>
+       </table>
+     </div> <!-- /.table-responsive -->
+   </div> <!-- /.col-lg-6 ... -->
+ </div> <!-- /.row -->
+</fieldset>
+{% endfor %}
+
+<div class="row">
+<div class="col-lg-12 col-md-12 col-sm-12">
+  <button class="btn btn-default btn-block" type="submit" name="save" value="Save Pending Response">
+    <span class="glyphicon glyphicon-save"></span>&nbsp;
+    Save Pending Response
+  </button>
+  <button class="btn btn-primary btn-block" type="submit" name="save" value="Submit Response">
+    <span class="glyphicon glyphicon-saved"></span>&nbsp;
+    Submit Response
+  </button>
+</div> <!-- /.col-lg-12 ... -->
+</div> <!-- /.row -->
+</form>
+{% endblock %}

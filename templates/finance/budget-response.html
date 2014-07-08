@@ -1,0 +1,79 @@
+{% extends "finance/finance-base.phtml" %}
+
+
+
+
+{% block raw-javascript %}
+  budget_items = [];
+  {% for i in items %}
+  budget_items.push({
+    'name' : '{{ i.name }}',
+    'description' : '{{ i.description }}',
+    'requested' : {{ i.requested }}
+  });
+  {% endfor %}
+{% endblock %}
+
+{% block src-javascript %}
+{{block.super}}
+<script type="text/javascript" language="JavaScript" src="/js/webapps/finance/create_budget.js"></script>
+<script type="text/javascript" language="JavaScript" src="/js/webapps/finance/edit_budget.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<fieldset class="create-budget-fieldset">
+<legend class="create-budget-legend">Create Budget:</legend>
+
+<form class="create-budget-form" method="post" action="/webapps/finance/view_budgets/respond/save/{{ budget.id }}">
+  <div class="create-budget-signator">
+    <label class="create-budget-signator-label">Signator: </label>
+    <input class="create-budget-signator-input" type="text" readonly="true" disabled="true" value="{{ user.get_full_name }}">
+  </div>
+
+  <div class="create-budget-organization">
+    <label class="create-budget-organization-label">Organization: </label>
+    <input name="organization" class="create-budget-organization-input" readonly="true" disabled="true" type="text" value="{{ budget.organization }}" >
+  </div>
+
+  <div class="create-budget-email">
+    <label class="create-budget-email-label">Email: </label>
+    <input name="email" class="create-budget-email-input" type="text" readonly="true" disabled="true" value="{{ user.email }}">
+  </div>
+
+  <div class="create-budget-description">
+    <div class="create-budget-description-label-div">
+      <label class="create-budget-description-label">Description: </label>
+    </div>
+    <div class="create-budget-description-input-div">
+      <textarea name="description" class="create-budget-description-input" readonly="true" disabled="true">{{ budget.description }}</textarea>
+    </div>
+  </div>
+  
+  <fieldset class="add-budget-frameset">
+    <legend class="add-budget-frameset-legend">Budget Items: </legend>
+    <div class="create-budget-add-budget-outer-div">
+      <div class="create-budget-add-budget-items-choice-div">
+        <ol id="budget-item-list" class="create-budget-budget-item-list">
+        </ol>
+      </div>
+      <div class="create-budget-add-budget-widget-right" id="create-budget-text_description_div">
+      </div>
+    </div>
+  </fieldset>
+  <fieldset class="respond-budget-frameset">
+    <legend class="respond-budget-frameset-legend">Respond: </legend>
+    <div class="respond-budget-textarea-div">
+      <textarea class="respond-budget-textarea" name="response">{{ budget.response }}</textarea>
+    </div>
+    <label class="respond-budget-allocated-label">Allocate: </label>
+    <input class="respond-budget-allocated" type="text" name="allocated" value="{{ budget.allocated  }}"></input>
+  </fieldset>
+    
+  <div class="create-budget-submit-form">
+    <input id="true_submit" name="submit" type="submit" value="submit"></input>
+  </div>
+</form>
+</fieldset>
+
+{% endblock %}

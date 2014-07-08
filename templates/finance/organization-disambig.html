@@ -1,0 +1,18 @@
+{% extends "finance/finance-base.phtml" %}
+
+{% block content %}
+
+<h3>Organization Disambiguation</h3>
+
+<p>More than one organization matched the search term "{{ searchTerm }}". You can search again, or select one of the matching organizations listed below.</p>
+
+<form name="orgSearch" action="organization_budgets" method="GET">
+<input type="text" name="org">
+<input type="submit" value="Search">
+</form>
+
+{% for o in orgs %}
+  <p><a href="organization_budgets?org={{ o.name }}">{{ o.name }}</a></p>
+{% endfor %}
+
+{% endblock %}
