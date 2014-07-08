@@ -1,14 +1,15 @@
 {% extends "appointments/appointments-base.html" %}
 
 {% block content %}
-{{block.super}}
-<p class="lead">
-  <span class="glyphicon glyphicon-dashboard"></span>
-  Welcome <span class="text-muted">to the Appointments Admin Dashboard.</span>
-</p>
-<hr class="featurette-divider">
-<form onsubmit="return false;">
+<div class="row">
+  <p class="lead">
+    <span class="glyphicon glyphicon-dashboard"></span>
+    Welcome <span class="text-muted">to the Appointments Admin Dashboard.</span>
+  </p>
+</div>
+<hr>
 
+<form onsubmit="return false;">
 <table class="table table-hover table-responsive">
   <tr>
     <td colspan=5>
