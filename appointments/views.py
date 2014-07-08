@@ -29,7 +29,7 @@ ADMIN_FACTORS = [
 def index(request):
   authenticate(request, VALID_FACTORS)
   
-  return render_to_response('appointments/index.phtml',context_instance=RequestContext(request))
+  return render_to_response('appointments/index.html',context_instance=RequestContext(request))
 
 def open_position_list(request):
   authenticate(request, VALID_FACTORS)
@@ -40,7 +40,7 @@ def open_position_list(request):
     'object_list' : positions
   }
   
-  return render_to_response('appointments/position_list.phtml',template_args,context_instance=RequestContext(request))
+  return render_to_response('appointments/position_list.html',template_args,context_instance=RequestContext(request))
 
 def open_position_detail(request, position_id):
   authenticate(request, VALID_FACTORS)
@@ -51,7 +51,7 @@ def open_position_detail(request, position_id):
     'object' : position
   }
   
-  return render_to_response('appointments/position_detail.phtml', template_args,context_instance=RequestContext(request))
+  return render_to_response('appointments/position_detail.html', template_args,context_instance=RequestContext(request))
 
 def admin_index(request):
   authenticate(request, ADMIN_FACTORS)
@@ -60,7 +60,7 @@ def admin_index(request):
     'positions' : Position.objects.order_by('-expires_on')
   }
   
-  return render_to_response('appointments/admin_index.phtml',template_args,context_instance=RequestContext(request))
+  return render_to_response('appointments/admin_index.html',template_args,context_instance=RequestContext(request))
 
 def create_position(request):
   authenticate(request, ADMIN_FACTORS)
@@ -69,7 +69,7 @@ def create_position(request):
     'user' : request.user
   }
   
-  return render_to_response('appointments/create_position.phtml',template_args,context_instance=RequestContext(request))
+  return render_to_response('appointments/create_position.html',template_args,context_instance=RequestContext(request))
 
 def submit_new_position(request,position_id):
   authenticate(request, ADMIN_FACTORS)
@@ -104,7 +104,7 @@ def submit_new_position(request,position_id):
     'position' : p,
     'success' : s
    }
-  return render_to_response('appointments/edit_position.phtml',template_args,context_instance=RequestContext(request))
+  return render_to_response('appointments/edit_position.html',template_args,context_instance=RequestContext(request))
 
 def edit_position(request,position_id):
   authenticate(request, ADMIN_FACTORS)
@@ -138,7 +138,7 @@ def edit_position(request,position_id):
     'position' : p
   }
   
-  return render_to_response('appointments/edit_position.phtml',template_args,context_instance=RequestContext(request))
+  return render_to_response('appointments/edit_position.html',template_args,context_instance=RequestContext(request))
 
 def delete_position(request, position_id):
   authenticate(request, ADMIN_FACTORS)
@@ -162,7 +162,7 @@ def position_application_list(request, position_id):
     'applications' : position.application_set.all()
   }
   
-  return render_to_response('appointments/position_application_list.phtml',template_args,context_instance=RequestContext(request))
+  return render_to_response('appointments/position_application_list.html',template_args,context_instance=RequestContext(request))
 
 def position_application_detail(request, position_id, application_id):
   authenticate(request, ADMIN_FACTORS)
@@ -173,7 +173,7 @@ def position_application_detail(request, position_id, application_id):
     'app' : app
   }
   
-  return render_to_response('appointments/position_application_detail.phtml',template_args,context_instance=RequestContext(request))
+  return render_to_response('appointments/position_application_detail.html',template_args,context_instance=RequestContext(request))
 
 def create_application(request, position_id):
   authenticate(request, VALID_FACTORS)
@@ -185,7 +185,7 @@ def create_application(request, position_id):
     'position' : p
   }
   
-  return render_to_response('appointments/edit_application.phtml',template_args,context_instance=RequestContext(request))
+  return render_to_response('appointments/edit_application.html',template_args,context_instance=RequestContext(request))
 
 def edit_application(request, application_id):
   authenticate(request, VALID_FACTORS)
@@ -222,7 +222,7 @@ def edit_application(request, application_id):
       'year' : a.year,
     }
     
-    return render_to_response('appointments/confirm_application.phtml',template_args,context_instance=RequestContext(request))
+    return render_to_response('appointments/confirm_application.html',template_args,context_instance=RequestContext(request))
   
   elif application_id != '':
     a = Application.objects.get(id = application_id)
@@ -232,7 +232,7 @@ def edit_application(request, application_id):
       'year' : a.year,
     }
     
-    return render_to_response('appointments/edit_application.phtml',template_args,context_instance=RequestContext(request))
+    return render_to_response('appointments/edit_application.html',template_args,context_instance=RequestContext(request))
 
   else:
     applications = request.user.application_set.all()
@@ -241,7 +241,7 @@ def edit_application(request, application_id):
       'my_apps' : applications
     }
     
-    return render_to_response('appointments/my_application_list.phtml',template_args,context_instance=RequestContext(request))
+    return render_to_response('appointments/my_application_list.html',template_args,context_instance=RequestContext(request))
 
 def my_application_list(request):
   authenticate(request, VALID_FACTORS)
@@ -252,7 +252,7 @@ def my_application_list(request):
     'my_apps' : applications
   }
   
-  return render_to_response('appointments/my_application_list.phtml',template_args,context_instance=RequestContext(request))
+  return render_to_response('appointments/my_application_list.html',template_args,context_instance=RequestContext(request))
 
 def delete_application(request, application_id):
   authenticate(request, VALID_FACTORS)
