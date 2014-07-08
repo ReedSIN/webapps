@@ -1,4 +1,4 @@
-{% extends "organizations/organizations-base.phtml" %}
+{% extends "organizations/organizations-base.html" %}
 
 {% block raw-javascript %}
 {{block.super}}
@@ -13,24 +13,18 @@ function set_action(form, id) {
     form.action = '/webapps/organizations/my_organizations/save/';
   }
 }
-
-{% endblock %}
-
-{% block stylesheets %}
-{{ block.super }}
-<link rel="stylesheet" href="/css/webapps/object-detail-style.css" />
-<link rel="stylesheet" href="/css/webapps/organizations/organization-detail-style.css" />
 {% endblock %}
 
 {% block content %}
-{{block.super}}
 
 <form method="post" onsubmit="set_action(this,'{{ org.id }}');">
 
 <div class="row">
   <div class="col-lg-3 col-md-4 col-sm-4">
-    <h2>Create a New Organization</h2>
-    <p class="lead text-muted">*Denotes a required field</p>
+    <div class="row-extra-padding">
+      <h2>Create a New Organization</h2>
+      <p class="lead text-muted">*Denotes a required field</p>
+    </div>
   </div>
   <div class="col-lg-9 col-md-8 col-sm-8">
    <div class="table-responsive">

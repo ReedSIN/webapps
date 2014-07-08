@@ -1,16 +1,18 @@
-{% extends "organizations/organizations-base.phtml" %}
-
-{% block stylesheets %}
-{{ block.super }}
-<link rel="stylesheet" type="text/css" href="/css/webapps/object-detail-style.css" />
-{% endblock %}
+{% extends "organizations/organizations-base.html" %}
 
 {% block content %}
-{{block.super}}
+<div class="row-extra-padding">
+  <p class="lead larger center"> 
+    here are those details about that organization you requested
+  </p>
+  <p class="sin-muted center">
+    (you're welcome)
+  </p>
+</div>
 <fieldset>
 <div class="row">
   <div class="col-md-5 col-sm-5">
-    <h2 class="featurette-heading">
+    <h2 class="">
       {{org.name}}
       <span class="text-muted">({{org.signator.get_full_name}})</span>
     </h2>

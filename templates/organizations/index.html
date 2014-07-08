@@ -1,29 +1,27 @@
-{% extends "organizations/organizations-base.phtml" %}
+{% extends "organizations/organizations-base.html" %}
 
-{% block javascript %}
-<script type="text/javascript" language="JavaScript" src="/js/webapps/organizations/submit.js"></script>
+{% block src-javascript %}
+<script type="text/javascript" src="/js/webapps/organizations/submit.js"></script>
 {% endblock %}
 
 {% block content %}
-{{block.super}}
-<div class="container">
-  <div class="row">
+  <div class="row-extra-padding">
     <div class="col-md-7 col-sm-7">
-      <h2 class="featurette-heading">
-      Welcome to the Organization Manager.
-      </h2>
-	<p class="lead">
-  <span class="text-muted text-muted-darker">
-	Our latest intelligence shows that you
-	{% if user.attended_signator_training %}
-	  have
-	{% else %}
-	  have not
-	{% endif %}
-	attended signator training.
-  </span>
-        </div> <!-- /. col-md-7 ... -->
-        <div class="col-md-5 col-sm-5">
+    	<h2 class="featurette-heading">
+      		Welcome to the Organization Manager.
+      	</h2>
+	  	<p class="lead">
+  			<span class="text-muted">
+			Our latest intelligence shows that you
+			{% if user.attended_signator_training %}
+	  		have
+			{% else %}
+	  		have not
+			{% endif %}
+			attended signator training.
+  			</span>
+    </div> <!-- /. col-md-7 ... -->
+    <div class="col-md-5 col-sm-5">
 	<br />
 
         <p class="lead">

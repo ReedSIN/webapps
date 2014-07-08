@@ -1,27 +1,25 @@
-{% extends "organizations/organizations-base.phtml" %}
+{% extends "organizations/organizations-base.html" %}
 
-{% block javascript %}
-<script type="text/javascript" language="JavaScript" src="/js/webapps/organizations/submit.js"></script>
-{% endblock %}
-
-{% block stylesheets %}
-{{ block.super }}
-<link rel="stylesheet" href="/css/webapps/object-detail-style.css" />
-<link rel="stylesheet" type="text/css" href="/css/webapps/organizations/my-organizations-style.css" />
+{% block src-javascript %}
+<script type="text/javascript" src="/js/webapps/organizations/submit.js"></script>
 {% endblock %}
 
 {% block content %}
-{{block.super}}
-<h2 class="featurette-header">Manage Your Current Organizations</h2>
+<div class="row-extra-padding">
+  <h2 class="center">manage your organizations</h2>
+  <p class="lead text-muted"> and your expectations </p>
+</div>
 {% if signator %}
 <form method="get" action="/webapps/organizations/my_organizations/edit/">
 <input class="btn btn-default" type="submit" value="Create a New Organization &raquo;"/>
 </form>
 
 {% endif %}
-<hr class="featurette-divider">
-
 {% comment %}
+<!-- yeah so this was a faulty alert that i put in for the spring of 2014 
+    needs fixin' or removal
+     BB
+   -->
 {% if signator %}
 {% if reg_alert %}
  <div class="alert alert-danger">
