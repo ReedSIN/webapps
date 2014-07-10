@@ -5,9 +5,9 @@
 settings.py
 
 # compiled files and emacs autosaves. 
-*.pyc
-*.#
-*.~
+*pyc
+*#
+*~
 
 # Stuff that should be deleted soon.
 destroy*
