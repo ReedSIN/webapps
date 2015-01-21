@@ -21,8 +21,12 @@ class Http403(Exception):
 class Http401(Exception): pass
 class HttpResponse403(HttpResponseForbidden):
   def __init__(self):
-    HttpResponseForbidden.__init__(self)
+    HttpResponseForbidden.__init__(self)#,msg="You don't have permission to access the requested object.")
+    # Hopefully this doesn't break the error
     self.write(render_to_string('errors/http_forbidden.phtml'))
+    self.write("You don't have permission to access the requested object.")
+  #return render_to_response('errors/http_forbidden.phtml', {'msg': msg}, context_instance=RequestContext(request))
+
 class HttpResponse400(HttpResponseBadRequest):
   def __init__(self):
     HttpResponseBadRequest.__init__(self)

@@ -8,9 +8,9 @@ import ast
 import random
 import csv
 
-numStudents = 5
-''' Is this number stored anywhere? the total number of SinUsers is like 2300. 
-This is relevant because quorum for the election is calculated by taking one quarter of the number of currently enrolled students. 
+numStudents = 1394 #2000
+''' Is this number stored anywhere? the total number of SinUsers is like 2300.
+This is relevant because quorum for the election is calculated by taking one quarter of the number of currently enrolled students.
 '''
 
 class Candidate(models.Model):
@@ -18,7 +18,8 @@ class Candidate(models.Model):
     election = models.ForeignKey("Election", related_name ="candidate_set")
     num_first_place = models.IntegerField(default=0)
     num_second_place = models.IntegerField(default=0)
-     # This is a float because allowing for fractions of votes makes transferring surplus votes much easier. 
+
+     # This is a float because allowing for fractions of votes makes transferring surplus votes much easier.
 #    first_name = models.CharField(max_length = 30,blank=True,null=True)
 #    last_name = models.CharField(max_length = 30,blank=True,null=True)
 #    major = models.CharField(max_length = 40,blank=True,null=True)
@@ -26,7 +27,7 @@ class Candidate(models.Model):
 #    blurb = models.CharField(max_length = 140,blank=True,null=True,)
 #    photo = models.URLField(blank=True,null=True)
 #    preferred_pron = models.CharField(max_length = 30,blank=True,null=True)
-#    numVotesList = ListField() # This will keep track of the number of votes a candidate receives in each round for testing/accounting purposes. 
+#    numVotesList = ListField() # This will keep track of the number of votes a candidate receives in each round for testing/accounting purposes.
 #    isWinnerCurrent = models.BooleanField(default=False)
 #    isOutCurrent = models.BooleanField(default=False)
 #    isWinnerList = ListField(blank=True,null=True)
@@ -47,7 +48,7 @@ class Vote(models.Model):
 
     # Call this ONLY on the first round of the election
     def set_first_round(self):
-        ''' 
+        '''
         Sets a first_round attribute.
         For debugging reasons.
         '''
@@ -69,6 +70,8 @@ class Vote(models.Model):
 
 
 class Ballot(models.Model):
+	# Ballot is a linked list of Votes
+
     election = models.ForeignKey("Election", related_name = "ballot_set")
     voter = models.ForeignKey(SinUser, related_name= "ballot_set")
 #    voteRecord = ListField(null=True,blank=True)
@@ -79,11 +82,22 @@ class Ballot(models.Model):
         list = [str(self.voter.username)+" --> "]
         y = self.first
         i = 1
-        while y is not None: 
+        while y is not None:
             list.append(str(i) +": " + str(y))
             y = y.next
             i += 1
         return u'%s' %(list)
+
+    def list_votes(self):
+        '''Creates a comma separated list of the usernames'''
+        list = u''
+        y = self.first
+        i = 1
+        while y is not None:
+            list += str(y)
+            y = y.next
+            i += 1
+        return list
 
     def insertAtEnd(self,vote):
         vote.prev = self.last
@@ -96,7 +110,7 @@ class Ballot(models.Model):
             self.first = None
             self.last = None
             self.save()
-        elif self.first.next is not None: 
+        elif self.first.next is not None:
             self.first.next.prev = None
             self.first.next.save()
             self.first = self.first.next
@@ -107,7 +121,7 @@ class Ballot(models.Model):
             self.first = None
             self.last = None
             self.save()
-        elif self.last.prev is not None: 
+        elif self.last.prev is not None:
             self.last.prev.next = None
             self.last.prev.save()
             self.last = self.last.prev
@@ -129,18 +143,18 @@ class Ballot(models.Model):
                 elif self.last is not None and self.last.vote == c and self.first != self.last:
                     self.removeLast()
                     self.save()
-                elif y.next is not None and y.prev is not None: 
+                elif y.next is not None and y.prev is not None:
                     y.next.prev = y.prev
                     y.next.save()
                     y.prev.next = y.next
                     y.prev.save()
-        
+
 
     def retFirst(self):
         if self.first is not None:
             return self.first.vote
 
-    
+
 class Election(models.Model):
 
     position = models.CharField(max_length = 50)
@@ -170,20 +184,23 @@ class Election(models.Model):
         return u'%s' %(self.position)
 
     """ Below are helper functions. """
-    
-    def calculate_quorum(self):
-        self.quorum = int(round(numStudents/4))
-        self.save()
-        return self.quorum
 
-    def calculate_threshold(self, balls):
+    def count_ballots(self):
+        return len(Ballot.objects.filter(election = self))
+
+    def calculate_threshold(self, balls, _isSTV=True):
+        if _isSTV == True:
+            return int(round(balls.count()/(self.numSeatsInitial + 1))) + 1
+        else:
+            return balls.count() / 2
+
         return int(round(balls.count()/(self.numSeatsInitial + 1))) + 1
 
     def tabulate_first_place(self, balls):
         for candidate in self.candidatesCurrent.all():
             candidate.num_first_place = 0
             candidate.save()
-        for ballot in balls: 
+        for ballot in balls:
             if ballot.first is not None:
                 choice = ballot.first
                 choice.vote.num_first_place +=1
@@ -205,7 +222,13 @@ class Election(models.Model):
 #                        equal = ballot.first.next.vote
 #                        equal.num_first_place += 1
 #                        equal.save()
-    
+
+    def increment_quorum(self):
+        if self.quorum is None:
+            self.quorum = 0
+        self.quorum += 1
+        self.save()
+
     def redistribute_first_place(self, from_cand, balls):
         relevant_ballots = balls.filter(first__vote = from_cand)
         numSurplus = from_cand.num_first_place - self.threshold
@@ -216,7 +239,7 @@ class Election(models.Model):
         list_of_ids = [b.id for b in random_ballots]
         keepers = relevant_ballots.filter(pk__in = list_of_ids)
         deleters = relevant_ballots.exclude(pk__in = list_of_ids)
-        for d in deleters: 
+        for d in deleters:
             self.ballotsCurrent.remove(d)
             self.save()
         for b in self.ballotsCurrent.all():
@@ -224,7 +247,7 @@ class Election(models.Model):
             b.save()
         self.candidatesCurrent.remove(from_cand)
         self.save()
-        
+
     def determine_loser(self):
         least_votes = self.candidatesCurrent.aggregate(min_votes=Min('num_first_place'))['min_votes']
         worst_cands = self.candidatesCurrent.filter(num_first_place = least_votes)
@@ -247,17 +270,17 @@ class Election(models.Model):
         for winner in self.winners.all():
              string = string + str(winner) +", "
         return string
-            
 
-    def execute_STV(self):
+
+    def execute_STV(self, isSTV=True):
         startingCandidates = Candidate.objects.filter(election = self)
         startingBallots = Ballot.objects.filter(election=self)
         startingNumSeats = self.numSeatsInitial
         winners = self.winners
-        quorum = self.calculate_quorum()
+        quorumNeeded= int(round(numStudents/4))
         numRounds = 0
 
-        # Create files for data dumpage for summary. 
+        # Create files for data dumpage for summary.
         transcript_path = "election%stranscript.txt" % (self.id)
         csv_path = "election%s.csv" % (self.id)
 
@@ -271,21 +294,21 @@ class Election(models.Model):
         trans_file.write('%s \n' % (now))
         csv_writer.writerow(['Round','Candidate','NumFirst'])
 
-        self.candidatesInitial = startingCandidates
         self.ballotsInitial = startingBallots
         self.record = ""
         self.save()
-        if (startingBallots.count() < quorum):
+        if (False): #self.quorum < quorumNeeded):
             self.record += "QUORUM NOT MET.  "
             trans_file.write('QUUROM NOT MET. \n')
-        else: 
+        else:
             self.record += "QUORUM IS MET. RESULTS FOLLOW.  "
             trans_file.write('QUOROM IS MET. RESULTS FOLLOW. ')
             self.candidatesCurrent = startingCandidates
             self.ballotsCurrent = startingBallots
             self.numSeatsCurrent = startingNumSeats
             self.save()
-            self.threshold = self.calculate_threshold(balls = self.ballotsCurrent)
+
+            self.threshold = self.calculate_threshold(balls = self.ballotsCurrent, _isSTV=isSTV)
             self.save()
             while (self.candidatesCurrent.count() > self.numSeatsCurrent):
                 self.tabulate_first_place(balls = self.ballotsCurrent.all())
@@ -332,22 +355,3 @@ class Election(models.Model):
         trans_file.close()
         csv_file.close()
         return self.record
-                        
-
-                    
-            
-            
-            
-        
-                
-                
-                    
-                        
-                
-                
-                
-               
-        
-        
-
-        

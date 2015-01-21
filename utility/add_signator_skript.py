@@ -47,6 +47,7 @@ def SS_run(file_name):
               homie = SinUser.objects.get(username = sig_un)
               SS_add(homie)
           except SinUser.DoesNotExist:
+	      print sign_un
               suspect_count += 1
               try:
                   SinUser.get_ldap_user(username = sig_un)

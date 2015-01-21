@@ -4,7 +4,7 @@ from django.http import HttpResponsePermanentRedirect, HttpResponseForbidden
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from datetime import datetime
+from datetime import date, datetime
 from django.core.exceptions import ObjectDoesNotExist
 
 from webapps.generic.models import *
@@ -14,6 +14,7 @@ from webapps.generic.errors import *
 from webapps.elections.models import *
 
 import demjson
+import sys
 
 """
 
@@ -30,7 +31,7 @@ VALID_FACTORS = [
 
 ADMIN_FACTORS = [
     'admin',
-    'elections'
+   'elections'
 ]
 
 #
@@ -71,9 +72,25 @@ def get_toVote_hasVoted(es,user):
 
 def index(request):
     
-    authenticate(request, VALID_FACTORS)
+
+    # ------ JM on 11/16 -----------
+    # this block should only allow voting in the 
+    # correct date window, but I didn't really test it very thoroughly so 
+    # I'm just going to comment it out and end voting manually. 
+    startVote = date(2014, 12, 9)
+    endVote = date(2014, 12, 14)
+    today = date.today()
+
+    if (today < startVote) or (today > endVote):
+        authenticate(request, ADMIN_FACTORS)
+    else:
+        authenticate(request, VALID_FACTORS)
+
+#    authenticate(request, ADMIN_FACTORS)
+   # ------ end JM 11/16 -----------
+
     # Assigns array of elections user hasn't and has voted in (respectively)
-    elections_toVote, elections_hasVoted = get_toVote_hasVoted(get_elects(),request.user) 
+    elections_toVote, elections_hasVoted = get_toVote_hasVoted(get_elects(),request.user)
 
     template_args = {
         'elections_toVote'  : elections_toVote,
@@ -82,7 +99,7 @@ def index(request):
 
     return render_to_response('elections/home.html',template_args,context_instance=RequestContext(request))
 
-def vote(request,identifier):
+def vote(request,identifier,validate_error=""):
 
     authenticate(request, VALID_FACTORS)
     jacob = SinUser.objects.get(username="jmenick")
@@ -96,7 +113,15 @@ def vote(request,identifier):
     if request.user == jacob:
         has_voted = False
 
-    candidates = get_cands(election)
+    if has_voted:
+        html = '''
+<h1>You have already voted in this election</h1>
+<p>Return to the <a href="http://sin.reed.edu/webapps/elections/">elections home</a> to vote in other elections.</p>
+'''
+        return HttpResponse(html)
+
+    # Get only the original canidates, not those added as write-ins
+    candidates = election.candidatesInitial.all()
     candidate_count = len(candidates)  # This will give a max on the html input for ranking
 
     template_args = {
@@ -104,17 +129,16 @@ def vote(request,identifier):
         'has_voted'      : has_voted,
         'candidates'     : candidates,
         'candidate_count': candidate_count,
+        'validate_error' : validate_error
     }
 
     return render_to_response('elections/vote.html',template_args,context_instance=RequestContext(request))
 
 def submit_vote(request,identifier):
-
     authenticate(request,VALID_FACTORS)
 
     if request.method != 'POST':
         raise Http404
-
     try:
         election = Election.objects.get(id=identifier) # this is also stored in the query string
     except:
@@ -122,15 +146,48 @@ def submit_vote(request,identifier):
 
     # Kick them out if they have voted
     if has_user_voted(election,request.user):
-        raise Http403
+        html = '''
+<h1>You have already voted in this election</h1>
+<p>Return to the <a href="http://sin.reed.edu/webapps/elections/">elections home</a> to vote in other elections.</p>
+'''
+        return HttpResponse(html)
 
     # Grab the query
     query = demjson.decode(request.POST['query_string'])
-    # Grab votes from the query
-    vote_array = query['votes']  # NOTE: This will not contain any votes with ranks equal to ''
+    print >>sys.stderr, query
 
-    # Selection sort on the vote_array
-    # thanks be to interactivepython.org
+    # Grab votes from the query
+    # NOTE: This will not contain any votes with ranks equal to ''
+    vote_array = query['votes']
+
+    print >> sys.stderr, "query 0 %s" % str(query)
+    print >> sys.stderr, "vote_array 0 %s" % str(vote_array)
+
+    #-------------------ALEX EDITS HERE------------------------
+
+    # 1. check if the voter voted and wants to contribute to quorum
+    didVote = query['didVote']
+    bQuorum = query['bQuorum']
+
+
+    # 2. update quorum
+    if bQuorum == True:
+        election.increment_quorum()
+        election.save()
+
+    # 3. If the voter didn't vote, return thanks voter
+    if didVote == False:
+        # Create an emtpy ballot
+        # This should not effect the election, but the number of ballots
+        # are used to calulate quorum in execute_STV()
+        bal = Ballot(voter=request.user, election=election)
+        bal.save()
+        template_args = {
+            'vote_success': True,
+        }
+        return render_to_response('elections/thanks_voter.html',template_args,context_instance=RequestContext(request))
+
+    # 3. If the voter voted, sort their votes using election sort
     for fillslot in range(len(vote_array)-1,0,-1):
         positionOfMax=0
         for location in range(1,fillslot+1):
@@ -141,30 +198,55 @@ def submit_vote(request,identifier):
         temp = vote_array[fillslot]
         vote_array[fillslot] = vote_array[positionOfMax]
         vote_array[positionOfMax] = temp
-    # end selection sort
 
     # Now, we have a vote_array sorted by rank from highest pref to lowest pref
-    bal = Ballot(voter=request.user,election=election)  # new ballot
+    bal = Ballot(voter=request.user,election=election)
     bal.save()
+
     # verts will hold the votes we construct in the first for loop
     verts = []
+
     # This creates and saves the votes for the ballot
     # They MUST be saved first for next and prev assignments to work
-    for i in range(0,len(vote_array)):
-        # Who da candidate?
-        can_su = SinUser.objects.get(username= vote_array[i]['candidate'])
-        can = Candidate.objects.get(person= can_su, election= election)
-        # Construct the vote
+
+    #for i in range(0,len(vote_array)):
+    i = 0
+    vote_array_initial_length = len(vote_array)
+    while i < len(vote_array):
+        print >>sys.stderr, 'Current index: %d, array length: %d' %(i, vote_array_initial_length)
+        # check if candidate is a write in. If they are, they need to validated.
+        isWritein = vote_array[i]['isWritein']
+        if isWritein:
+            try:
+                can = None
+                candidates = election.candidate_set.all()
+                for c in candidates:
+                    if c.person.username == vote_array[i]['candidate']:
+                        can = c
+                if can is None:
+                    # attempt to validate new candidate, throws exception
+                    can_su = SinUser.objects.get(username= vote_array[i]['candidate'])
+                    # create a new candidate for the writein
+                    can = Candidate(person=can_su, election=election)
+                    can.save()
+            except:
+                vote_array.pop(i)
+                # Redirect back to page with error
+                continue
+        else:
+            can_su = SinUser.objects.get(username= vote_array[i]['candidate'])
+            can = Candidate.objects.get(person=can_su, election= election)
+
         vt = Vote(parent_ballot= bal, vote= can)
         vt.save()
-        # Append to the verts array (preserves order)
         verts.append(vt)
-        # Assign the appropriate first and last votes
+
         if (i == 0):
             bal.first = vt
         if (i == len(vote_array) - 1):
             bal.last = vt
-            
+        i += 1
+
     # This goes through verts and ties the votes together
     # The range takes len(verts)-1 since we reason about the last index through i+1
     for i in range(0,len(verts)-1):
@@ -182,13 +264,10 @@ def submit_vote(request,identifier):
         v.set_first_round() # This records the rank in the first round
         v.save()            # And, of course, we save
 
-    # Last step
+    print >> sys.stderr, "fiddin, to save %s" % str(bal)
     bal.save()
-
-    vote_success = True  # Triggers a success message 
-
     template_args = {
-        'vote_success'       : vote_success,
+        'vote_success'       : True,
     }
 
     return render_to_response('elections/thanks_voter.html',template_args,context_instance=RequestContext(request))
@@ -205,6 +284,19 @@ def re_vote(request):
         'candidate_count': candidate_count,
     }
     return render_to_response('elections/re_vote.html',template_args,context_instance=RequestContext(request))
+
+def check_username(request):
+    "Checks the validity of a give username"
+    # Gets the username from the URL
+    username = request.GET.get('username','')
+    valid = False
+    try:
+        if SinUser.objects.get(username = username):
+            valid = True
+    except:
+        valid = False
+    # Respond with boolean
+    return HttpResponse(str(valid), content_type="text/plain")
 
 def re_submit_vote(request):
     authenticate(request,VALID_FACTORS)
@@ -261,7 +353,7 @@ def re_submit_vote(request):
             bal.first = vt
         if (i == len(vote_array) - 1):
             bal.last = vt
-            
+
     # This goes through verts and ties the votes together
     # The range takes len(verts)-1 since we reason about the last index through i+1
     for i in range(0,len(verts)-1):
@@ -280,7 +372,7 @@ def re_submit_vote(request):
     # Last step
     bal.save()
 
-    vote_success = True  # Triggers a success message 
+    vote_success = True  # Triggers a success message
 
     template_args = {
         'vote_success'       : vote_success,
@@ -292,7 +384,7 @@ def re_submit_vote(request):
 
 
 def vote_mockup(request):
-    
+
     authenticate(request, VALID_FACTORS)
     has_voted = None # Controls display of page?
     # GET or POST ?
@@ -305,7 +397,7 @@ def vote_mockup(request):
 
 
 def results_mockup(request):
-    
+
     authenticate(request, VALID_FACTORS)
 
     # Grab all (current) elections
@@ -319,7 +411,7 @@ def results_mockup(request):
     return render_to_response('elections/results_mockup.html',template_args,context_instance=RequestContext(request))
 
 def admin_index(request):
-    
+
     authenticate(request, ADMIN_FACTORS)
     # Do they have other specific view permissions?
 
@@ -336,7 +428,7 @@ def admin_index(request):
     return render_to_response('elections/admin_index.html',template_args,context_instance=RequestContext(request))
 
 def create_election(request):
-    
+
     authenticate(request, ADMIN_FACTORS)
 
     # GET or POST?
@@ -345,7 +437,7 @@ def create_election(request):
         if form.is_valid():
             cd = form.cleaned_data
 
-        
+
 
     template_args = {
         'user': request.user
@@ -355,7 +447,7 @@ def create_election(request):
 
 def thanks(request):
     authenticate(request, ADMIN_FACTORS)
-    
+
     template_args = {
         'user': request.user,
     }
@@ -364,7 +456,7 @@ def thanks(request):
 
 def deleted(request):
     authenticate(request, ADMIN_FACTORS)
-    
+
     template_args = {
         'user': request.user,
     }
@@ -373,7 +465,7 @@ def deleted(request):
 '''
 #def delete_election(request,identifier):
     authenticate(request, ADMIN_FACTORS)
-    
+
     relevant_election = Election.objects.get(id=identifier)
     relevant_election.delete()
 

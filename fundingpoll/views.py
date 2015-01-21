@@ -216,7 +216,7 @@ def vote_main(request):
   
   fp = get_fp()
   
-  if not check_status(fp,[DURING_V]) and not admin:
+  if not check_status(fp,[DURING_V]): #and not admin:
     return HttpResponse403()
   
   forgs = FundingPollOrganization.objects.filter(funding_poll = fp).order_by('?') #Randomize order
@@ -325,7 +325,7 @@ def my_registrations(request):
   
   fp = get_fp()
   
-  if not check_status(fp,[DURING_R, DURING_B]) and not admin:
+  if not check_status(fp,[DURING_R, DURING_B, DURING_V]) and not admin:
     return HttpResponse403()
   
   if user.attended_signator_training == False:
@@ -366,7 +366,7 @@ def my_registrations(request):
 #    if s == 'admin':
 #      registered_orgs = FundingPollOrganization.objects.filter(organization__name = "New York Times On Campus").filter(funding_poll = fp)
     
-    if registered_orgs == []:
+    if registered_orgs == [] and not admin:
       return HttpResponse403()
     
     template_args = {
@@ -543,7 +543,7 @@ def edit_budget(request, org_id):
   
   fp = get_fp()
   
-  if not check_status(fp,DURING_B):
+  if not check_status(fp,[DURING_B, DURING_V]):
     return HttpResponse403()
   
   if not factor == 'admin' and request.user.signator_set.filter(id = org_id).count() == 0:
@@ -603,7 +603,7 @@ def save_budget(request, budget_id):
   
   fp = get_fp()
   
-  if not check_status(fp,DURING_B):
+  if not check_status(fp,[DURING_B, DURING_V]):
     return HttpResponse403()
   
   if factor != 'admin':

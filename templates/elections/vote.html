@@ -43,10 +43,15 @@
 	<h1> Your Ballot Lies Below, You Beautiful Voter, You! </h1>
 	<hr />
 	<h2> Instructions:  </h2>
-	<p> Rank candidates such that "1" indicates your highest preference.</p>
-	<p> <strong>Indecisive?</strong> You may give multiple candidates the same ranking! </p>
-	<p> You do not have to rank every candidate. (Blank rankings will not be recorded.)</p>
-      </div>
+<p>Rank candidates such that "1" indicates your highest preference, “2” your second-highest, etc.</p>
+
+<p><strong>You do not have to rank every candidate.</stong> Only rank candidates you want to see in office.</p>
+
+<!--<p>Ranking candidates, voting quorum, and voting no quorum are mutually exclusive; </strong>you can only do one of the three.</strong> Voting quorum indicates that you support the outcome of the election but do not support any of the candidates. Voting no quorum indicates that you do not support the outcome of the election and want another election to be held.</p>-->
+
+<p>You may also write in candidates who are not on the ballot using their Reed username (what appears before the @ in their email address; you can look this up in <a href="https://iris.reed.edu/campusdirectory.taf" target="_blank">IRIS</a>).</p>
+
+<p>Candidates for different offices are elected separately.</p>
     </div> <!-- /.col-md-12 -->
   </div> <!-- /.row -->
   <hr />
@@ -55,7 +60,16 @@
     <h2>{{election.position}}</h2>
   </div>
   <div class="col-md-9">
-    <table class="table table-responsive">
+    <!-- NOTE: moved quorum container off-screen for special election.
+	       (apparently we don't want a quorum and no quorum option
+	        for that case) -- WJ
+      -->
+    <div id="quorumContainer" style="position:absolute; left: -999em;">
+      <input type="radio" name="Quorum" value="vote" onclick="showCandidates();" checked="checked"> Rank Candidates<br>
+      <input type="radio" name="Quorum" value="quorum" onclick="hideCandidates();"> Quorum <br>
+      <input type="radio" name="Quorum" value="no quorum" onclick="hideCandidates();"> No Quorum<br>
+    </div>
+    <table id="candidateTable" class="table table-responsive">
       <tr>
 	<td> Your Rank </td>
 	<td> Candidate Name </td>
@@ -68,9 +82,9 @@
 		 id="{{c.person.username}}"
 	         type="number" 
 		 min="1"
-		 max="{{candidate_count}}" />
+		 max="{{candidate_count|add:1}}" />
 	</td>
-	<td> {{c.person}} </td>
+	<td class="cand_name"> {{c.person}} </td>
 	<!-- hide the following? -->
 	<td style="visibility: hidden;"> 
 	  <input class="vote_candidate" 
@@ -80,7 +94,20 @@
 	</td>
       </tr>
       {% endfor %}
+      <tr id="writein">
+	<td>
+	  <input class="vote_rank"
+		 id="writeinRank" 
+		 type="number"
+		 min="1"
+		 max="{{candidate_count|add:1}}" />
+	</td>
+	<td> 
+	  <input id="writeinUser"> &#8592; Reed username of write-in candidate<br>
+	</td>
+      </tr>
     </table>
+    <p style="color: red"> {{ validate_error }} </p>
   </div> <!-- /.col-md-9 -->
 
 <div class="col-md-9 col-md-offset-3">
@@ -97,6 +124,17 @@
        id="election_id"
        type="number"
        value="{{election.id}}"/>
+
+<!-- Script to replace a name with a different name -->
+<script>
+replace_name = function(name, replacement) {
+var elements = document.getElementsByClassName("cand_name");
+for (i=0; i< elements.length; i++) {
+    elements[i].innerHTML = elements[i].innerHTML.replace(name, replacement);
+}}
+replace_name('Will Jones','North Quest');
+replace_name('Alex Chasin', 'Saul Chasin');
+</script>
 
 {% endif %}
 {% endblock %}

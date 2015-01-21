@@ -13,6 +13,7 @@ Except damn, though. You wana just do these in javascript?
 
 """
 
+# not used
 class ElectionForm(ModelForm):
     class Meta:
         model = Election

@@ -117,10 +117,12 @@ def my_organizations(request):
   username = request.META['REMOTE_USER']
   user = SinUser.objects.get(username__exact = username)
   
-  organizations = request.user.signator_set.all()
+  try: 
+    organizations = request.user.signator_set.all()
+  except Organization.DoesNotExist:
+      return None
 
   from webapps.fundingpoll.models import *
-
   create_alert= False
 
   # needs error handling
