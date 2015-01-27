@@ -167,7 +167,10 @@ def edit_org(request, org_id):
     o = request.user.signator_set.get(id = org_id)
   else:
     if user.attended_signator_training == False:
-	  raise Http401
+      # We really need a better error message
+      http = '<p>According to our records, you are not a trained signator yet. If you have attended signator training, know it may take up to 48 hours for that to be reflected. After that time, you are free to pester the finance people on senate, until they pester the webmasters enough to add you as signators. In the meantime, <a href="http://sin.reed.edu/webapps/organization-manager/">return to the previous page</a>.</p>'
+      return HttpResponse(http)
+      #raise Http401
     o = Organization()
     o.name = ""
     o.signator = request.user
