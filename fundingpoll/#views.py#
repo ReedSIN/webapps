@@ -216,7 +216,7 @@ def vote_main(request):
   
   fp = get_fp()
   
-  if not check_status(fp,[DURING_V]) and not admin:
+  if not check_status(fp,[DURING_V]): #and not admin:
     return HttpResponse403()
   
   forgs = FundingPollOrganization.objects.filter(funding_poll = fp).order_by('?') #Randomize order

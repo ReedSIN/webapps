@@ -53,7 +53,7 @@
       <label class="create-budget-description-label">Description: </label>
     </div>
     <div class="create-budget-description-input-div">
-      <textarea name="description" class="create-budget-description-input" readonly="true" disabled="true">{{ budget.description }}</textarea>
+      <textarea name="description" class="create-budget-description-input" readonly="true" disabled="true">{{ budget.description|safe|linebreaksbr }}</textarea>
     </div>
   </div>
   
@@ -71,7 +71,7 @@
   <fieldset class="respond-budget-frameset">
     <legend class="respond-budget-frameset-legend">Respond: </legend>
     <div class="respond-budget-textarea-div">
-      <textarea class="respond-budget-textarea" name="response">{{ budget.response }}</textarea>
+      <textarea class="respond-budget-textarea" name="response">{{ budget.response|nbsp|safe|linebreaksbr }}</textarea>
     </div>
     <label class="respond-budget-allocated-label">Allocate: </label>
     <input class="respond-budget-allocated" type="text" name="allocated" value="{{ budget.allocated  }}"></input>
