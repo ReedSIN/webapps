@@ -61,14 +61,14 @@
         <tr>
 	  <td class="table-header-alt">Description</td>
 	  <td>
-	    {{budget.description|safe}}
+	    {{budget.description|safe|linebreaksbr}}
 	  </td>
 	</tr>
 	{% if admin or budget.is_finalized %}
         <tr>
 	  <td class="table-header-alt">Response</td>
 	  <td>
-	    {{budget.response|nbsp|safe}}
+	    {{budget.response|nbsp|safe|linebreaksbr}}
 	  </td>
 	</tr>
 	{% endif %}
